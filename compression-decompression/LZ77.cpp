@@ -1,4 +1,6 @@
 #include "LZ77.h"
+
+//compression
 std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 
 	std::vector<LZ77Token> tokens;
@@ -82,6 +84,7 @@ std::vector<char> LZ77::compress(const std::vector<char>& text) {
 	return resultText;
 }
 
+//decompression
 
 //this is fun- helper function  LZ77::decompress to find  from vector <char> a buffer charcter = | 
 std::string findIndex(std::vector<char> vec, int& start) {
