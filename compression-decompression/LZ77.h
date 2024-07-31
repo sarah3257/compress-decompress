@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
-
+#include <vector>
+#include <iostream>
+#include "ErrorHandle.h"
 struct LZ77Token {
 	int offset;
 	int length;
@@ -16,6 +18,6 @@ class LZ77
 	std::string changeToString(const std::vector<LZ77Token>& tokens);
 public:
 	static std::string compress(const std::string& text);
-	static std::string decompress(const std::string& text);
+	static std::vector<char> decompress(const std::vector<char> text);
 };
 
