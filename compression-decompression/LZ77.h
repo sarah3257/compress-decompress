@@ -19,7 +19,7 @@ class LZ77
 {	
 	static std::vector<LZ77Token> getTokens(const std::vector<char>& text);
 	static std::vector<char> changeToString(const std::vector<LZ77Token>& tokens);
-	std::string findIndex(std::vector<char> vec, int& start);
+	static std::string findIndex(std::vector<char> vec, int& start);
 
 public:
 	static std::vector<char> compress(const std::vector<char>& text);
