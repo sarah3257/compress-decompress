@@ -6,6 +6,7 @@
 const int MAX_WINDOW_SIZE = 8192;  // Maximum window size 8KB
 //const int MAX_WINDOW_SIZE = 32768; // 32KB
 
+#include "ErrorHandle.h"
 struct LZ77Token {
 	int offset;
 	int length;
@@ -22,6 +23,6 @@ class LZ77
 
 public:
 	static std::vector<char> compress(const std::vector<char>& text);
-	static std::string decompress(const std::string& text);
+	static std::vector<char> decompress(const std::vector<char> text);
 };
 
