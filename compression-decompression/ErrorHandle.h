@@ -1,7 +1,8 @@
 #pragma once
-#include <string>
-#include <string.h>
+#include <iostream>
 #include <fstream>
+#include <string>
+#include <stdexcept>
 class ErrorHandle
 {
 public:
@@ -14,7 +15,7 @@ public:
 	static const std::string NO_BUFFER_CHARACTER_FOUND;
 	
 private:
-	std::string logFileName;
-	std::ofstream logFileStream;
+	static std::string logFileName;
+	static std::ofstream logFileStream;
 };
 

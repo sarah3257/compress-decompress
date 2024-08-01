@@ -3,12 +3,10 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_map>
+#include <bitset>
 
 class HandleFile
 {
-	
-
-public:
 	std::ifstream sourceFile;
 	std::ofstream destinationFile;
 
