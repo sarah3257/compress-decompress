@@ -2,11 +2,11 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include "ErrorHandle.h"
 
 const int MAX_WINDOW_SIZE = 8192;  // Maximum window size 8KB
 //const int MAX_WINDOW_SIZE = 32768; // 32KB
 
-#include "ErrorHandle.h"
 struct LZ77Token {
 	int offset;
 	int length;
