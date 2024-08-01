@@ -10,11 +10,13 @@ struct HuffmanNode {
 	char c;
 	int freq;
 	HuffmanNode* right, * left;
+	HuffmanNode(char c, int freq, HuffmanNode* left = nullptr, HuffmanNode* right = nullptr)
+		:c(c), freq(freq), left(left), right(right) {}
 };
 
 struct CompareHuffmanNode {
-	bool operator()(const HuffmanNode& a, const HuffmanNode& b) {
-		return a.freq > b.freq;
+	bool operator()(const HuffmanNode* a, const HuffmanNode* b) {
+		return a->freq > b->freq;
 	}
 };
 
@@ -32,7 +34,7 @@ class Huffman
 	std::unordered_map<std::string, char> swapKeysAndValues(std::unordered_map<char, std::string> originalMap);
 
 public:
-	static std::string compress(const std::string& text);//call to all functions to compress file.
+	static std::string compress(const std::vector<char>& text);//call to all functions to compress file.
 	static std::string decompress(const std::string& text);//call to all functions to decompress file
 
 };
