@@ -7,12 +7,18 @@
 
 class HandleFile
 {
+	
+
+
 	std::ifstream sourceFile;
 	std::ofstream destinationFile;
-
-	std::ifstream getSourceFile();
-	std::ofstream getDestinationFile();
-	HandleFile(const std::string& sourceFilePath);
-	std::vector<char> readBuffer();
-	void writeBuffer(std::unordered_map<char, std::string>codes, std::string text);
+public:
+	HandleFile(const std::string& sourceFilePath,bool isCompress);
+	~HandleFile();
+	std::vector<char> readBufferCompress();
+	void writeBufferCompress(std::unordered_map<char, std::string>codes, std::string text);
+	std::vector<char> readBufferDecompress();
+	void writeBufferDecompress(std::vector<char> text);
+	bool getSourceFileEOF();
+	bool getDestinationFileEOF();
 };
