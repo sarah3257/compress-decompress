@@ -53,15 +53,14 @@ std::string Huffman::encodeText(const std::unordered_map<char, std::string>& cod
 	return result;
 }
 
-
 //std::string str = "ABBBBGFFFFFG";
 //str = Huffman::compress(std::vector<char>(str.begin(), str.end()));
 //std::cout << str;
-std::string Huffman::compress(const std::vector<char>& text) {
+std::string Huffman::compress(std::unordered_map<char, std::string>& codes, const std::vector<char>& text) {
 	std::unordered_map<char, int> freqMap = calculateFrequencies(text);
 	std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode> pq = buildHuffmanPriorityQueue(freqMap);
 	HuffmanNode* tree = buildHuffmanTree(pq);
-	std::unordered_map<char, std::string> codes = getHuffmanCodes(tree);
+	codes = getHuffmanCodes(tree);
 	std::string result = encodeText(codes, text);
 	return result;
 }
