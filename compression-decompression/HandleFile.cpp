@@ -1,6 +1,7 @@
 #include "HandleFile.h"
 
-HandleFile::HandleFile(const std::string& sourceFilePath, const std::string& destinationFilePath) {
+HandleFile::HandleFile(const std::string& sourceFilePath) {
+	std::string destinationFilePath;
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile) {
 		std::cerr << "Error opening file: " << sourceFilePath << std::endl;
@@ -11,7 +12,7 @@ HandleFile::HandleFile(const std::string& sourceFilePath, const std::string& des
 	}
 }
 
-std::vector<char> HandleFile::readBuffer(const std::string& filePath) {
+std::vector<char> HandleFile::readBuffer() {
 
 }
 
