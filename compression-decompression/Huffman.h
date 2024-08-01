@@ -3,6 +3,8 @@
 #include <string>
 #include <functional>
 #include <queue>
+#include <iostream>
+
 
 struct HuffmanNode {
 	char c;
@@ -26,7 +28,9 @@ class Huffman
 	std::unordered_map<char, std::string> buildHuffmanCodes(HuffmanNode* huffmanTree);
 	std::string encodeText(const std::unordered_map<char, std::string>&codes, const std::string & text);
 	std::unordered_map<char, int> getFrequenciesMap(const std::string& text); //return frequencies from the contents
-	std::string decodeText(const std::unordered_map<char, int>& freqMap);
+	std::string decodeText(const std::unordered_map<char, std::string>& codesMap, std::vector<char> text);
+	std::unordered_map<std::string, char> swapKeysAndValues(std::unordered_map<char, std::string> originalMap);
+
 public:
 	static std::string compress(const std::string& text);//call to all functions to compress file.
 	static std::string decompress(const std::string& text);//call to all functions to decompress file
