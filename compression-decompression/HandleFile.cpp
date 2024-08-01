@@ -50,6 +50,7 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 	int dataSize = buffer.size();
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
 	destinationFile.write(buffer.data(), buffer.size());
+}
 std::vector<char> HandleFile::readBufferDecompress() {
 	std::vector<char>result;
 	//fill!!!!!!!
