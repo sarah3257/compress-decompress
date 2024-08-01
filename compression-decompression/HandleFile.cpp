@@ -1,4 +1,5 @@
 #include "HandleFile.h"
+#include <algorithm>
 
 HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	sourceFile.open(sourceFilePath, std::ios::binary);
@@ -22,13 +23,29 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	}
 }
 HandleFile::~HandleFile() {
+	if (sourceFile.is_open()) {
+		sourceFile.close();
+	}
+	if (destinationFile.is_open()) {
+		destinationFile.close();
+	}
+}
+//read buffer &  write vec<char>
+std::vector<char> HandleFile::readBufferCompress() {
+	int size_buffer= 1024 * 1024;
+	if (!sourceFile) {
+		std::cerr << "Error opening file for reading: "  << std::endl;
+		return {};
+	}
+	std::vector<char> bufferText(size_buffer);
+
+	sourceFile.read(bufferText.data(), size_buffer);
+
+	return bufferText;
 
 }
-std::vector<char> HandleFile::readBufferCompress() {
-	std::vector<char>result;
-	//fill!!!!!!!
-	return result;
-}
+
+
 void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes, std::string text) {
 
 }
