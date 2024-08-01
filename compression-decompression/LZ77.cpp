@@ -87,7 +87,7 @@ std::vector<char> LZ77::compress(const std::vector<char>& text) {
 //decompression
 
 //this is fun- helper function  LZ77::decompress to find  from vector <char> a buffer charcter = | 
-std::string findIndex(std::vector<char> vec, int& start) {
+std::string LZ77::findIndex(std::vector<char> vec, int& start) {
 	auto it = std::find_if(vec.begin() + start, vec.end(), [](char c) {
 		return c == '|';
 		});

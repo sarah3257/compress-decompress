@@ -9,12 +9,10 @@
 
 class Deflate
 {
-	static std::unordered_map<char, std::string> codes;
-
 public:
 
-	static std::string compressDeflate(const std::vector<char>& buffer);
-	static std::string compress(const std::string& fileName);
-	static std::string decompress(const std::string& text);
+	static std::string compressDeflate(const std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
+	static void compress(const std::string& fileName);
+	static void decompress(const std::string& text);
 };
 

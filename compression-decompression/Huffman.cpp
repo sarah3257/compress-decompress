@@ -68,7 +68,7 @@ std::string Huffman::compress(std::unordered_map<char, std::string>& codes, cons
 
 
 
-std::unordered_map<std::string, char> swapKeysAndValues( std::unordered_map<char, std::string> originalMap) {
+std::unordered_map<std::string, char> Huffman::swapKeysAndValues( std::unordered_map<char, std::string> originalMap) {
     std::unordered_map<std::string, char> swappedMap;
     for (const auto& pair : originalMap) {
         swappedMap[pair.second] = pair.first;
@@ -101,4 +101,9 @@ std::string Huffman::decodeText(const std::unordered_map<char, std::string>& cod
         //Error
     }
     return strResult;
+}
+
+std::string Huffman::decompress(const std::string& text) {
+	std::string str = "";
+	return str;
 }
