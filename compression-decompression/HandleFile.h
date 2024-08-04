@@ -17,7 +17,7 @@ public:
 	~HandleFile();
 	std::vector<char> readBufferCompress();
 	void writeBufferCompress(std::unordered_map<char, std::string>codes, std::string text);
-	std::vector<char> readBufferDecompress();
+	std::vector<char> readBufferDecompress(std::unordered_map<char, std::string>& codes);
 	void writeBufferDecompress(std::vector<char> text);
 	bool getSourceFileEOF();
 	bool getDestinationFileEOF();

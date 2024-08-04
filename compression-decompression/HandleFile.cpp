@@ -68,7 +68,7 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
 	destinationFile.write(buffer.data(), buffer.size());
 }
-std::vector<char> HandleFile::readBufferDecompress() {
+std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
 
 	int mapSize;
 	int valueSize;
@@ -81,7 +81,7 @@ std::vector<char> HandleFile::readBufferDecompress() {
 	}
 
 	// read the map from the file to an unordered_map
-	std::unordered_map<char, std::string> codes;
+	//std::unordered_map<char, std::string> codes;
 	for (int i = 0; i < mapSize; ++i) {
 
 		// read the key
