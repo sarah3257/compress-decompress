@@ -1,6 +1,7 @@
 #include "HandleFile.h"
 #include <algorithm>
 #include <cmath>
+#include <bitset>
 
 HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	sourceFile.open(sourceFilePath, std::ios::binary);
@@ -73,6 +74,21 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
 	destinationFile.write(buffer.data(), buffer.size());
 }
+
+
+
+std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer) {
+	std::vector<char> binaryBuffer;
+
+	for (char ch : dataBuffer) {
+		std::bitset<8> binary(ch);
+		for (std::size_t i = 0; i < 8; ++i) {
+			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0'); // add binary representation of each character
+		}
+	}
+
+	return binaryBuffer;
+}
 std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
 
 	int mapSize;
@@ -133,7 +149,8 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	}
 	
 	// return the value
-	return dataBuffer;
+	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
+	return binaryBuffer;
 }
 void HandleFile::writeBufferDecompress(std::vector<char> text) {
 
