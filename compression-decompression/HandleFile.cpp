@@ -1,6 +1,8 @@
 #include "HandleFile.h"
 #include <algorithm>
 #include <cmath>
+#include <bitset>
+
 
 HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	sourceFile.open(sourceFilePath, std::ios::binary);
@@ -119,21 +121,24 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 		throw std::runtime_error("Failed to read data size from file.");
 	}
 
-	// read the data
+	// read the data to the vector
 	std::vector<char> dataBuffer(dataSize);
-
+	
 	if (sourceFile.read(dataBuffer.data(), dataSize)) {
 		// print the data 
-		for (char c : dataBuffer) {
-			std::cout << c;
+		for (unsigned char byte : dataBuffer) {
+			std::bitset<8> bits(byte);
+			std::cout << bits;
 		}
 	}
 	else {
 		std::cerr << "Failed to read file." << std::endl;
 	}
+
+	// Convert dataBuffer to binary 
+	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
 	
-	// return the value
-	return dataBuffer;
+	return binaryBuffer;
 }
 void HandleFile::writeBufferDecompress(std::vector<char> text) {
 
@@ -148,10 +153,31 @@ void HandleFile::writeBufferDecompress(std::vector<char> text) {
 	}
 }
 bool HandleFile::getSourceFileEOF() {
-	return sourceFile.eof();
+	std::streampos current_pos = sourceFile.tellg();
+	std::cout << "Current position: " << current_pos << std::endl;
+	//
+	if (sourceFile.eof()) {
+		return true;
+	}
+
+    current_pos = sourceFile.tellg();
+	sourceFile.seekg(0, std::ios::end);
+	std::streampos end_pos = sourceFile.tellg();
+	sourceFile.seekg(current_pos);
+
+	return current_pos == end_pos;
 }
 bool HandleFile::getDestinationFileEOF() {
-	return destinationFile.eof();
+	if (destinationFile.eof()) {
+		return true;
+	}
+
+	std::streampos current_pos = destinationFile.tellp();
+	destinationFile.seekp(0, std::ios::end);
+	std::streampos end_pos = destinationFile.tellp();
+	destinationFile.seekp(current_pos);
+
+	return current_pos == end_pos;
 }
 void HandleFile::insertPassword(const char* password) {
 
@@ -162,6 +188,16 @@ void HandleFile::insertPassword(const char* password) {
 	if (destinationFile.fail()) {
 		throw std::runtime_error("Failed to write to file.");
 	}
+}
+std::vector<char> HandleFile::convertToBinaryVector(const std::vector<char>& dataBuffer) {
+	std::vector<char> binaryBuffer;
+	for (char ch : dataBuffer) {
+		std::bitset<8> binary(ch);
+		for (std::size_t i = 0; i < 8; ++i) {
+			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0'); // add binary representation of each character
+		}
+	}
+	return binaryBuffer;
 }
 
 

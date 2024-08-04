@@ -22,4 +22,6 @@ public:
 	bool getSourceFileEOF();
 	bool getDestinationFileEOF();
 	void insertPassword(const char* password);
+	std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer);
+
 };

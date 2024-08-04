@@ -29,8 +29,6 @@ void Deflate::decompress(const std::string& text) {
 	while (!handleFile.getSourceFileEOF()) {
 		std::unordered_map<char, std::string> codes;
 		buffer = handleFile.readBufferDecompress(codes);
-		// we need get a code map
-
 		decompressRes = decompressDeflate(buffer, codes);
 		handleFile.writeBufferDecompress(decompressRes);
 	}
