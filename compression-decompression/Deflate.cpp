@@ -27,7 +27,8 @@ void Deflate::decompress(const std::string& text) {
 	std::vector<char>  decompressRes;
 	HandleFile handleFile(text, typeFile);
 	while (!handleFile.getSourceFileEOF()) {
-		//buffer = handleFile.readBufferDecompress();we need get a code map
+		buffer = handleFile.readBufferDecompress();
+		// we need get a code map
 		std::unordered_map<char, std::string> codes;
 
 		decompressRes = decompressDeflate(buffer, codes);

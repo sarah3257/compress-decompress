@@ -5,7 +5,6 @@
 #include <queue>
 #include <iostream>
 
-
 struct HuffmanNode {
 	char c;
 	int freq;
@@ -21,7 +20,7 @@ struct CompareHuffmanNode {
 };
 
 class Huffman
-{
+{	
 	static std::unordered_map<char, int> calculateFrequencies(const std::vector<char>& text);
 	static std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode>buildHuffmanPriorityQueue(const std::unordered_map<char, int>& freqMap);
 	static HuffmanNode* buildHuffmanTree(std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode>& pq);
