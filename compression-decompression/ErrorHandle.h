@@ -15,7 +15,7 @@ public:
 	static const std::string NO_BUFFER_CHARACTER_FOUND;
 	
 private:
-	static std::string logFileName;
+	std::string logFileName;
 	static std::ofstream logFileStream;
 };
 
