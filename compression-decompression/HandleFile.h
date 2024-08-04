@@ -20,4 +20,5 @@ public:
 	void writeBufferDecompress(std::vector<char> text);
 	bool getSourceFileEOF();
 	bool getDestinationFileEOF();
+	void insertPassword(const char* password);
 };

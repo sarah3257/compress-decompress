@@ -112,4 +112,15 @@ bool HandleFile::getSourceFileEOF() {
 bool HandleFile::getDestinationFileEOF() {
 	return destinationFile.eof();
 }
+void HandleFile::insertPassword(const char* password) {
+
+	if (!destinationFile) {
+		throw std::runtime_error("Destination file is not open.");
+	}
+	destinationFile.write(password, strlen(password)+1);
+	if (destinationFile.fail()) {
+		throw std::runtime_error("Failed to write to file.");
+	}
+}
+
 
