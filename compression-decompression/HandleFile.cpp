@@ -1,5 +1,6 @@
 #include "HandleFile.h"
 #include <algorithm>
+#include <cmath>
 
 HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	sourceFile.open(sourceFilePath, std::ios::binary);
@@ -32,7 +33,11 @@ HandleFile::~HandleFile() {
 }
 //read buffer &  write vec<char>
 std::vector<char> HandleFile::readBufferCompress() {
-	int size_buffer= 1024 * 1024;
+	std::streampos current_pos = sourceFile.tellg();
+	sourceFile.seekg(0, std::ios::end);
+	int file_size = sourceFile.tellg();
+	sourceFile.seekg(current_pos);
+	int size_buffer = std::min(file_size, 1024 * 1024);
 	if (!sourceFile) {
 		std::cerr << "Error opening file for reading: "  << std::endl;
 		return {};
