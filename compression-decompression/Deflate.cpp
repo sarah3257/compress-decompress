@@ -22,5 +22,22 @@ void Deflate::compress(const std::string& fileName) {
 
 }
 void Deflate::decompress(const std::string& text) {
+	bool typeFile = true;//we need do it.
+	std::vector<char> buffer;
+	std::vector<char>  decompressRes;
+	HandleFile handleFile(text, typeFile);
+	while (!handleFile.getSourceFileEOF()) {
+		//buffer = handleFile.readBufferDecompress();we need get a code map
+		std::unordered_map<char, std::string> codes;
 
+		decompressRes = decompressDeflate(buffer, codes);
+		handleFile.writeBufferDecompress(decompressRes);
+	}
+}
+
+std::vector<char> Deflate::decompressDeflate(const std::vector<char>& buffer, std::unordered_map<char, std::string>& codes)
+{
+	std::vector<char> decompressHuffman =Huffman::decompress(codes, buffer);
+	std::vector<char>decompressLZ77 = LZ77::decompress(decompressHuffman);
+	return decompressLZ77;
 }

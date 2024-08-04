@@ -21,17 +21,30 @@ struct CompareHuffmanNode {
 
 class Huffman
 {	
-	std::unordered_map<char, int> calculateFrequencies(const std::string& text);
-	std::priority_queue<HuffmanNode, std::vector<HuffmanNode>, CompareHuffmanNode>
-		buildHuffmanPriorityQueue(const std::unordered_map<char, int>& frequencies);
-	HuffmanNode* buildHuffmanTree(std::priority_queue<HuffmanNode, std::vector<HuffmanNode>,
-		CompareHuffmanNode> pq);
-	std::unordered_map<char, std::string> buildHuffmanCodes(HuffmanNode* huffmanTree);
-	std::string encodeText(const std::unordered_map<char, std::string>&codes, const std::string & text);
-	std::unordered_map<char, int> getFrequenciesMap(const std::string& text); //return frequencies from the contents
-	std::string decodeText(const std::unordered_map<char, int>& freqMap);
+//	static std::unordered_map<char, int> calculateFrequencies(const std::string& text);
+//	static std::priority_queue<HuffmanNode, std::vector<HuffmanNode>, CompareHuffmanNode>
+//		buildHuffmanPriorityQueue(const std::unordered_map<char, int>& frequencies);
+//	HuffmanNode* buildHuffmanTree(std::priority_queue<HuffmanNode, std::vector<HuffmanNode>,
+//		CompareHuffmanNode> pq);
+//	static std::unordered_map<char, std::string> buildHuffmanCodes(HuffmanNode* huffmanTree);
+//	static std::string encodeText(const std::unordered_map<char, std::string>&codes, const std::string & text);
+//	static std::unordered_map<char, int> getFrequenciesMap(const std::string& text); //return frequencies from the contents
+//	static std::string decodeText(const std::unordered_map<char, std::string>& codesMap, std::vector<char> text);
+//	static std::unordered_map<std::string, char> swapKeysAndValues(std::unordered_map<char, std::string> originalMap);
+//
+//public:
+//	static std::string compress(std::unordered_map<char, std::string>& codes, const std::vector<char>& text);//call to all functions to compress file.
+//	static std::string decompress(const std::string& text);//call to all functions to decompress file
+	static std::unordered_map<char, int> calculateFrequencies(const std::vector<char>& text);
+	static std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode>buildHuffmanPriorityQueue(const std::unordered_map<char, int>& freqMap);
+	static HuffmanNode* buildHuffmanTree(std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode>& pq);
+	static std::unordered_map<char, std::string> getHuffmanCodes(HuffmanNode* huffmanTree);
+	static void buildCodes(HuffmanNode* root, std::string str, std::unordered_map<char, std::string>& codesMap);
+	static std::string encodeText(const std::unordered_map<char, std::string>& codes, const std::vector<char>& text);
+	//static std::unordered_map<char, int> getFrequenciesMap(const std::string& text);
+	static std::unordered_map<std::string, char> swapKeysAndValues(std::unordered_map<char, std::string> originalMap);
 public:
-	static std::string compress(const std::string& text);//call to all functions to compress file.
-	static std::string decompress(const std::string& text);//call to all functions to decompress file
+	static std::string compress(std::unordered_map<char, std::string>& codes, const std::vector<char>& text);//call to all functions to compress file.
+	static std::vector<char> decompress(const std::unordered_map<char, std::string>& codesMap, std::vector<char> text);//call to all functions to decompress file
 };
 
