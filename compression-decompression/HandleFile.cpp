@@ -5,6 +5,7 @@
 
 
 HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
+	//bool typeFile = true;//we need do it.
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile) {
 		std::cerr << "Error opening file: " << sourceFilePath << std::endl;
@@ -13,12 +14,12 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	if (isCompress)
 		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COMPRESS.bin";
 	else {
-		char isTxt;
-		sourceFile.read(&isTxt, sizeof(isTxt));
+		char isTxt = true;
+		//sourceFile.read(&isTxt, sizeof(isTxt));
 		if (isTxt)
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".txt";
+			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 12) + ".txt";
 		else
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".bin";
+			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + "11.bin";
 	}
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!sourceFile) {
@@ -75,8 +76,22 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
 	destinationFile.write(buffer.data(), buffer.size());
 }
-std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
 
+
+
+std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer) {
+	std::vector<char> binaryBuffer;
+
+	for (char ch : dataBuffer) {
+		std::bitset<8> binary(ch);
+		for (std::size_t i = 0; i < 8; ++i) {
+			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0'); // add binary representation of each character
+		}
+	}
+
+	return binaryBuffer;
+}
+std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
 	int mapSize;
 	int valueSize;
 	char key;
@@ -88,7 +103,6 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	}
 
 	// read the map from the file to an unordered_map
-	//std::unordered_map<char, std::string> codes;
 	for (int i = 0; i < mapSize; ++i) {
 
 		// read the key
@@ -124,20 +138,12 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	// read the data to the vector
 	std::vector<char> dataBuffer(dataSize);
 	
-	if (sourceFile.read(dataBuffer.data(), dataSize)) {
-		// print the data 
-		for (unsigned char byte : dataBuffer) {
-			std::bitset<8> bits(byte);
-			std::cout << bits;
-		}
-	}
-	else {
+	if (!sourceFile.read(dataBuffer.data(), dataSize))
 		std::cerr << "Failed to read file." << std::endl;
-	}
 
-	// Convert dataBuffer to binary 
-	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
 	
+	// return the value
+	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
 	return binaryBuffer;
 }
 void HandleFile::writeBufferDecompress(std::vector<char> text) {
