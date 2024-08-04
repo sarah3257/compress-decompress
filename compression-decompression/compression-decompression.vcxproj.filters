@@ -52,8 +52,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fileExample.bin">
-      <Filter>Resource Files</Filter>
-    </None>
+    <Text Include="inputFile.txt" />
   </ItemGroup>
 </Project>

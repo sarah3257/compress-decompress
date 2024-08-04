@@ -142,7 +142,7 @@
     <ClInclude Include="LZ77.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fileExample.bin" />
+    <Text Include="inputFile.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
