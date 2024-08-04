@@ -22,11 +22,12 @@ void Deflate::compress(const std::string& fileName) {
 
 }
 void Deflate::decompress(const std::string& text) {
-	bool typeFile = true;//we need do it.
+	//bool typeFile = true;//we need do it.
 	std::vector<char> buffer;
 	std::vector<char>  decompressRes;
-	HandleFile handleFile(text, typeFile);
-	while (!handleFile.getSourceFileEOF()) {
+	HandleFile handleFile(text, false);
+	for (int i = 0; i < 2; i++) {
+//	while (!handleFile.getSourceFileEOF()) {
 		std::unordered_map<char, std::string> codes;
 		buffer = handleFile.readBufferDecompress(codes);
 		// we need get a code map

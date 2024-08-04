@@ -12,10 +12,10 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	if (isCompress)
 		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COMPRESS.bin";
 	else {
-		char isTxt;
-		sourceFile.read(&isTxt, sizeof(isTxt));
+		char isTxt=true;
+		//sourceFile.read(&isTxt, sizeof(isTxt));
 		if (isTxt)
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".txt";
+			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 12) + ".txt";
 		else
 			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".bin";
 	}
