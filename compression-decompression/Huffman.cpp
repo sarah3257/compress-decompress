@@ -83,27 +83,24 @@ std::unordered_map<std::string, char> Huffman::swapKeysAndValues( std::unordered
 //    std::unordered_map<char, std::string> codesMap;
 //    codesMap['A'] = "10";codesMap['B'] = "11"; codesMap['C'] = "0";  
 //    std::string res = decodeText(codesMap, text);}
-std::string Huffman::decodeText(const std::unordered_map<char, std::string>& codesMap, std::vector<char> text)
-{
-    std::unordered_map<std::string, char> codesMapRev = swapKeysAndValues(codesMap);
-    int strJul = 0; 
-    std::string keyToFind = "", strResult="";
-  
-    for (int i = 0; i < text.size(); i++) {
-        keyToFind += text[i];
-        auto it = codesMapRev.find(keyToFind);
-        if (it != codesMapRev.end()) {
-            strResult += it->second;
-            keyToFind = "";
-        }
-    }
-    if (!keyToFind.empty()) {
-        //Error
-    }
-    return strResult;
-}
 
-std::string Huffman::decompress(const std::string& text) {
-	std::string str = "";
-	return str;
+
+std::vector<char> Huffman::decompress(const std::unordered_map<char, std::string>& codesMap, std::vector<char> text) {
+	std::unordered_map<std::string, char> codesMapRev = swapKeysAndValues(codesMap);
+	int strJul = 0;
+	std::string keyToFind = "", strResult = "";
+
+	for (int i = 0; i < text.size(); i++) {
+		keyToFind += text[i];
+		auto it = codesMapRev.find(keyToFind);
+		if (it != codesMapRev.end()) {
+			strResult += it->second;
+			keyToFind = "";
+		}
+	}
+	if (!keyToFind.empty()) {
+		//Error
+	}
+	std::vector<char> vecRes(strResult.begin(), strResult.end());
+	return vecRes;
 }
