@@ -1,4 +1,1092 @@
-hello everyone
-we want to see if the result is the same like the source
-!!!!!!!!!!!!!!!!!!!!!!!!!!
-:):):):):):):)
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+nvsjodkf m1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
+1.3 Overview \ Background
+ This chapter describe the high level description of the project and the problem it should solve. 
+The Needs and Problems:
+1.	Limited storage for large amounts of data.
+2.	Preservation of data without loss.
+3.	Ability to handle files of all sizes.
+4.	Efficiency and speed of the algorithm.
+Solutions:
+1.	Compression addresses the problem by taking large amounts of data and storing them in a smaller space. Compression plays a crucial role in technology. This project aims to develop robust compression and decompression tools.
+
+2.	Lossless Methods:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+o	Lempel-Ziv (LZ77 and LZ78)
+o	Lempel-Ziv-Welch (LZW)
+o	Huffman Coding
+
+3.	Handling Different Sizes:
+o	Bzip2 (Burrows-Wheeler Transform with Huffman Coding)
+o	Deflate (Combination of LZ77 and Huffman Coding)
+Methods such as Huffman Coding, LZW, and LZ77 are less effective for handling very large files.
+4.	Efficiency and Speed:
+o	Deflate (Combination of LZ77 and Huffman Coding) is efficient and works quickly.
+         Methods such as Bzip2 is slower and does not meet the requirement.
+
+Conclusion: The optimal solution is the Deflate algorithm, combining LZ77 and Huffman Coding, which balances efficiency, speed, and the ability to handle files of varying sizes effectively.
+
+1.4	Requirements
