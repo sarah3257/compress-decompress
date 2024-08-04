@@ -50,6 +50,6 @@ int main() {
     //return 0;
     std::string filePath = "inputFile.txt";
     Deflate::compress(filePath);
-    Deflate::decompress("inputFileSTZ_COPRESS.bin");
+    Deflate::decompress("inputFileSTZ_COMPRESS.bin");
 
 }

@@ -9,7 +9,7 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	}
 	std::string destinationFilePath;
 	if (isCompress)
-		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COPRESS.bin";
+		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COMPRESS.bin";
 	else {
 		char isTxt;
 		sourceFile.read(&isTxt, sizeof(isTxt));

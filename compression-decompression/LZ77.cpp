@@ -25,13 +25,15 @@ std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 
 			if (matchLength > maxMatchLength) {
 				maxMatchLength = matchLength;
-				maxMatchDistance = i-j;
+				maxMatchDistance = i - j;
 			}
 
 		}
-
 		// insert the distance length & next char to the token
-		tokens.emplace_back(maxMatchDistance, maxMatchLength, text[i + maxMatchLength]);
+		if (i + maxMatchLength == text.size())
+			tokens.emplace_back(maxMatchDistance, maxMatchLength - 1, text[i + maxMatchLength - 1]);
+		else
+			tokens.emplace_back(maxMatchDistance, maxMatchLength, text[i + maxMatchLength]);
 
 		// Increase the index according to the length of the found string
 		i += maxMatchLength + 1;
@@ -92,7 +94,7 @@ std::string LZ77::findIndex(std::vector<char> vec, int& start) {
 		return c == '|';
 		});
 	if (it == vec.end())
-		std::cout<<"We need do it---ErrorHandle::NO_BUFFER_CHARACTER_FOUND";
+		std::cout << "We need do it---ErrorHandle::NO_BUFFER_CHARACTER_FOUND";
 	int help = start;
 	int resIndex = it - vec.begin();
 	std::string strRes = std::string(vec.begin() + help, vec.begin() + resIndex);
@@ -113,11 +115,11 @@ std::vector<char> LZ77::decompress(const std::vector<char> text)
 {
 
 	std::vector<char> decompressText;
-	for (int i = 0; i < text.size()-1; i ++)
+	for (int i = 0; i < text.size() - 1; i++)
 	{
 		int offsetText, lengthText;
 
-	    offsetText = std::stoi(findIndex(text, i));
+		offsetText = std::stoi(findIndex(text, i));
 		lengthText = std::stoi(findIndex(text, i));
 
 		char nextChar = text[i++];
@@ -127,7 +129,7 @@ std::vector<char> LZ77::decompress(const std::vector<char> text)
 			decompressText.push_back(decompressText[copyText]);
 		}
 		decompressText.push_back(nextChar);
-	
+
 	}
 	return decompressText;
 }
