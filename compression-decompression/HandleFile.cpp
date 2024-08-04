@@ -3,6 +3,7 @@
 #include <cmath>
 
 HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
+	//bool typeFile = true;//we need do it.
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile) {
 		std::cerr << "Error opening file: " << sourceFilePath << std::endl;
@@ -11,12 +12,12 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	if (isCompress)
 		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COMPRESS.bin";
 	else {
-		char isTxt;
-		sourceFile.read(&isTxt, sizeof(isTxt));
+		char isTxt = true;
+		//sourceFile.read(&isTxt, sizeof(isTxt));
 		if (isTxt)
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".txt";
+			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + "11.txt";
 		else
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".bin";
+			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + "11.bin";
 	}
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!sourceFile) {
@@ -74,7 +75,6 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 	destinationFile.write(buffer.data(), buffer.size());
 }
 std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
-
 	int mapSize;
 	int valueSize;
 	char key;
@@ -121,19 +121,21 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 
 	// read the data
 	std::vector<char> dataBuffer(dataSize);
+	std::string binaryString = "";
 
 	if (sourceFile.read(dataBuffer.data(), dataSize)) {
-		// print the data 
 		for (char c : dataBuffer) {
-			std::cout << c;
+			std::bitset<8> bits(c);
+			binaryString += bits.to_string();
 		}
 	}
 	else {
 		std::cerr << "Failed to read file." << std::endl;
 	}
 	
+	std::vector<char> bufferBits(binaryString.begin(), binaryString.end());
 	// return the value
-	return dataBuffer;
+	return bufferBits;
 }
 void HandleFile::writeBufferDecompress(std::vector<char> text) {
 
