@@ -1,7 +1,8 @@
 #pragma once
-#include <string>
-#include <string.h>
+#include <iostream>
 #include <fstream>
+#include <string>
+#include <stdexcept>
 class ErrorHandle
 {
 public:
@@ -15,6 +16,6 @@ public:
 	
 private:
 	std::string logFileName;
-	std::ofstream logFileStream;
+	static std::ofstream logFileStream;
 };
 
