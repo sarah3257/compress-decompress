@@ -66,24 +66,16 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 		destinationFile.write(pair.second.c_str(), strSize);
 	}
 	//push data.size and date
+	int dataSize = text.size();
+	while (text.size() % 8)
+		text.push_back('0');
 	std::vector<char> buffer;
 	for (int i = 0; i < text.size(); i += 8) {
 		std::string byteString = text.substr(i, 8);
 		std::bitset<8> byte(byteString);
 		buffer.push_back(static_cast<char>(byte.to_ulong()));
 	}
-	int dataSize = text.size();
-	while (text.size() % 8)
-		text.push_back('0');
-
-	int write_position = destinationFile.tellp();
-
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
-
-	destinationFile.seekp(write_position);
-	std::vector<char> dataBuffer(dataSize);
-
-	sourceFile.read(dataBuffer.data(), dataSize);
 	destinationFile.write(buffer.data(), buffer.size());
 }
 
