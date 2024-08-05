@@ -60,5 +60,8 @@
     <None Include="fileTest.bin">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="fileBinary.bin">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

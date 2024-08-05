@@ -5,11 +5,9 @@
 #include "Deflate.h"
 
 int main() {
-    //// שלב 1: כתיבת המחרוזת לקובץ בינארי
     //std::string text = "01000001"; // דוגמה של מחרוזת ביטים
     //std::ofstream outputFile("file.bin", std::ios::binary);
 
-    //// וקטור זמני לאחסון המידע המומר
     //std::vector<char> buffer;
     //for (int i = 0; i < text.size(); i += 8) {
     //    std::string byteString = text.substr(i, 8);
@@ -19,7 +17,6 @@ int main() {
     //outputFile.write(buffer.data(), buffer.size());
     //outputFile.close();
 
-    //// שלב 2: קריאת הקובץ הבינארי לתוך וקטור של char
     //std::ifstream inputFile("file.bin", std::ios::binary);
     //if (!inputFile) {
     //    std::cerr << "Error opening file." << std::endl;
@@ -34,7 +31,6 @@ int main() {
     //inputFile.read(res.data(), fileSize);
     //inputFile.close();
 
-    //// שלב 3: בדיקת התוצאה בוקטור res
     //if (res.empty()) {
     //    std::cout << "The file is empty." << std::endl;
     //}
