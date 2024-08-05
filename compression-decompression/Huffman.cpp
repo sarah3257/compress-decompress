@@ -99,7 +99,8 @@ std::vector<char> Huffman::decompress(const std::unordered_map<char, std::string
 		}
 	}
 	if (!keyToFind.empty()) {
-		//Error
+		std::cout << "empty!!!!";
+		exit(1);
 	}
 	std::vector<char> vecRes(strResult.begin(), strResult.end());
 	return vecRes;
