@@ -142,6 +142,7 @@
     <ClInclude Include="LZ77.h" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <Text Include="file2.txt" />
     <Text Include="inputFile.txt" />
     <Text Include="inputFile1.txt" />
@@ -149,6 +150,9 @@
     <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
+=======
+    <None Include="fileBinary.bin" />
+>>>>>>> Stashed changes
     <None Include="fileTest.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
