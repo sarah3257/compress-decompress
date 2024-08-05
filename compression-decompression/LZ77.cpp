@@ -30,9 +30,8 @@ std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 
 		}
 		// insert the distance length & next char to the token
-		if (i + maxMatchLength == text.size()) {
-			tokens.emplace_back(maxMatchDistance, maxMatchLength - 1, text[i + maxMatchLength - 2]);
-		}
+		if (i + maxMatchLength == text.size())
+			tokens.emplace_back(maxMatchDistance, maxMatchLength - 1, text[i + maxMatchLength - 1]);
 		else
 			tokens.emplace_back(maxMatchDistance, maxMatchLength, text[i + maxMatchLength]);
 
@@ -64,7 +63,7 @@ std::vector<char> LZ77::changeToString(const std::vector<LZ77Token>& tokens) {
 		text.push_back('|');
 	}
 
-	text.pop_back();
+	//text.pop_back();
 	return text;
 }
 std::vector<char> LZ77::compress(const std::vector<char>& text) {
@@ -123,8 +122,8 @@ std::vector<char> LZ77::decompress(const std::vector<char> text)
 		offsetText = std::stoi(findIndex(text, i));
 		lengthText = std::stoi(findIndex(text, i));
 		char nextChar = ' ';
-		if(i<text.size())
-			 nextChar = text[i++];
+		if (i < text.size())
+			nextChar = text[i++];
 		int start = decompressText.size() - offsetText;
 
 		for (int copyText = start; copyText < lengthText + start; copyText++) {
