@@ -53,5 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="inputFile.txt" />
+    <Text Include="file2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fileTest.bin">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -123,8 +123,8 @@ std::vector<char> LZ77::decompress(const std::vector<char> text)
 		offsetText = std::stoi(findIndex(text, i));
 		lengthText = std::stoi(findIndex(text, i));
 		char nextChar = ' ';
-		if(i<text.size())
-			 nextChar = text[i++];
+		if (i < text.size())
+			nextChar = text[i++];
 		int start = decompressText.size() - offsetText;
 
 		for (int copyText = start; copyText < lengthText + start; copyText++) {
