@@ -144,6 +144,7 @@
   <ItemGroup>
     <Text Include="file2.txt" />
     <Text Include="inputFile.txt" />
+    <Text Include="inputFile1.txt" />
     <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>

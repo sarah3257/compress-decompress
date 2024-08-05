@@ -14,7 +14,7 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 	if (isCompress)
 		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COMPRESS.bin";
 	else {
-		char isTxt = false;
+		char isTxt = true;
 		//sourceFile.read(&isTxt, sizeof(isTxt));
 		if (isTxt)
 			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 12) + ".txt";
