@@ -44,8 +44,8 @@ int main() {
     //}
 
     //return 0;
-    std::string filePath = "inputFile2.txt";
+    std::string filePath = "sarah.txt";
     Deflate::compress(filePath);
-    Deflate::decompress("inputFile2STZ_COMPRESS.txt");
+    Deflate::decompress("sarahSTZ_COMPRESS.txt");
 
 }

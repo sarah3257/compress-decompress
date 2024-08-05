@@ -145,10 +145,10 @@
     <Text Include="file2.txt" />
     <Text Include="inputFile.txt" />
     <Text Include="inputFile1.txt" />
+    <Text Include="sarah.txt" />
     <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fileBinary.bin" />
     <None Include="fileTest.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
