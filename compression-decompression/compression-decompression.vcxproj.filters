@@ -52,11 +52,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <Text Include="inputFile.txt" />
     <Text Include="file2.txt" />
     <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
+=======
+>>>>>>> Stashed changes
     <None Include="fileTest.bin">
       <Filter>Resource Files</Filter>
     </None>
