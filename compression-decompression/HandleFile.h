@@ -7,9 +7,6 @@
 
 class HandleFile
 {
-
-
-
 	std::ifstream sourceFile;
 	std::ofstream destinationFile;
 public:
@@ -23,6 +20,7 @@ public:
 	bool getDestinationFileEOF();
 	void insertPassword(const char* password);
 	std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer);
+
 	int getFileSizeMinusCurrentSize() {
 		std::streampos current_pos = sourceFile.tellg();
 
