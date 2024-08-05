@@ -73,7 +73,17 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 		buffer.push_back(static_cast<char>(byte.to_ulong()));
 	}
 	int dataSize = text.size();
+	while (text.size() % 8)
+		text.push_back('0');
+
+	int write_position = destinationFile.tellp();
+
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
+
+	destinationFile.seekp(write_position);
+	std::vector<char> dataBuffer(dataSize);
+
+	sourceFile.read(dataBuffer.data(), dataSize);
 	destinationFile.write(buffer.data(), buffer.size());
 }
 
