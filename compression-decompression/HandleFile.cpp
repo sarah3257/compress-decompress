@@ -73,7 +73,17 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 		buffer.push_back(static_cast<char>(byte.to_ulong()));
 	}
 	int dataSize = text.size();
+	while (text.size() % 8)
+		text.push_back('0');
+
+	int write_position = destinationFile.tellg();
+
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
+
+	destinationFile.seekg(write_position);
+	std::vector<char> dataBuffer(dataSize);
+
+	sourceFile.read(dataBuffer.data(), dataSize);
 	destinationFile.write(buffer.data(), buffer.size());
 }
 
@@ -146,7 +156,7 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 
 	// return the value
 	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
-	for (int i = 0; i < bufferSize*8-dataSize; i++)
+	for (int i = 0; i < bufferSize * 8 - dataSize; i++)
 		binaryBuffer.pop_back();
 	return binaryBuffer;
 }
@@ -170,7 +180,7 @@ bool HandleFile::getSourceFileEOF() {
 		return true;
 	}
 
-    current_pos = sourceFile.tellg();
+	current_pos = sourceFile.tellg();
 	sourceFile.seekg(0, std::ios::end);
 	std::streampos end_pos = sourceFile.tellg();
 	sourceFile.seekg(current_pos);
