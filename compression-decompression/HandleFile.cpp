@@ -66,13 +66,15 @@ void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes,
 		destinationFile.write(pair.second.c_str(), strSize);
 	}*/
 	//push data.size and date
+	int dataSize = text.size();
+	while (text.size() % 8)
+		text.push_back('0');
 	std::vector<char> buffer;
 	for (int i = 0; i < text.size(); i += 8) {
 		std::string byteString = text.substr(i, 8);
 		std::bitset<8> byte(byteString);
 		buffer.push_back(static_cast<char>(byte.to_ulong()));
 	}
-	int dataSize = text.size();
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
 	destinationFile.write(buffer.data(), buffer.size());
 }
@@ -95,7 +97,7 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	int mapSize;
 	int valueSize;
 	char key;
-	printBinFile();
+	//printBinFile();
 	// read the size of the map
 	sourceFile.read(reinterpret_cast<char*>(&mapSize), sizeof(mapSize));
 	if (sourceFile.gcount() != sizeof(mapSize)) {
