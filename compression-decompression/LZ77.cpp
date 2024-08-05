@@ -64,7 +64,7 @@ std::vector<char> LZ77::changeToString(const std::vector<LZ77Token>& tokens) {
 		text.push_back('|');
 	}
 
-	text.pop_back();
+	//text.pop_back();
 	return text;
 }
 std::vector<char> LZ77::compress(const std::vector<char>& text) {
