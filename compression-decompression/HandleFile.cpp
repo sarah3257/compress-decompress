@@ -54,14 +54,14 @@ std::vector<char> HandleFile::readBufferCompress() {
 
 void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes, std::string text) {
 	//push map.size and map
-	/*int mapSize = codes.size();
+	int mapSize = codes.size();
 	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
 	for (const auto& pair : codes) {
 		destinationFile.write(reinterpret_cast<const char*>(&pair.first), sizeof(pair.first));
 		int strSize = pair.second.size();
 		destinationFile.write(reinterpret_cast<const char*>(&strSize), sizeof(strSize));
 		destinationFile.write(pair.second.c_str(), strSize);
-	}*/
+	}
 	//push data.size and date
 	int dataSize = text.size();
 	while (text.size() % 8)
