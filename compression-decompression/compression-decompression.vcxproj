@@ -142,20 +142,15 @@
     <ClInclude Include="LZ77.h" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
+
     <Text Include="file2.txt" />
->>>>>>> 2cad8215c31599ed80777fb710ff7b909ba6c173
     <Text Include="inputFile.txt" />
     <Text Include="inputFile1.txt" />
     <Text Include="sarah.txt" />
     <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
-=======
     <None Include="fileBinary.bin" />
->>>>>>> Stashed changes
     <None Include="fileTest.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
