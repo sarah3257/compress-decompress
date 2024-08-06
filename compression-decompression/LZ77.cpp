@@ -30,8 +30,9 @@ std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 
 		}
 		// insert the distance length & next char to the token
-		if (i + maxMatchLength == text.size())
+		if (i + maxMatchLength == text.size()) {
 			tokens.emplace_back(maxMatchDistance, maxMatchLength - 1, text[i + maxMatchLength - 1]);
+		}
 		else
 			tokens.emplace_back(maxMatchDistance, maxMatchLength, text[i + maxMatchLength]);
 

@@ -3,26 +3,30 @@
 #include <cmath>
 #include <bitset>
 
+HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress, int lengthPassword) {
 
-HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
-	//bool typeFile = true;//we need do it.
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile) {
 		std::cerr << "Error opening file: " << sourceFilePath << std::endl;
 	}
-	std::string destinationFilePath;
+
+	// move the seekg in the length of the password
+	std::streampos offset = lengthPassword;
+	sourceFile.seekg(offset, std::ios::beg);
+	if (!sourceFile) {
+		std::cerr << "Error seeking in source file." << std::endl;
+	}
+
+	std::string destinationFilePath = readFileName(sourceFilePath);
+	std::string zipExtension = "(zip)";
 	if (isCompress)
-		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COMPRESS.bin";
+		destinationFilePath += zipExtension + ".bin";
 	else {
-		char isTxt = true;
-		//sourceFile.read(&isTxt, sizeof(isTxt));
-		if (isTxt)
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 12) + ".txt";
-		else
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".bin";
+		destinationFilePath = destinationFilePath.substr(0, destinationFilePath.size() - zipExtension.size());
+		destinationFilePath += "(1)" + readFileExtension();
 	}
 	destinationFile.open(destinationFilePath, std::ios::binary);
-	if (!sourceFile) {
+	if (!destinationFile) {
 		std::cerr << "Error opening file: " << destinationFilePath << std::endl;
 	}
 }
@@ -94,10 +98,10 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	int mapSize;
 	int valueSize;
 	char key;
-	//printBinFile();
+
 	// read the size of the map
 	sourceFile.read(reinterpret_cast<char*>(&mapSize), sizeof(mapSize));
-	
+
 	if (sourceFile.gcount() != sizeof(mapSize)) {
 		throw std::runtime_error("Failed to read 4 bytes from file.");
 	}
@@ -139,15 +143,12 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	// read the data
 	int bufferSize = (dataSize + 7) / 8;
 	std::vector<char> dataBuffer(bufferSize);
-	//std::string binaryString = "";
-	sss = getFileSizeMinusCurrentSize();
 	if (!sourceFile.read(dataBuffer.data(), bufferSize))
 		std::cerr << "Failed to read file." << std::endl;
 
-
 	// return the value
 	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
-	for (int i = 0; i < bufferSize*8-dataSize; i++)
+	for (int i = 0; i < bufferSize * 8 - dataSize; i++)
 		binaryBuffer.pop_back();
 	return binaryBuffer;
 }
@@ -171,7 +172,7 @@ bool HandleFile::getSourceFileEOF() {
 		return true;
 	}
 
-    current_pos = sourceFile.tellg();
+	current_pos = sourceFile.tellg();
 	sourceFile.seekg(0, std::ios::end);
 	std::streampos end_pos = sourceFile.tellg();
 	sourceFile.seekg(current_pos);
@@ -190,16 +191,78 @@ bool HandleFile::getDestinationFileEOF() {
 
 	return current_pos == end_pos;
 }
-void HandleFile::insertPassword(const char* password) {
+void HandleFile::insertPassword(const std::string& password) {
 
 	if (!destinationFile) {
 		throw std::runtime_error("Destination file is not open.");
 	}
-	destinationFile.write(password, strlen(password) + 1);
+
+	destinationFile.write(password.c_str(), password.size());
 	if (destinationFile.fail()) {
 		throw std::runtime_error("Failed to write to file.");
 	}
 }
+
+void HandleFile::insertFileExtension(const std::string& fileName) {
+
+	if (!destinationFile.is_open()) {
+		throw std::runtime_error("Destination file is not open.");
+	}
+
+	// Extract the file extension
+	int pos = fileName.find_last_of('.');
+	if (pos == std::string::npos) {
+		std::cerr << "No extension found." << std::endl;
+	}
+	std::string extension = fileName.substr(pos);
+
+	// Get the size of the extension
+	int extensionSize = extension.size();
+
+	// Write the size of the extension to the file
+	destinationFile.write(reinterpret_cast<const char*>(&extensionSize), sizeof(int));
+	if (destinationFile.fail()) {
+		throw std::runtime_error("Failed to write extension size to file.");
+	}
+
+	// Write the extension itself to the file
+	destinationFile.write(extension.c_str(), extension.size());
+	if (destinationFile.fail()) {
+		throw std::runtime_error("Failed to write extension to file.");
+	}
+}
+std::string HandleFile::readFileName(const std::string& fileName) {
+
+	int pos = fileName.find_last_of('.');
+	if (pos == std::string::npos) {
+		std::cerr << "No filr name found." << std::endl;
+	}
+	return fileName.substr(0, pos);
+}
+std::string HandleFile::readFileExtension() {
+
+	if (!sourceFile.is_open()) {
+		throw std::runtime_error("Source file is not open.");
+	}
+
+	// Read the size of the extension from the file
+	int extensionSize = 0;
+	sourceFile.read(reinterpret_cast<char*>(&extensionSize), sizeof(int));
+	if (sourceFile.fail()) {
+		throw std::runtime_error("Failed to read extension size from file.");
+	}
+
+	// Read the extension itself from the file
+	std::string fileExtension(extensionSize, '\0');
+	sourceFile.read(&fileExtension[0], extensionSize);
+	if (sourceFile.fail()) {
+		throw std::runtime_error("Failed to read extension from file.");
+	}
+	// Return the file extension
+	return fileExtension;
+}
+
+
 std::vector<char> HandleFile::convertToBinaryVector(const std::vector<char>& dataBuffer) {
 	std::vector<char> binaryBuffer;
 	for (char ch : dataBuffer) {
