@@ -53,11 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="inputFile.txt" />
-
     <Text Include="file2.txt" />
     <Text Include="Source.txt" />
+    <Text Include="inputFile1.txt" />
+    <Text Include="sarah.txt" />
   </ItemGroup>
   <ItemGroup>
+
     <None Include="fileTest.bin">
       <Filter>Resource Files</Filter>
     </None>

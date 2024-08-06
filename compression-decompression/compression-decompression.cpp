@@ -9,11 +9,9 @@
 
 int main() {
 
-    
 	std::string filePath = "inputFile.txt";
 	Deflate::compress(filePath);
 	Deflate::decompress("inputFile(zip).bin");
 
 	return 0;
-
 }
