@@ -1,10 +1,10 @@
-﻿#include "Deflate.h"
+﻿#include <iostream>
+#include <string>
+#include "Deflate.h"
 
 int main() {
-
-	// an example to compress a text file
-	Deflate::compress("inputFile.txt");
+	ErrorHandle eh("log.txt");
+	std::string filePath = "inputFile.txt";
+	Deflate::compress(filePath);
 	Deflate::decompress("inputFile(zip).bin");
-
-	return 0;
 }
