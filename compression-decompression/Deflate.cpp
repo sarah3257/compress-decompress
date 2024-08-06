@@ -20,14 +20,11 @@ void Deflate::compress(const std::string& fileName) {
 	while (handleFile.getFileSizeMinusCurrentSize()) {
 		buffer = handleFile.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
-<<<<<<< HEAD
 		int sss = handleFile.getFileSizeMinusCurrentSize();
 		compressText = compressDeflate(buffer, codes);
 		//עד כאן טוב
-=======
 		compressText = compressDeflate(buffer,codes);
 		// good
->>>>>>> 2cad8215c31599ed80777fb710ff7b909ba6c173
 		handleFile.writeBufferCompress(codes, compressText);
 	}
 
