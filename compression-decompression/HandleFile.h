@@ -7,13 +7,10 @@
 
 class HandleFile
 {
-	
-
-
 	std::ifstream sourceFile;
 	std::ofstream destinationFile;
 public:
-	HandleFile(const std::string& sourceFilePath,bool isCompress);
+	HandleFile(const std::string& sourceFilePath, bool isCompress);
 	~HandleFile();
 	std::vector<char> readBufferCompress();
 	void writeBufferCompress(std::unordered_map<char, std::string>codes, std::string text);
@@ -22,10 +19,8 @@ public:
 	bool getSourceFileEOF();
 	bool getDestinationFileEOF();
 	void insertPassword(const char* password);
-<<<<<<< HEAD
 	std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer);
 
-=======
 	int getFileSizeMinusCurrentSize() {
 		std::streampos current_pos = sourceFile.tellg();
 
@@ -45,5 +40,19 @@ public:
 		int remaining_size_int = static_cast<int>(remaining_size);
 		return remaining_size_int;
 	}
->>>>>>> b476d537f9d16dca28bccd5227b92bfb2e6c5ca0
+	void printBinFile() {
+		sourceFile.seekg(0, std::ios::end);
+		std::streampos fileSize = sourceFile.tellg();
+		sourceFile.seekg(0, std::ios::beg);
+
+		std::vector<char> res(fileSize);
+		sourceFile.read(res.data(), fileSize);
+		sourceFile.close();
+		std::cout << "Read " << res.size() << " bytes from file." << std::endl;
+		std::cout << "Contents of res: ";
+		for (char c : res) {
+			std::cout << std::bitset<8>(c) << ' ';
+		}
+		std::cout << std::endl;
+	}
 };

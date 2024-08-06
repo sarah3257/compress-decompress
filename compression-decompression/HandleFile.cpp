@@ -36,11 +36,8 @@ HandleFile::~HandleFile() {
 }
 //read buffer &  write vec<char>
 std::vector<char> HandleFile::readBufferCompress() {
-	std::streampos current_pos = sourceFile.tellg();
-	sourceFile.seekg(0, std::ios::end);
-	int file_size = sourceFile.tellg();
-	sourceFile.seekg(current_pos);
-	int size_buffer = std::min(file_size, 1024 * 1024);
+	int remainingSize = getFileSizeMinusCurrentSize();
+	int size_buffer = std::min(remainingSize, 1024 * 1024);
 	if (!sourceFile) {
 		std::cerr << "Error opening file for reading: " << std::endl;
 		return {};
@@ -57,22 +54,24 @@ std::vector<char> HandleFile::readBufferCompress() {
 
 void HandleFile::writeBufferCompress(std::unordered_map<char, std::string>codes, std::string text) {
 	//push map.size and map
-	int mapSize = codes.size();
+	/*int mapSize = codes.size();
 	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
 	for (const auto& pair : codes) {
 		destinationFile.write(reinterpret_cast<const char*>(&pair.first), sizeof(pair.first));
 		int strSize = pair.second.size();
 		destinationFile.write(reinterpret_cast<const char*>(&strSize), sizeof(strSize));
 		destinationFile.write(pair.second.c_str(), strSize);
-	}
+	}*/
 	//push data.size and date
+	int dataSize = text.size();
+	while (text.size() % 8)
+		text.push_back('0');
 	std::vector<char> buffer;
 	for (int i = 0; i < text.size(); i += 8) {
 		std::string byteString = text.substr(i, 8);
 		std::bitset<8> byte(byteString);
 		buffer.push_back(static_cast<char>(byte.to_ulong()));
 	}
-	int dataSize = text.size();
 	destinationFile.write(reinterpret_cast<const char*>(&dataSize), sizeof(dataSize));
 	destinationFile.write(buffer.data(), buffer.size());
 }
@@ -95,13 +94,14 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	int mapSize;
 	int valueSize;
 	char key;
-
+	//printBinFile();
 	// read the size of the map
 	sourceFile.read(reinterpret_cast<char*>(&mapSize), sizeof(mapSize));
+	
 	if (sourceFile.gcount() != sizeof(mapSize)) {
 		throw std::runtime_error("Failed to read 4 bytes from file.");
 	}
-
+	int sss = getFileSizeMinusCurrentSize();
 	// read the map from the file to an unordered_map
 	for (int i = 0; i < mapSize; ++i) {
 
@@ -119,6 +119,7 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 
 		// read the value
 		std::string value(valueSize, '\0');
+		int sss = getFileSizeMinusCurrentSize();
 		sourceFile.read(&value[0], valueSize);
 		if (sourceFile.gcount() != valueSize) {
 			throw std::runtime_error("Failed to read value from file.");

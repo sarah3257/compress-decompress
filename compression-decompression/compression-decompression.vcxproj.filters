@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="inputFile.txt" />
-    <Text Include="file2.txt" />
+    <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fileTest.bin">

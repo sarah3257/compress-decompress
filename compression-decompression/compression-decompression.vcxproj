@@ -142,8 +142,8 @@
     <ClInclude Include="LZ77.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="file2.txt" />
     <Text Include="inputFile.txt" />
+    <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fileTest.bin" />

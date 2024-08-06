@@ -14,7 +14,7 @@ std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 		startWindow = i < MAX_WINDOW_SIZE ? 0 : i - MAX_WINDOW_SIZE;
 
 		// for every char check backwards the max string
-		for (int j = startWindow; j < i; j++) {
+		for (int j = startWindow; j < i && maxMatchLength < i - j; j++) {
 			int matchLength = 0;
 			while (text[i + matchLength] == text[j + matchLength]) {
 				matchLength++;
