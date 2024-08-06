@@ -267,14 +267,13 @@ std::string HandleFile::readFileExtension() {
 	return fileExtension;
 }
 
-// get a vector of char abd return a vector of char in binary
 std::vector<char> HandleFile::convertToBinaryVector(const std::vector<char>& dataBuffer) {
 	std::vector<char> binaryBuffer;
 	for (char ch : dataBuffer) {
 		std::bitset<8> binary(ch);
 		for (std::size_t i = 0; i < 8; ++i) {
-			// add binary representation of each character
-			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0'); 
+			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0');// add binary representation of each character
+
 		}
 	}
 	return binaryBuffer;
