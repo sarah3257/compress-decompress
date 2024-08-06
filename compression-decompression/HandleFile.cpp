@@ -19,7 +19,7 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
 		if (isTxt)
 			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 12) + ".txt";
 		else
-			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + "11.bin";
+			destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 15) + ".bin";
 	}
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!sourceFile) {
@@ -137,10 +137,10 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	}
 
 	// read the data
-	int bufferSize = (dataSize + 8) / 8;
+	int bufferSize = (dataSize + 7) / 8;
 	std::vector<char> dataBuffer(bufferSize);
 	//std::string binaryString = "";
-
+	sss = getFileSizeMinusCurrentSize();
 	if (!sourceFile.read(dataBuffer.data(), bufferSize))
 		std::cerr << "Failed to read file." << std::endl;
 

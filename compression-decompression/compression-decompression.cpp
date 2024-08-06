@@ -48,8 +48,9 @@ int main() {
     //}
 
     //return 0;
-    std::string filePath = "inputFile.txt";
+    std::string filePath = "large_repeating_text.txt";
     Deflate::compress(filePath);
-    Deflate::decompress("inputFileSTZ_COMPRESS.bin");
+    std::cout << "finishCompress\n";
+    Deflate::decompress("large_repeating_textSTZ_COMPRESS.bin");
 
 }
