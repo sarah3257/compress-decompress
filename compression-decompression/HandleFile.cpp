@@ -144,7 +144,6 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	// read the data
 	int bufferSize = (dataSize + 7) / 8;
 	std::vector<char> dataBuffer(bufferSize);
-
 	if (!sourceFile.read(dataBuffer.data(), bufferSize))
 		std::cerr << "Failed to read file." << std::endl;
 

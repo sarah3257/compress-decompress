@@ -28,19 +28,14 @@ public:
 	int getFileSizeMinusCurrentSize() {
 		std::streampos current_pos = sourceFile.tellg();
 
-		// מעבר לסוף הקובץ
 		sourceFile.seekg(0, std::ios::end);
 
-		// קבלת המיקום הנוכחי (שהוא גודל הקובץ)
 		std::streampos file_size = sourceFile.tellg();
 
-		// חזרה למיקום המקורי
 		sourceFile.seekg(current_pos);
 
-		// חישוב גודל הקובץ שנותר לקרוא
 		std::streamsize remaining_size = file_size - current_pos;
 
-		// המרה ל-int אם נחוץ
 		int remaining_size_int = static_cast<int>(remaining_size);
 		return remaining_size_int;
 	}

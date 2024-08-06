@@ -23,6 +23,8 @@ void Deflate::compress(const std::string& fileName) {
 		int sss = handleFile.getFileSizeMinusCurrentSize();
 		compressText = compressDeflate(buffer, codes);
 		//עד כאן טוב
+		compressText = compressDeflate(buffer,codes);
+		// good
 		handleFile.writeBufferCompress(codes, compressText);
 	}
 

@@ -1,10 +1,15 @@
 #include "Huffman.h"
+#include "ErrorHandle.h"
+
+
+// Counts character frequencies in the text and returns a map.
 std::unordered_map<char, int> Huffman::calculateFrequencies(const std::vector<char>& text) {
 	std::unordered_map<char, int>freqMap;
 	for (auto ch : text)
 		freqMap[ch]++;
 	return freqMap;
 }
+
 
 std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode> Huffman::buildHuffmanPriorityQueue(const std::unordered_map<char, int>& freqMap) {
 	std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode> pq;
@@ -14,6 +19,7 @@ std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode>
 	return pq;
 }
 
+// Constructs the Huffman tree and returns the root node.
 HuffmanNode* Huffman::buildHuffmanTree(std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode>& pq) {
 	while (pq.size() > 1) {
 		//Get the char with min frequency
@@ -40,22 +46,23 @@ std::unordered_map<char, std::string> Huffman::getHuffmanCodes(HuffmanNode* huff
 void Huffman::buildCodes(HuffmanNode* root, std::string str, std::unordered_map<char, std::string>& codesMap) {
 	if (!root)
 		return;
-	if (root->c != '$')
+	if (root->right == nullptr && root->right == nullptr)
 		codesMap[root->c] = str;
 	buildCodes(root->left, str + '0', codesMap);
 	buildCodes(root->right, str + '1', codesMap);
 }
 
+// Encodes the text using the provided Huffman codes and returns the encoded string.
 std::string Huffman::encodeText(const std::unordered_map<char, std::string>& codes, const std::vector<char>& text) {
 	std::string result = "";
-	for (auto ch : text)
+	int index = 0;
+	for (auto ch : text) {
 		result.append(codes.at(ch));
+	}
 	return result;
 }
 
-//std::string str = "ABBBBGFFFFFG";
-//str = Huffman::compress(std::vector<char>(str.begin(), str.end()));
-//std::cout << str;
+// Compresses the text using Huffman coding and returns the encoded string.
 std::string Huffman::compress(std::unordered_map<char, std::string>& codes, const std::vector<char>& text) {
 	std::unordered_map<char, int> freqMap = calculateFrequencies(text);
 	std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode> pq = buildHuffmanPriorityQueue(freqMap);
@@ -66,25 +73,18 @@ std::string Huffman::compress(std::unordered_map<char, std::string>& codes, cons
 }
 
 
+//decompression
 
-
-std::unordered_map<std::string, char> Huffman::swapKeysAndValues( std::unordered_map<char, std::string> originalMap) {
-    std::unordered_map<std::string, char> swappedMap;
-    for (const auto& pair : originalMap) {
-        swappedMap[pair.second] = pair.first;
-    }
-    return swappedMap;
+// Swaps keys and values in the map and returns the new map.
+std::unordered_map<std::string, char> Huffman::swapKeysAndValues(std::unordered_map<char, std::string> originalMap) {
+	std::unordered_map<std::string, char> swappedMap;
+	for (const auto& pair : originalMap) {
+		swappedMap[pair.second] = pair.first;
+	}
+	return swappedMap;
 }
 
-
-
-//int main()
-//{    std::vector<char> text = { '1','0','1','1','0','1','1','0','0' };
-//    std::unordered_map<char, std::string> codesMap;
-//    codesMap['A'] = "10";codesMap['B'] = "11"; codesMap['C'] = "0";  
-//    std::string res = decodeText(codesMap, text);}
-
-
+// Decodes the Huffman-encoded text and returns the original text.
 std::vector<char> Huffman::decompress(const std::unordered_map<char, std::string>& codesMap, std::vector<char> text) {
 	std::unordered_map<std::string, char> codesMapRev = swapKeysAndValues(codesMap);
 	int strJul = 0;
@@ -99,8 +99,7 @@ std::vector<char> Huffman::decompress(const std::unordered_map<char, std::string
 		}
 	}
 	if (!keyToFind.empty()) {
-		std::cout << "empty!!!!";
-		exit(1);
+		ErrorHandle::NO_BUFFER_CHARACTER_FOUND;
 	}
 	std::vector<char> vecRes(strResult.begin(), strResult.end());
 	return vecRes;

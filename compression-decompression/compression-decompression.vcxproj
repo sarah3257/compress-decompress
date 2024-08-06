@@ -142,7 +142,11 @@
     <ClInclude Include="LZ77.h" />
   </ItemGroup>
   <ItemGroup>
+
+    <Text Include="file2.txt" />
     <Text Include="inputFile.txt" />
+    <Text Include="inputFile1.txt" />
+    <Text Include="sarah.txt" />
     <Text Include="Source.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

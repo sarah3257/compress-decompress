@@ -7,5 +7,4 @@ int main() {
 	Deflate::decompress("inputFile(zip).bin");
 
 	return 0;
-
 }
