@@ -53,6 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="inputFile.txt" />
+<<<<<<< HEAD
+=======
+    <Text Include="file2.txt" />
+>>>>>>> 7c6b3b99f8c908f2879432bf6bd26c84b9c21cb2
     <Text Include="Source.txt" />
   </ItemGroup>
   <ItemGroup>
