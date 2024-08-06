@@ -19,6 +19,10 @@ public:
 	bool getSourceFileEOF();
 	bool getDestinationFileEOF();
 	void insertPassword(const std::string& password);
+	void insertFileExtension(const std::string& fileName);
+	std::string readFileExtension();
+	std::string readFileName(const std::string& fileName);
+
 	std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer);
 
 	int getFileSizeMinusCurrentSize() {
