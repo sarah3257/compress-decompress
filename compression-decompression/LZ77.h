@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include <iostream>
-#include "ErrorHandle.h"
+
 
 //const int MAX_WINDOW_SIZE = 8192;  // Maximum window size 8KB
 const int MAX_WINDOW_SIZE = 256;
@@ -20,10 +19,10 @@ class LZ77
 {	
 	static std::vector<LZ77Token> getTokens(const std::vector<char>& text);
 	static std::vector<char> changeToString(const std::vector<LZ77Token>& tokens);
-	static std::string findIndex(std::vector<char> vec, int& start);
+	static std::string findIndex(const std::vector<char>& vec, int& start);
 
 public:
 	static std::vector<char> compress(const std::vector<char>& text);
-	static std::vector<char> decompress(const std::vector<char> text);
+	static std::vector<char> decompress(const std::vector<char>& text);
 };
 

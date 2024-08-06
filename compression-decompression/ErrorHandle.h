@@ -1,8 +1,6 @@
 #pragma once
-#include <iostream>
-#include <fstream>
 #include <string>
-#include <stdexcept>
+
 class ErrorHandle
 {
 public:
@@ -29,6 +27,8 @@ public:
 	static const std::string NO_FILE_NAME_FOUND;
 
 
+	static const std::string NO_FOUND_KEY;
+	
 private:
 	std::string logFileName;
 	static std::ofstream logFileStream;

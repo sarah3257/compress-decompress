@@ -1,4 +1,6 @@
 #include "ErrorHandle.h"
+#include <iostream>
+#include <fstream>
 
 // Constructor to open the log file
 ErrorHandle::ErrorHandle(const std::string& logFile) : logFileName(logFile) {
@@ -43,5 +45,6 @@ const std::string ErrorHandle::FAILED_WRITE_TO_FILE = "Failed write to file";
 const std::string ErrorHandle::NO_EXTENSION_FOUND = "No extension found";
 const std::string ErrorHandle::NO_FILE_NAME_FOUND = "No file name found";
 
+const std::string ErrorHandle::NO_FOUND_KEY = "No found key.";
 
 std::ofstream ErrorHandle::logFileStream;
