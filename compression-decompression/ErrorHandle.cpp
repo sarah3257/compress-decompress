@@ -1,4 +1,6 @@
 #include "ErrorHandle.h"
+#include <iostream>
+#include <fstream>
 
 // Constructor to open the log file
 ErrorHandle::ErrorHandle(const std::string& logFile) : logFileName(logFile) {
