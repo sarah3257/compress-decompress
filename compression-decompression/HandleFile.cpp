@@ -1,4 +1,5 @@
 #include "HandleFile.h"
+#include "ErrorHandle.h"
 #include <algorithm>
 #include <cmath>
 #include <bitset>
@@ -240,11 +241,14 @@ std::string HandleFile::readFileName(const std::string& fileName) {
 	}
 	return fileName.substr(0, pos);
 }
+
+// return the extension of the file include the .
 std::string HandleFile::readFileExtension() {
 
 	if (!sourceFile.is_open()) {
-		throw std::runtime_error("Source file is not open.");
-	}
+		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
+		exit(1);
+  	}
 
 	// Read the size of the extension from the file
 	int extensionSize = 0;
@@ -263,13 +267,14 @@ std::string HandleFile::readFileExtension() {
 	return fileExtension;
 }
 
-
+// get a vector of char abd return a vector of char in binary
 std::vector<char> HandleFile::convertToBinaryVector(const std::vector<char>& dataBuffer) {
 	std::vector<char> binaryBuffer;
 	for (char ch : dataBuffer) {
 		std::bitset<8> binary(ch);
 		for (std::size_t i = 0; i < 8; ++i) {
-			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0'); // add binary representation of each character
+			// add binary representation of each character
+			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0'); 
 		}
 	}
 	return binaryBuffer;
