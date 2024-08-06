@@ -12,6 +12,7 @@ void Deflate::compress(const std::string& fileName) {
 
 	HandleFile handleFile(fileName, true);
 	handleFile.insertPassword(password);
+	handleFile.insertFileExtension(fileName);
 	//read the buffers
 	std::vector<char> buffer;
 	std::string compressText;
