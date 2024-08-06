@@ -28,5 +28,6 @@ void ErrorHandle::handleError(const std::string& errorMessage) {
 const std::string ErrorHandle::CANNOT_OPEN_FILE = "Cannot open the file.";
 const std::string ErrorHandle::TRYING_TO_DECODE_UNCOMPRESSED_FILE = "Trying to decode an uncompressed file.";
 const std::string ErrorHandle::NO_BUFFER_CHARACTER_FOUND = "No buffer character found.";
+const std::string ErrorHandle::NO_FOUND_KEY = "No found key.";
 
 std::ofstream ErrorHandle::logFileStream;
