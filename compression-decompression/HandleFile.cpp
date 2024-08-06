@@ -3,13 +3,20 @@
 #include <cmath>
 #include <bitset>
 
-
-HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress) {
+HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress,int lengthPassword) {
 	//bool typeFile = true;//we need do it.
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile) {
 		std::cerr << "Error opening file: " << sourceFilePath << std::endl;
 	}
+    
+	// move the seekg in the length of the password
+	std::streampos offset = lengthPassword;
+	sourceFile.seekg(offset, std::ios::beg);
+	if (!sourceFile) {
+		std::cerr << "Error seeking in source file." << std::endl;
+	}
+
 	std::string destinationFilePath;
 	if (isCompress)
 		destinationFilePath = sourceFilePath.substr(0, sourceFilePath.size() - 4) + "STZ_COMPRESS.bin";
@@ -36,11 +43,8 @@ HandleFile::~HandleFile() {
 }
 //read buffer &  write vec<char>
 std::vector<char> HandleFile::readBufferCompress() {
-	std::streampos current_pos = sourceFile.tellg();
-	sourceFile.seekg(0, std::ios::end);
-	int file_size = sourceFile.tellg();
-	sourceFile.seekg(current_pos);
-	int size_buffer = std::min(file_size, 1024 * 1024);
+	int remainingSize = getFileSizeMinusCurrentSize();
+	int size_buffer = std::min(remainingSize, 1024 * 1024);
 	if (!sourceFile) {
 		std::cerr << "Error opening file for reading: " << std::endl;
 		return {};
@@ -100,10 +104,11 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 
 	// read the size of the map
 	sourceFile.read(reinterpret_cast<char*>(&mapSize), sizeof(mapSize));
+
 	if (sourceFile.gcount() != sizeof(mapSize)) {
 		throw std::runtime_error("Failed to read 4 bytes from file.");
 	}
-
+	int sss = getFileSizeMinusCurrentSize();
 	// read the map from the file to an unordered_map
 	for (int i = 0; i < mapSize; ++i) {
 
@@ -121,6 +126,7 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 
 		// read the value
 		std::string value(valueSize, '\0');
+		int sss = getFileSizeMinusCurrentSize();
 		sourceFile.read(&value[0], valueSize);
 		if (sourceFile.gcount() != valueSize) {
 			throw std::runtime_error("Failed to read value from file.");
@@ -148,7 +154,7 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 
 	// return the value
 	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
-	for (int i = 0; i < bufferSize*8-dataSize; i++)
+	for (int i = 0; i < bufferSize * 8 - dataSize; i++)
 		binaryBuffer.pop_back();
 	return binaryBuffer;
 }
@@ -172,7 +178,7 @@ bool HandleFile::getSourceFileEOF() {
 		return true;
 	}
 
-    current_pos = sourceFile.tellg();
+	current_pos = sourceFile.tellg();
 	sourceFile.seekg(0, std::ios::end);
 	std::streampos end_pos = sourceFile.tellg();
 	sourceFile.seekg(current_pos);
@@ -191,16 +197,18 @@ bool HandleFile::getDestinationFileEOF() {
 
 	return current_pos == end_pos;
 }
-void HandleFile::insertPassword(const char* password) {
+void HandleFile::insertPassword(const std::string& password) {
 
 	if (!destinationFile) {
 		throw std::runtime_error("Destination file is not open.");
 	}
-	destinationFile.write(password, strlen(password) + 1);
+
+	destinationFile.write(password.c_str(), password.size());
 	if (destinationFile.fail()) {
 		throw std::runtime_error("Failed to write to file.");
 	}
 }
+
 std::vector<char> HandleFile::convertToBinaryVector(const std::vector<char>& dataBuffer) {
 	std::vector<char> binaryBuffer;
 	for (char ch : dataBuffer) {

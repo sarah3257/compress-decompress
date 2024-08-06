@@ -7,13 +7,10 @@
 
 class HandleFile
 {
-
-
-
 	std::ifstream sourceFile;
 	std::ofstream destinationFile;
 public:
-	HandleFile(const std::string& sourceFilePath, bool isCompress);
+	HandleFile(const std::string& sourceFilePath, bool isCompress,int lengthPassword=0);
 	~HandleFile();
 	std::vector<char> readBufferCompress();
 	void writeBufferCompress(std::unordered_map<char, std::string>codes, std::string text);
@@ -21,8 +18,9 @@ public:
 	void writeBufferDecompress(std::vector<char> text);
 	bool getSourceFileEOF();
 	bool getDestinationFileEOF();
-	void insertPassword(const char* password);
+	void insertPassword(const std::string& password);
 	std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer);
+
 	int getFileSizeMinusCurrentSize() {
 		std::streampos current_pos = sourceFile.tellg();
 
