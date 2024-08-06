@@ -91,7 +91,7 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	// read the size of the map
 	sourceFile.read(reinterpret_cast<char*>(&mapSize), sizeof(mapSize));
 	if (sourceFile.gcount() != sizeof(mapSize)) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_TO_READ_4_BYTES_FROM_FILE);
+		ErrorHandle::handleError(ErrorHandle::FAILED_READ_4_BYTES_FROM_FILE);
 		exit(1);
 	}
 	// read the map from the file to an unordered_map
@@ -99,20 +99,20 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 		// read the key
 		sourceFile.read(reinterpret_cast<char*>(&key), sizeof(key));
 		if (sourceFile.gcount() != sizeof(key)) {
-			ErrorHandle::handleError(ErrorHandle::FAILED_TO_READ_KEY_FROM_FILE);
+			ErrorHandle::handleError(ErrorHandle::FAILED_READ_KEY_FROM_FILE);
 			exit(1);
 		}
 		// read the value size
 		sourceFile.read(reinterpret_cast<char*>(&valueSize), sizeof(valueSize));
 		if (sourceFile.gcount() != sizeof(valueSize)) {
-			ErrorHandle::handleError(ErrorHandle::FAILED_TO_READ_VALUE_SIZE_FROM_FILE);
+			ErrorHandle::handleError(ErrorHandle::FAILED_READ_VALUE_SIZE_FROM_FILE);
 			exit(1);
 		}
 		// read the value
 		std::string value(valueSize, '\0');
 		sourceFile.read(&value[0], valueSize);
 		if (sourceFile.gcount() != valueSize) {
-			ErrorHandle::handleError(ErrorHandle::FAILED_TO_READ_VALUE_FROM_FILE);
+			ErrorHandle::handleError(ErrorHandle::FAILED_READ_VALUE_FROM_FILE);
 			exit(1);
 		}
 		// insert the value to the unordered_map
@@ -122,14 +122,14 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	int dataSize;
 	sourceFile.read(reinterpret_cast<char*>(&dataSize), sizeof(dataSize));
 	if (sourceFile.gcount() != sizeof(dataSize)) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_TO_READ_DATA_SIZE_FROM_FILE);
+		ErrorHandle::handleError(ErrorHandle::FAILED_READ_DATA_SIZE_FROM_FILE);
 		exit(1);
 	}
 	// read the data
 	int bufferSize = (dataSize + 7) / 8;
 	std::vector<char> dataBuffer(bufferSize);
 	if (!sourceFile.read(dataBuffer.data(), bufferSize)) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_TO_READ_DATA_FROM_FILE);
+		ErrorHandle::handleError(ErrorHandle::FAILED_READ_DATA_FROM_FILE);
 		exit(1);
 	}
 	// return the value

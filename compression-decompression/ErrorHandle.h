@@ -21,6 +21,7 @@ public:
 	static const std::string FAILED_READ_DATA_SIZE_FROM_FILE;
 	static const std::string FAILED_READ_VALUE_FROM_FILE;
 	static const std::string FAILED_READ_DATA_FROM_FILE;
+	static const std::string FAILED_READ_PASSWORD_FROM_FILE;
 	static const std::string FAILED_READ_EXTENSION_FROM_FILE;
 	static const std::string FAILED_READ_EXTENSION_SIZE_FROM_FILE;
 	static const std::string FAILED_WRITE_TO_FILE;
