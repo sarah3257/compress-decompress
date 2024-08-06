@@ -8,6 +8,7 @@
 #include "Deflate.h"
 
 int main() {
+<<<<<<< HEAD
 
     // an example to compress a binary file
 	
@@ -21,6 +22,25 @@ int main() {
 	//oss << inputFile.rdbuf();
 	//std::string data = oss.str();
 	//inputFile.close();
+=======
+    //std::string text = "01000001"; // דוגמה של מחרוזת ביטים
+    //std::ofstream outputFile("file.bin", std::ios::binary);
+
+    //std::vector<char> buffer;
+    //for (int i = 0; i < text.size(); i += 8) {
+    //    std::string byteString = text.substr(i, 8);
+    //    std::bitset<8> byte(byteString);
+    //    buffer.push_back(static_cast<char>(byte.to_ulong()));
+    //}
+    //outputFile.write(buffer.data(), buffer.size());
+    //outputFile.close();
+
+    //std::ifstream inputFile("file.bin", std::ios::binary);
+    //if (!inputFile) {
+    //    std::cerr << "Error opening file." << std::endl;
+    //    return 1;
+    //}
+>>>>>>> 2cad8215c31599ed80777fb710ff7b909ba6c173
 
 	//// write the content to the binary file
 	//std::ofstream outputFile("example.bin", std::ios::binary);
@@ -33,6 +53,7 @@ int main() {
 	//outputFile.write(data.c_str(), length);
 	//outputFile.close();
 
+<<<<<<< HEAD
 	//std::string filePath = "example.bin";
 	//Deflate::compress(filePath);
 	//Deflate::decompress("example(zip).bin");
@@ -43,5 +64,28 @@ int main() {
 	Deflate::decompress("inputFile(zip).bin");
 
 	return 0;
+=======
+    //if (res.empty()) {
+    //    std::cout << "The file is empty." << std::endl;
+    //}
+    //else {
+    //    std::cout << "Read " << res.size() << " bytes from file." << std::endl;
+    //    std::cout << "Contents of res: ";
+    //    for (char c : res) {
+    //        std::cout << std::bitset<8>(c) << ' ';
+    //    }
+    //    std::cout << std::endl;
+    //}
+
+    //return 0;
+    std::string filePath = "inputFile.txt";
+    Deflate::compress(filePath);
+<<<<<<< Updated upstream
+    Deflate::decompress("inputFileSTZ_COMPRESS.bin");
+=======
+    Deflate::decompress("inputFileSTZ_COMPRESS.txt");
+
+>>>>>>> Stashed changes
+>>>>>>> 2cad8215c31599ed80777fb710ff7b909ba6c173
 
 }
