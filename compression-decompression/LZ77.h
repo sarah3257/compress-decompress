@@ -5,7 +5,8 @@
 #include "ErrorHandle.h"
 
 //const int MAX_WINDOW_SIZE = 8192;  // Maximum window size 8KB
-const int MAX_WINDOW_SIZE = 32768; // 32KB
+const int MAX_WINDOW_SIZE = 256;
+//const int MAX_WINDOW_SIZE = 32768; // 32KB
 
 struct LZ77Token {
 	int offset;

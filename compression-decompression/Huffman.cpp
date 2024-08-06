@@ -40,7 +40,7 @@ std::unordered_map<char, std::string> Huffman::getHuffmanCodes(HuffmanNode* huff
 void Huffman::buildCodes(HuffmanNode* root, std::string str, std::unordered_map<char, std::string>& codesMap) {
 	if (!root)
 		return;
-	if (root->c != '$')
+	if (root->right == nullptr && root->right == nullptr)
 		codesMap[root->c] = str;
 	buildCodes(root->left, str + '0', codesMap);
 	buildCodes(root->right, str + '1', codesMap);
@@ -48,8 +48,11 @@ void Huffman::buildCodes(HuffmanNode* root, std::string str, std::unordered_map<
 
 std::string Huffman::encodeText(const std::unordered_map<char, std::string>& codes, const std::vector<char>& text) {
 	std::string result = "";
-	for (auto ch : text)
+	int index = 0;
+	for (auto ch : text) {
+		//std::cout << index++ << "  " << ch << std::endl;
 		result.append(codes.at(ch));
+	}
 	return result;
 }
 
@@ -68,12 +71,12 @@ std::string Huffman::compress(std::unordered_map<char, std::string>& codes, cons
 
 
 
-std::unordered_map<std::string, char> Huffman::swapKeysAndValues( std::unordered_map<char, std::string> originalMap) {
-    std::unordered_map<std::string, char> swappedMap;
-    for (const auto& pair : originalMap) {
-        swappedMap[pair.second] = pair.first;
-    }
-    return swappedMap;
+std::unordered_map<std::string, char> Huffman::swapKeysAndValues(std::unordered_map<char, std::string> originalMap) {
+	std::unordered_map<std::string, char> swappedMap;
+	for (const auto& pair : originalMap) {
+		swappedMap[pair.second] = pair.first;
+	}
+	return swappedMap;
 }
 
 

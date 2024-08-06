@@ -18,6 +18,7 @@ void Deflate::compress(const std::string& fileName) {
 		buffer = handleFile.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
 		int sss = handleFile.getFileSizeMinusCurrentSize();
+		std::cout << sss << std::endl;
 		compressText = compressDeflate(buffer,codes);
 		//עד כאן טוב
 		handleFile.writeBufferCompress(codes, compressText);
@@ -32,6 +33,7 @@ void Deflate::decompress(const std::string& text) {
 		std::unordered_map<char, std::string> codes;
 		buffer = handleFile.readBufferDecompress(codes);
 		int sss = handleFile.getFileSizeMinusCurrentSize();
+		std::cout << sss << std::endl;
 		// we need get a code map
 		decompressRes = decompressDeflate(buffer, codes);
 		handleFile.writeBufferDecompress(decompressRes);
