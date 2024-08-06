@@ -1,4 +1,5 @@
 #include "Deflate.h"
+#include "ErrorHandle.h"
 #include <fstream>
 #include <iostream>
 
