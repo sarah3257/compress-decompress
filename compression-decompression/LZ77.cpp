@@ -9,41 +9,35 @@ std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 
 	std::vector<LZ77Token> tokens;
 	int i = 0;
-	int maxMatchDistance, maxMatchLength, startWindow;
 
 	// a loop for every char to find a srting
 	while (i < text.size()) {
-		maxMatchDistance = 0;
-		maxMatchLength = 0;
-		startWindow = i < MAX_WINDOW_SIZE ? 0 : i - MAX_WINDOW_SIZE;
+		int maxMatchDistance = 0;
+		int maxMatchLength = 0;
+		int startWindow = i < MAX_WINDOW_SIZE ? 0 : i - MAX_WINDOW_SIZE;
 
 		// for every char check backwards the max string
 		for (int j = startWindow; j < i && maxMatchLength < i - j; j++) {
 			int matchLength = 0;
-			while (text[i + matchLength] == text[j + matchLength]) {
+			while (i + matchLength < text.size() && text[i + matchLength] == text[j + matchLength]) {
 				matchLength++;
-				if (i + matchLength >= text.size() || j + matchLength >= i) {
+				if (j + matchLength >= i)
 					break;
-				}
 			}
 
 			if (matchLength > maxMatchLength) {
 				maxMatchLength = matchLength;
 				maxMatchDistance = i - j;
 			}
-
 		}
 		// insert the distance length & next char to the token
-		if (i + maxMatchLength == text.size()) {
-			tokens.emplace_back(maxMatchDistance, maxMatchLength - 1, text[i + maxMatchLength - 1]);
-		}
-		else
-			tokens.emplace_back(maxMatchDistance, maxMatchLength, text[i + maxMatchLength]);
+		char nextChar = i + maxMatchLength < text.size() ? text[i + maxMatchLength] : text[i + maxMatchLength - 1];
+		maxMatchLength = i + maxMatchLength < text.size() ? maxMatchLength : maxMatchLength - 1;
+		tokens.emplace_back(maxMatchDistance, maxMatchLength, nextChar);
 
 		// Increase the index according to the length of the found string
 		i += maxMatchLength + 1;
 	}
-
 	return tokens;
 }
 
@@ -99,7 +93,7 @@ std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 }
 
 std::vector<char> LZ77::decompress(const std::vector<char>& text)
-{	
+{
 
 	std::vector<char> decompressText;
 	for (int i = 0; i < text.size() - 1; i++)
@@ -121,10 +115,3 @@ std::vector<char> LZ77::decompress(const std::vector<char>& text)
 	}
 	return decompressText;
 }
-
-
-
-
-
-
-
