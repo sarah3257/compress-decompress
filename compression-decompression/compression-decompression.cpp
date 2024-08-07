@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include "Deflate.h"
+#include "ErrorHandle.h"
 
 int main() {
 	ErrorHandle eh("log.txt");

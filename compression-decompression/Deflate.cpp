@@ -1,6 +1,7 @@
 #include "Deflate.h"
 #include <fstream>
 #include <iostream>
+#include "ErrorHandle.h"
 
 const std::string Deflate::password = "stzip";
 
