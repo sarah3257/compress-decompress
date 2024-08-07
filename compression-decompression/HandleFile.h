@@ -4,6 +4,8 @@
 #include <iostream>
 #include <unordered_map>
 
+static const int BUFFER_SIZE = 1024 * 1024 * 4;
+
 class HandleFile
 {
 	std::ifstream sourceFile;
