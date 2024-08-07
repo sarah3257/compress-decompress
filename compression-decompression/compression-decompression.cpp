@@ -1,6 +1,4 @@
-﻿#include <iostream>
-#include <string>
-#include "Deflate.h"
+﻿#include "Deflate.h"
 #include "ErrorHandle.h"
 #include <windows.h>
 #include <psapi.h>
@@ -17,6 +15,7 @@ int printMemoryUsage() {
 }
 
 int main() {
+
 	ErrorHandle eh("log.txt");
 	std::string filePath = "STzip.txt";
 	int begin = printMemoryUsage();
