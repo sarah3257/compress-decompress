@@ -1,5 +1,6 @@
 #include "HandleFile.h"
 #include "ErrorHandle.h"
+#include "LZ77.h"
 #include <algorithm>
 #include <cmath>
 #include <bitset>
@@ -24,6 +25,7 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress, int l
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!destinationFile)
 		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
+	setMaxWindowSize();
 }
 
 //close open files
@@ -249,5 +251,26 @@ bool HandleFile::isCorrectPassword(const std::string& text, const std::string& p
 	}
 	sourceFile.close();
 	return readPassword == password;
+}
+
+long long HandleFile::getSourceFileSize() {
+	std::streampos currentPos = sourceFile.tellg();
+	sourceFile.seekg(0, std::ios::end);
+	std::streampos fileSize = sourceFile.tellg();
+	sourceFile.seekg(currentPos);
+	return fileSize;
+}
+void HandleFile::setMaxWindowSize() {
+	long long fileSize = getSourceFileSize();
+	int windowSize = 1024;
+	if (fileSize <= 1 * 1024 * 1024) // עד 1MB
+		windowSize = 64 * 1024;  // 64KB
+	else if (fileSize <= 10 * 1024 * 1024) // עד 10MB
+		windowSize = 32 * 1024; // 32KB
+	else if (fileSize <= 100 * 1024 * 1024)  // עד 100MB
+		windowSize = 16 * 1024; // 16KB
+	else if (fileSize <= 1 * 1024 * 1024 * 1024)  // עד 1GB
+		windowSize = 8 * 1024;  // 8KB
+	LZ77::maxWindowSize = windowSize;
 }
 

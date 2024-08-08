@@ -23,6 +23,8 @@ public:
 	std::string readFileExtension();
 	std::string readFileName(const std::string& fileName);
 	int getRemainingBytesToRead();
+	long long getSourceFileSize();
+	void setMaxWindowSize();
 
 	static bool isCorrectPassword(const std::string& text, const std::string& password);
 };
