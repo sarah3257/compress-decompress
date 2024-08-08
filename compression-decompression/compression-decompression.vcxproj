@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>E:\תמר\Westrn Digital\deflate</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -106,7 +109,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -140,14 +143,10 @@
     <ClInclude Include="HandleFile.h" />
     <ClInclude Include="Huffman.h" />
     <ClInclude Include="LZ77.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-
-    <Text Include="file2.txt" />
-    <Text Include="inputFile.txt" />
-    <Text Include="inputFile1.txt" />
-    <Text Include="sarah.txt" />
-    <Text Include="Source.txt" />
+    <ResourceCompile Include="compression-decompression.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
