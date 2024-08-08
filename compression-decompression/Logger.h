@@ -12,6 +12,7 @@ public:
 	static std::wstring stringToWstring(const std::string& str);
 	//static information messages
 	static const std::string START_FUNCTION;
+	static const std::string IN_CLASS;
 	static const std::string END_FUNCTION;
 	static const std::string IN_CLASS;
 

@@ -25,42 +25,42 @@ Logger::~Logger()
 //Information handle
 void Logger::logInfo(const std::string& message)
 {
-    log("Information", message);
+	log("Information", message);
 }
 
 
 //Warning handle 
 void Logger::logWarning(const std::string& message)
 {
-    log("Warning", message);
-    MessageBox(NULL, stringToWstring(message).c_str(), L"Warning", MB_YESNO | MB_ICONQUESTION);
+	log("Warning", message);
+	MessageBox(NULL, stringToWstring(message).c_str(), L"Warning", MB_YESNO | MB_ICONQUESTION);
 
 }
 
 //Error handle
 void Logger::logError(const std::string& message)
 {
-    log("Error", message);
-    MessageBox(NULL, stringToWstring(message).c_str(), L"Error", MB_YESNO | MB_ICONQUESTION);
-    exit(1);
+	log("Error", message);
+	MessageBox(NULL, stringToWstring(message).c_str(), L"Error", MB_YESNO | MB_ICONQUESTION);
+	exit(1);
 }
 
 // Write to log file
 void Logger::log(const std::string& level, const std::string& message)
 {
-    // Gets the current time
-    std::time_t now = std::time(nullptr);
-    std::tm localTime;
-    localtime_s(&localTime, &now);
+	// Gets the current time
+	std::time_t now = std::time(nullptr);
+	std::tm localTime;
+	localtime_s(&localTime, &now);
 
-    if (logFileStream.is_open()) {
-        logFileStream << "[" << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S") << "] "
-            << level << ": " << message << std::endl;
-    }
-    else {
-        // if file is not opened, the message will be displayed in MessageBox
-        MessageBox(NULL, L"Failed to write to log file ", L"Failed Logger", MB_YESNO | MB_ICONQUESTION);
-    }
+	if (logFileStream.is_open()) {
+		logFileStream << "[" << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S") << "] "
+			<< level << ": " << message << std::endl;
+	}
+	else {
+		// if file is not opened, the message will be displayed in MessageBox
+		MessageBox(NULL, L"Failed to write to log file ", L"Failed Logger", MB_YESNO | MB_ICONQUESTION);
+	}
 }
 
 
@@ -70,7 +70,7 @@ const std::string Logger::END_FUNCTION = "Function exit";
 const std::string Logger::IN_CLASS = "In class: ";
 
 //static Warning messages
-const std::string Logger:: WARNING_LARGE_FILE="Compressing a large file takes a long time";
+const std::string Logger::WARNING_LARGE_FILE = "Compressing a large file takes a long time";
 
 
 // Definition of static const error messages
