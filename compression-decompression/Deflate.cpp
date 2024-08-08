@@ -23,8 +23,6 @@ void Deflate::compress(const std::string& fileName) {
 	std::vector<char> buffer;
 	std::string compressText;
 	while (handleFile.getRemainingBytesToRead()) {
-		int sss = handleFile.getRemainingBytesToRead();
-		std::cout << sss << std::endl;
 		buffer = handleFile.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
 		compressText = compressDeflate(buffer, codes);
@@ -42,8 +40,6 @@ void Deflate::decompress(const std::string& text) {
 		std::vector<char>  decompressRes;
 		HandleFile handleFile(text, false, password.size());
 		while (handleFile.getRemainingBytesToRead()) {
-			int sss = handleFile.getRemainingBytesToRead();
-			std::cout << sss << std::endl;
 			std::unordered_map<char, std::string> codes;
 			buffer = handleFile.readBufferDecompress(codes);
 			decompressRes = decompressDeflate(buffer, codes);
