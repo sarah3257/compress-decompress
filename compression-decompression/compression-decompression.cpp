@@ -6,11 +6,13 @@
 #include "resource.h"
 #include "Deflate.h"
 #include "ErrorHandle.h"
+#include "Logger.h"
 
 // Declaring the functions
 void compressFun();
 void decompressFun();
 void uploadFile();
+
 
 //Function to convert std::string to std::wstring
 std::wstring s2ws(const std::string& str)
@@ -61,6 +63,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 // maimn
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+    Logger logger("log.txt");
     //Dialog
     DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL, DialogProc);
     return 0;
