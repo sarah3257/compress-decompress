@@ -1,6 +1,6 @@
 #include "Huffman.h"
 #include "ErrorHandle.h"
-
+#include "Logger.h"
 
 // Counts character frequencies in the text and returns a map.
 std::unordered_map<char, int> Huffman::calculateFrequencies(const std::vector<char>& text) {
@@ -66,11 +66,13 @@ std::string Huffman::encodeText(const std::unordered_map<char, std::string>& cod
 
 // Compresses the text using Huffman coding and returns the encoded string.
 std::string Huffman::compress(std::unordered_map<char, std::string>& codes, const std::vector<char>& text) {
+	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "Huffman");
 	std::unordered_map<char, int> freqMap = calculateFrequencies(text);
 	std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode> pq = buildHuffmanPriorityQueue(freqMap);
 	HuffmanNode* tree = buildHuffmanTree(pq);
 	codes = getHuffmanCodes(tree);
 	std::string result = encodeText(codes, text);
+	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "Huffman");
 	return result;
 }
 
@@ -88,6 +90,7 @@ std::unordered_map<std::string, char> Huffman::swapKeysAndValues(std::unordered_
 
 // Decodes the Huffman-encoded text and returns the original text.
 std::vector<char> Huffman::decompress(const std::unordered_map<char, std::string>& codesMap, std::vector<char> text) {
+	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Huffman");
 	std::unordered_map<std::string, char> codesMapRev = swapKeysAndValues(codesMap);
 	int strJul = 0;
 	std::string keyToFind = "", strResult = "";
@@ -104,5 +107,6 @@ std::vector<char> Huffman::decompress(const std::unordered_map<char, std::string
 		ErrorHandle::NO_BUFFER_CHARACTER_FOUND;
 	}
 	std::vector<char> vecRes(strResult.begin(), strResult.end());
+	Logger::logInfo(Logger::END_FUNCTION + " decompress " + Logger::IN_CLASS + "Huffman");
 	return vecRes;
 }
