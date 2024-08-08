@@ -46,10 +46,12 @@ std::unordered_map<char, std::string> Huffman::getHuffmanCodes(HuffmanNode* huff
 void Huffman::buildCodes(HuffmanNode* root, std::string str, std::unordered_map<char, std::string>& codesMap) {
 	if (!root)
 		return;
-	if (root->right == nullptr && root->right == nullptr)
+	if (!root->left)
 		codesMap[root->c] = str;
-	buildCodes(root->left, str + '0', codesMap);
-	buildCodes(root->right, str + '1', codesMap);
+	else {
+		buildCodes(root->left, str + '0', codesMap);
+		buildCodes(root->right, str + '1', codesMap);
+	}
 }
 
 // Encodes the text using the provided Huffman codes and returns the encoded string.

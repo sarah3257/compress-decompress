@@ -37,7 +37,7 @@ HandleFile::~HandleFile() {
 //read buffer from file to compress
 std::vector<char> HandleFile::readBufferCompress() {
 	int remainingSize = getRemainingBytesToRead();
-	int size_buffer = std::min(remainingSize, 1024 * 1024);
+	int size_buffer = std::min(remainingSize, BUFFER_SIZE);
 	if (!sourceFile) {
 		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
 		exit(1);
@@ -48,7 +48,7 @@ std::vector<char> HandleFile::readBufferCompress() {
 }
 
 //write to file the compressed buffer
-void HandleFile::writeBufferCompress(const std::unordered_map<char, std::string>&codes, std::string& text) {
+void HandleFile::writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::string& text) {
 	//push map.size and map
 	int mapSize = codes.size();
 	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
@@ -232,7 +232,7 @@ int HandleFile::getRemainingBytesToRead() {
 }
 
 //check if the password is correct to the decompressed file's password
-bool HandleFile::isCorrectPassword(const std::string& text,const std::string & password) {
+bool HandleFile::isCorrectPassword(const std::string& text, const std::string& password) {
 	// open the file
 	std::ifstream sourceFile(text, std::ios::binary);
 	if (!sourceFile.is_open()) {
