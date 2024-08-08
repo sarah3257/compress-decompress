@@ -1,5 +1,8 @@
 #include "LZ77.h"
 #include "ErrorHandle.h"
+#include "HandleFile.h"
+
+int LZ77::maxWindowSize;
 
 // compression
 
@@ -14,7 +17,7 @@ std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 	while (i < text.size()) {
 		int maxMatchDistance = 0;
 		int maxMatchLength = 0;
-		int startWindow = i < MAX_WINDOW_SIZE ? 0 : i - MAX_WINDOW_SIZE;
+		int startWindow = i < maxWindowSize ? 0 : i - maxWindowSize;
 
 		// for every char check backwards the max string
 		for (int j = startWindow; j < i && maxMatchLength < i - j; j++) {
