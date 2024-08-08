@@ -9,10 +9,11 @@ public:
 
 	~Logger();
 
-	std::wstring stringToWstring(const std::string& str);
+	static std::wstring stringToWstring(const std::string& str);
 	//static information messages
 	static const std::string START_FUNCTION;
 	static const std::string END_FUNCTION;
+	static const std::string IN_CLASS;
 
 	//static Warning messages
 	static const std::string WARNING_LARGE_FILE;
@@ -37,14 +38,13 @@ public:
 	static const std::string NO_FILE_NAME_FOUND;
 	static const std::string NO_FOUND_KEY;
 
-    void logInfo(const std::string& message);
-    void logWarning(const std::string& message);
-    void logError(const std::string& message);
+	static void logInfo(const std::string& message);
+	static void logWarning(const std::string& message);
+	static void logError(const std::string& message);
 	
 	private:
-	std::string logFileName;
 	static std::ofstream logFileStream;
-    void log(const std::string& level, const std::string& message);
+	static void log(const std::string& level, const std::string& message);
 
 
 };

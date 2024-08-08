@@ -6,6 +6,7 @@
 #include "resource.h"
 #include "Deflate.h"
 #include "ErrorHandle.h"
+#include "Logger.h"
 
 // Declaring the functions
 void compressFun();
@@ -61,9 +62,10 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 // maimn
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+    Logger logger("log.txt");
     //Dialog
     DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL, DialogProc);
-    return 0;
+        return 0;
 }
 
 

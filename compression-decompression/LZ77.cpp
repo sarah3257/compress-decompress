@@ -3,6 +3,7 @@
 #include "HandleFile.h"
 
 int LZ77::maxWindowSize;
+#include "Logger.h"
 
 // compression
 
@@ -72,9 +73,10 @@ std::vector<char> LZ77::changeToString(const std::vector<LZ77Token>& tokens) {
 }
 
 std::vector<char> LZ77::compress(const std::vector<char>& text) {
-
+	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "LZ77");
 	std::vector<LZ77Token> tokens = getTokens(text);
 	std::vector<char> resultText = changeToString(tokens);
+	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "LZ77");
 	return resultText;
 }
 
@@ -97,6 +99,7 @@ std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 
 std::vector<char> LZ77::decompress(const std::vector<char>& text)
 {
+	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "LZ77");
 
 	std::vector<char> decompressText;
 	for (int i = 0; i < text.size() - 1; i++)
@@ -116,5 +119,6 @@ std::vector<char> LZ77::decompress(const std::vector<char>& text)
 		decompressText.push_back(nextChar);
 
 	}
+	Logger::logInfo(Logger::END_FUNCTION + " decompress " + Logger::IN_CLASS + "LZ77");
 	return decompressText;
 }

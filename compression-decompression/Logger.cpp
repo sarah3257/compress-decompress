@@ -5,7 +5,7 @@
 #include <windows.h>
 
 //open logFile
-Logger::Logger(const std::string& logFile)
+Logger::Logger(const std::string& logFileName)
 {
 	logFileStream.open(logFileName, std::ios::app);
 	if (!logFileStream)
@@ -18,7 +18,7 @@ Logger::~Logger()
 	if (logFileStream.is_open())
 		logFileStream.close();
 }
-std::wstring Logger::stringToWstring(const std::string& str) {
+ std::wstring Logger::stringToWstring(const std::string& str) {
     return std::wstring(str.begin(), str.end());
 }
 
@@ -65,8 +65,9 @@ void Logger::log(const std::string& level, const std::string& message)
 
 
 //static information messages
-const std::string Logger:: START_FUNCTION="Initiating a function ";
-const std::string Logger::END_FUNCTION= "Function exit";
+const std::string Logger::START_FUNCTION = "start Function: ";
+const std::string Logger::END_FUNCTION = "Function exit";
+const std::string Logger::IN_CLASS = "In class: ";
 
 //static Warning messages
 const std::string Logger:: WARNING_LARGE_FILE="Compressing a large file takes a long time";
