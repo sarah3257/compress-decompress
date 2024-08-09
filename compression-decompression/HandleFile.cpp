@@ -1,18 +1,18 @@
 #include "HandleFile.h"
-#include "ErrorHandle.h"
 #include <algorithm>
 #include <cmath>
 #include <bitset>
+#include "Logger.h"
 
 //open the source and destination file
 HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress, int lengthPassword) {
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile)
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 	std::streampos offset = lengthPassword;
 	sourceFile.seekg(offset, std::ios::beg);
 	if (!sourceFile)
-		ErrorHandle::handleError(ErrorHandle::CANNOT_SEEK_IN_SOURCE_FILE);
+		Logger::logError(Logger::CANNOT_SEEK_IN_SOURCE_FILE);
 	std::string destinationFilePath = readFileName(sourceFilePath);
 	std::string zipExtension = "(zip)";
 	if (isCompress)
@@ -23,7 +23,7 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress, int l
 	}
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!destinationFile)
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 }
 
 //close open files
@@ -39,7 +39,7 @@ std::vector<char> HandleFile::readBufferCompress() {
 	int remainingSize = getRemainingBytesToRead();
 	int size_buffer = std::min(remainingSize, BUFFER_SIZE);
 	if (!sourceFile) {
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 		exit(1);
 	}
 	std::vector<char> bufferText(size_buffer);
@@ -91,29 +91,26 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	// read the size of the map
 	sourceFile.read(reinterpret_cast<char*>(&mapSize), sizeof(mapSize));
 	if (sourceFile.gcount() != sizeof(mapSize)) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_READ_4_BYTES_FROM_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_READ_4_BYTES_FROM_FILE);
 	}
 	// read the map from the file to an unordered_map
 	for (int i = 0; i < mapSize; ++i) {
 		// read the key
 		sourceFile.read(reinterpret_cast<char*>(&key), sizeof(key));
 		if (sourceFile.gcount() != sizeof(key)) {
-			ErrorHandle::handleError(ErrorHandle::FAILED_READ_KEY_FROM_FILE);
+			Logger::logError(Logger::FAILED_READ_KEY_FROM_FILE);
 			exit(1);
 		}
 		// read the value size
 		sourceFile.read(reinterpret_cast<char*>(&valueSize), sizeof(valueSize));
 		if (sourceFile.gcount() != sizeof(valueSize)) {
-			ErrorHandle::handleError(ErrorHandle::FAILED_READ_VALUE_SIZE_FROM_FILE);
-			exit(1);
+			Logger::logError(Logger::FAILED_READ_VALUE_SIZE_FROM_FILE);
 		}
 		// read the value
 		std::string value(valueSize, '\0');
 		sourceFile.read(&value[0], valueSize);
 		if (sourceFile.gcount() != valueSize) {
-			ErrorHandle::handleError(ErrorHandle::FAILED_READ_VALUE_FROM_FILE);
-			exit(1);
+			Logger::logError(Logger::FAILED_READ_VALUE_FROM_FILE);
 		}
 		// insert the value to the unordered_map
 		codes[key] = value;
@@ -122,15 +119,13 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 	int dataSize;
 	sourceFile.read(reinterpret_cast<char*>(&dataSize), sizeof(dataSize));
 	if (sourceFile.gcount() != sizeof(dataSize)) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_READ_DATA_SIZE_FROM_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_READ_DATA_SIZE_FROM_FILE);
 	}
 	// read the data
 	int bufferSize = (dataSize + 7) / 8;
 	std::vector<char> dataBuffer(bufferSize);
 	if (!sourceFile.read(dataBuffer.data(), bufferSize)) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_READ_DATA_FROM_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_READ_DATA_FROM_FILE);
 	}
 	// return the value
 	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
@@ -142,8 +137,7 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 //write to file the decompressed buffer
 void HandleFile::writeBufferDecompress(const std::vector<char>& text) {
 	if (!destinationFile) {
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-		exit(1);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 	}
 	// Write the vector content as a single string to the file
 	destinationFile.write(text.data(), text.size());
@@ -152,39 +146,33 @@ void HandleFile::writeBufferDecompress(const std::vector<char>& text) {
 //insert password
 void HandleFile::insertPassword(const std::string& password) {
 	if (!destinationFile) {
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-		exit(1);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 	}
 	destinationFile.write(password.c_str(), password.size());
 	if (destinationFile.fail()) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_WRITE_TO_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_WRITE_TO_FILE);
 	}
 }
 
 //insert file extension
 void HandleFile::insertFileExtension(const std::string& fileName) {
 	if (!destinationFile.is_open()) {
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-		exit(1);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 	}
 	// Extract the file extension
 	int pos = fileName.find_last_of('.');
 	if (pos == std::string::npos) {
-		ErrorHandle::handleError(ErrorHandle::NO_EXTENSION_FOUND);
-		exit(1);
+		Logger::logError(Logger::NO_EXTENSION_FOUND);
 	}
 	std::string extension = fileName.substr(pos);
 	int extensionSize = extension.size();
 	destinationFile.write(reinterpret_cast<const char*>(&extensionSize), sizeof(int));
 	if (destinationFile.fail()) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_WRITE_TO_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_WRITE_TO_FILE);
 	}
 	destinationFile.write(extension.c_str(), extension.size());
 	if (destinationFile.fail()) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_WRITE_TO_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_WRITE_TO_FILE);
 	}
 }
 
@@ -192,8 +180,7 @@ void HandleFile::insertFileExtension(const std::string& fileName) {
 std::string HandleFile::readFileName(const std::string& fileName) {
 	int pos = fileName.find_last_of('.');
 	if (pos == std::string::npos) {
-		ErrorHandle::handleError(ErrorHandle::NO_FILE_NAME_FOUND);
-		exit(1);
+		Logger::logError(Logger::NO_FILE_NAME_FOUND);
 	}
 	return fileName.substr(0, pos);
 }
@@ -201,22 +188,19 @@ std::string HandleFile::readFileName(const std::string& fileName) {
 //read file extension
 std::string HandleFile::readFileExtension() {
 	if (!sourceFile.is_open()) {
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-		exit(1);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 	}
 	// Read the size of the extension from the file
 	int extensionSize = 0;
 	sourceFile.read(reinterpret_cast<char*>(&extensionSize), sizeof(int));
 	if (sourceFile.fail()) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_READ_EXTENSION_SIZE_FROM_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_READ_EXTENSION_SIZE_FROM_FILE);
 	}
 	// Read the extension itself from the file
 	std::string fileExtension(extensionSize, '\0');
 	sourceFile.read(&fileExtension[0], extensionSize);
 	if (sourceFile.fail()) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_READ_EXTENSION_FROM_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_READ_EXTENSION_FROM_FILE);
 	}
 	return fileExtension;
 }
@@ -236,16 +220,14 @@ bool HandleFile::isCorrectPassword(const std::string& text, const std::string& p
 	// open the file
 	std::ifstream sourceFile(text, std::ios::binary);
 	if (!sourceFile.is_open()) {
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-		exit(1);
+		Logger::logError(Logger::CANNOT_OPEN_FILE);
 	}
 	std::string readPassword(password.size(), '\0');
 	// read the password
 	sourceFile.read(&readPassword[0], password.size());
 	if (sourceFile.gcount() != password.size()) {
 		sourceFile.close();
-		ErrorHandle::handleError(ErrorHandle::FAILED_READ_PASSWORD_FROM_FILE);
-		exit(1);
+		Logger::logError(Logger::FAILED_READ_PASSWORD_FROM_FILE);
 	}
 	sourceFile.close();
 	return readPassword == password;

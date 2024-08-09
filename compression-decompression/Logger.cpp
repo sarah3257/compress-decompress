@@ -41,7 +41,7 @@ void Logger::logWarning(const std::string& message)
 void Logger::logError(const std::string& message)
 {
     log("Error", message);
-    MessageBox(NULL, stringToWstring(message).c_str(), L"Error", MB_YESNO | MB_ICONQUESTION);
+    MessageBox(NULL, stringToWstring(message).c_str(), L"Error", MB_YESNO | MB_ICONERROR);
     exit(1);
 }
 
