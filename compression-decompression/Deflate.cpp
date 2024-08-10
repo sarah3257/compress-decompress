@@ -1,8 +1,8 @@
 #include "Deflate.h"
 #include "ErrorHandle.h"
+#include "FileStream.h"
 #include <fstream>
 #include <iostream>
-#include "ErrorHandle.h"
 
 const std::string Deflate::password = "stzip";
 
@@ -16,7 +16,9 @@ std::string Deflate::compressDeflate(const std::vector<char>& buffer, std::unord
 
 //compress the data divided to buffers
 void Deflate::compress(const std::string& fileName) {
-	HandleFile handleFile(fileName);
+
+	IStreamInterface* fileStream = new FileStream(fileName,true);
+	HandleFile handleFile(fileStream);
 	handleFile.insertPassword(password);
 	handleFile.insertFileExtension(fileName);
 	//read the buffers
@@ -38,7 +40,9 @@ void Deflate::decompress(const std::string& text) {
 	else {
 		std::vector<char> buffer;
 		std::vector<char>  decompressRes;
-		HandleFile handleFile(text, false, password.size());
+		IStreamInterface* fileStream = new FileStream(text,false);
+		HandleFile handleFile(fileStream, password.size());
+
 		while (handleFile.getRemainingBytesToRead()) {
 			std::unordered_map<char, std::string> codes;
 			buffer = handleFile.readBufferDecompress(codes);
