@@ -10,6 +10,9 @@ Logger::Logger(const std::string& logFileName)
 	logFileStream.open(logFileName, std::ios::app);
 	if (!logFileStream)
 		throw std::runtime_error("Failed to open log file");
+    testFileStream.open("test.txt", std::ios::app);
+    if (!testFileStream)
+        throw std::runtime_error("Failed to open test file");
 }
 
 //close logFile
@@ -17,6 +20,9 @@ Logger::~Logger()
 {
 	if (logFileStream.is_open())
 		logFileStream.close();
+    if (testFileStream.is_open())
+        testFileStream.close();
+
 }
  std::wstring Logger::stringToWstring(const std::string& str) {
     return std::wstring(str.begin(), str.end());
@@ -45,22 +51,33 @@ void Logger::logError(const std::string& message)
     exit(1);
 }
 
+void Logger::logTest(const std::string& message)
+{
+    log("Test", message);
+
+}
+
 // Write to log file
 void Logger::log(const std::string& level, const std::string& message)
 {
-	// Gets the current time
-	std::time_t now = std::time(nullptr);
-	std::tm localTime;
-	localtime_s(&localTime, &now);
-
-	if (logFileStream.is_open()) {
-		logFileStream << "[" << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S") << "] "
-			<< level << ": " << message << std::endl;
-	}
-	else {
-		// if file is not opened, the message will be displayed in MessageBox
-		MessageBox(NULL, L"Failed to write to log file ", L"Failed Logger", MB_YESNO | MB_ICONQUESTION);
-	}
+    // Gets the current time
+    std::time_t now = std::time(nullptr);
+    std::tm localTime;
+    localtime_s(&localTime, &now);
+    if (level == "Test") {
+        if(testFileStream.is_open()){
+        testFileStream << "[" << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S") << "] "
+            << level << ": " << message << std::endl;
+        }
+    }
+    else if (logFileStream.is_open()) {
+        logFileStream << "[" << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S") << "] "
+            << level << ": " << message << std::endl;
+    }
+    else {
+        // if file is not opened, the message will be displayed in MessageBox
+        MessageBox(NULL, L"Failed to write to log file ", L"Failed Logger", MB_YESNO | MB_ICONQUESTION);
+    }
 }
 
 
@@ -68,7 +85,8 @@ void Logger::log(const std::string& level, const std::string& message)
 const std::string Logger::START_FUNCTION = "start Function: ";
 const std::string Logger::END_FUNCTION = "Function exit";
 const std::string Logger::IN_CLASS = "In class: ";
-const std::string Logger::TEST_EMPTY_FILE = " Yes, the system supports empty files ";
+const std::string Logger::TEST_EMPTY_FILE = " The system supports empty files ";
+const std::string Logger::TEST_RANDOM_FILE = " The system supports random files ";
 
 //static Warning messages
 const std::string Logger::WARNING_LARGE_FILE = "Compressing a large file takes a long time";
@@ -95,3 +113,4 @@ const std::string Logger::NO_FILE_NAME_FOUND = "No file name found";
 const std::string Logger::NO_FOUND_KEY = "No found key.";
 
 std::ofstream Logger::logFileStream;
+std::ofstream Logger::testFileStream;
