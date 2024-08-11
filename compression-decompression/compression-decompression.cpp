@@ -68,14 +68,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         return 0;
 }
 
-void runFun()
-{
-
-    std::string filePath = "inputFile.txt";
-    Deflate::compress(filePath);
-    Deflate::decompress("inputFile(zip).bin");
-    MessageBoxW(NULL, L"פרויקט עבר בהצלחה", L"הודעה", MB_OK | MB_ICONINFORMATION);
-}
 
 void compressFun()
 {

@@ -1,0 +1,6 @@
+[2024-08-11 14:40:15] Information: start Function: compress In class: Deflate
+[2024-08-11 14:40:15] Information: start Function: compress In class: LZ77
+[2024-08-11 14:40:15] Information: Function exit compress In class: LZ77
+[2024-08-11 14:40:15] Information: start Function: compress In class: Huffman
+[2024-08-11 14:40:15] Information: Function exit compress In class: Huffman
+[2024-08-11 14:40:15] Information: Function exitcompress In class: Deflate
