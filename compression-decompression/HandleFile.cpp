@@ -24,6 +24,7 @@ HandleFile::HandleFile(const std::string& sourceFilePath, bool isCompress, int l
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!destinationFile)
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
+	setMaxWindowSize();
 }
 
 //close open files
