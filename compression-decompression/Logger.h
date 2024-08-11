@@ -14,7 +14,6 @@ public:
 	static const std::string START_FUNCTION;
 	static const std::string END_FUNCTION;
 	static const std::string IN_CLASS;
-	static const std::string TEST_EMPTY_FILE; 
 		;
 
 	//static Warning messages
@@ -43,9 +42,15 @@ public:
 	static void logInfo(const std::string& message);
 	static void logWarning(const std::string& message);
 	static void logError(const std::string& message);
-	
+	static void logTest(const std::string& message);
+
+	//static Test messages
+	static const std::string TEST_EMPTY_FILE;
+	static const std::string TEST_RANDOM_FILE;
+
 	private:
 	static std::ofstream logFileStream;
+	static std::ofstream testFileStream;
 	static void log(const std::string& level, const std::string& message);
 
 
