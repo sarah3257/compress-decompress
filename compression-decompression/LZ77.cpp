@@ -75,6 +75,7 @@ std::vector<char> LZ77::compress(const std::vector<char>& text) {
 
 	std::vector<LZ77Token> tokens = getTokens(text);
 	std::vector<char> resultText = changeToString(tokens);
+	int temp = resultText.size();
 	return resultText;
 }
 

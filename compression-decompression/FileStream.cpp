@@ -34,7 +34,7 @@ void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCo
 		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
 }
 
-void FileStream::readData(std::vector<char>& buffer, long long size_buffer) {
+void FileStream::readData(std::vector<char>& buffer, int size_buffer) {
 	if (!sourceFile) {
 		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
 		exit(1);
@@ -84,23 +84,23 @@ void FileStream::writeData(int& size) {
 void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 	
 	//push map.size and map
-	int mapsize = codes.size();
+	/*int mapsize = codes.size();
 	destinationFile.write(reinterpret_cast<const char*>(&mapsize), sizeof(mapsize));
 	for (const auto& pair : codes) {
 		destinationFile.write(&pair.first, sizeof(pair.first));
 		int strsize = pair.second.size();
 		destinationFile.write(reinterpret_cast<const char*>(&strsize), sizeof(strsize));
 		destinationFile.write(pair.second.c_str(), strsize);
-	}
+	}*/
 	//push map.size and map
-	/*int mapSize = codes.size();
+	int mapSize = codes.size();
 	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
 	for (const auto& pair : codes) {
 		destinationFile.write(reinterpret_cast<const char*>(&pair.first), sizeof(pair.first));
 		int strSize = pair.second.size();
 		destinationFile.write(reinterpret_cast<const char*>(&strSize), sizeof(strSize));
 		destinationFile.write(pair.second.c_str(), strSize);
-	}*/
+	}
 }
 
 void FileStream::readMap(std::unordered_map<char, std::string>& codes) {
@@ -182,12 +182,20 @@ std::string FileStream::readFileExtension() {
 		exit(1);
 	}
 	// Read the extension itself from the file
-	std::string fileExtension(extensionSize, '\0');
-	sourceFile.read(&fileExtension[0], extensionSize);
-	if (sourceFile.fail()) {
+	//std::string fileExtension(extensionSize, '\0');
+	//sourceFile.read(&fileExtension[0], extensionSize);
+	/*if (sourceFile.fail()) {
 		ErrorHandle::handleError(ErrorHandle::FAILED_READ_EXTENSION_FROM_FILE);
 		exit(1);
+	}*/
+	std::vector<char> fileExtension(extensionSize);
+	readData(fileExtension, extensionSize);
+	if (fileExtension.empty()) {
+		ErrorHandle::handleError(ErrorHandle::FAILED_READ_PASSWORD_FROM_FILE);
+		exit(1);
 	}
-	return fileExtension;
+	std::string fileExtensionString(fileExtension.begin(), fileExtension.end());
+	//
+	return fileExtensionString;
 }
 
