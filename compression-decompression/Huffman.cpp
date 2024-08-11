@@ -1,5 +1,4 @@
 #include "Huffman.h"
-#include "ErrorHandle.h"
 #include "Logger.h"
 
 // Counts character frequencies in the text and returns a map.
@@ -104,7 +103,7 @@ std::vector<char> Huffman::decompress(const std::unordered_map<char, std::string
 		}
 	}
 	if (!keyToFind.empty()) {
-		ErrorHandle::NO_BUFFER_CHARACTER_FOUND;
+		Logger::logError(Logger::NO_BUFFER_CHARACTER_FOUND);
 	}
 	std::vector<char> vecRes(strResult.begin(), strResult.end());
 	Logger::logInfo(Logger::END_FUNCTION + " decompress " + Logger::IN_CLASS + "Huffman");

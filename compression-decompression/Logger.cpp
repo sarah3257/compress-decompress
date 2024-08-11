@@ -40,9 +40,9 @@ void Logger::logWarning(const std::string& message)
 //Error handle
 void Logger::logError(const std::string& message)
 {
-	log("Error", message);
-	MessageBox(NULL, stringToWstring(message).c_str(), L"Error", MB_YESNO | MB_ICONQUESTION);
-	exit(1);
+    log("Error", message);
+    MessageBox(NULL, stringToWstring(message).c_str(), L"Error", MB_YESNO | MB_ICONERROR);
+    exit(1);
 }
 
 // Write to log file

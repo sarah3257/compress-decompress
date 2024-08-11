@@ -1,10 +1,7 @@
 #include "Deflate.h"
-#include "ErrorHandle.h"
 #include <fstream>
 #include <iostream>
-#include "ErrorHandle.h"
 #include "Logger.h"
-
 const std::string Deflate::password = "stzip";
 
 //compress one buffer
@@ -36,8 +33,8 @@ void Deflate::compress(const std::string& fileName) {
 void Deflate::decompress(const std::string& text) {
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Deflate");
 	// check if the password is correct
-	if (!HandleFile::isCorrectPassword(text, password))
-		ErrorHandle::handleError(ErrorHandle::INVALID_PASSWORD);
+	if (!HandleFile::isCorrectPassword(text,password))
+		Logger::logError(Logger::INVALID_PASSWORD);
 	else {
 		std::vector<char> buffer;
 		std::vector<char>  decompressRes;

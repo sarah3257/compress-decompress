@@ -5,7 +5,6 @@
 #include <vector>
 #include "resource.h"
 #include "Deflate.h"
-#include "ErrorHandle.h"
 #include "Logger.h"
 
 // Declaring the functions
@@ -36,19 +35,19 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
     case WM_COMMAND:
         if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
         {
-            MessageBoxW(hwndDlg, L"Compress button clicked", L"Info", MB_OK);
+            //MessageBoxW(hwndDlg, L"Compress button clicked", L"Info", MB_OK);
             compressFun();
             return (INT_PTR)TRUE;
         }
         else if (LOWORD(wParam) == IDC_BUTTON2)  // button Decompress
         {
-            MessageBoxW(hwndDlg, L"Decompress button clicked", L"Info", MB_OK);
+           // MessageBoxW(hwndDlg, L"Decompress button clicked", L"Info", MB_OK);
             decompressFun();
             return (INT_PTR)TRUE;
         }
         else if (LOWORD(wParam) == IDC_BUTTON3)  // button Upload File
         {
-            MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
+            //MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
             uploadFile();
             return (INT_PTR)TRUE;
         }
@@ -69,6 +68,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         return 0;
 }
 
+void runFun()
+{
+
+    std::string filePath = "inputFile.txt";
+    Deflate::compress(filePath);
+    Deflate::decompress("inputFile(zip).bin");
+    MessageBoxW(NULL, L"פרויקט עבר בהצלחה", L"הודעה", MB_OK | MB_ICONINFORMATION);
+}
 
 void compressFun()
 {
@@ -81,7 +88,6 @@ void compressFun()
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        ErrorHandle eh("log.txt");
         Deflate::compress(filePathStr);
         MessageBoxW(hwndDlg, L"The file was successfully compressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }
@@ -102,7 +108,6 @@ void decompressFun()
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        ErrorHandle eh("log.txt");
         Deflate::decompress(filePathStr);
         MessageBoxW(hwndDlg, L"The file was successfully decompressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }
@@ -134,10 +139,10 @@ void uploadFile()
         HWND hwndDlg = GetActiveWindow();
         HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
         SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)szFile);
-        MessageBoxW(NULL, L"File successfully uploaded", L"Message", MB_OK | MB_ICONINFORMATION);
+       // MessageBoxW(NULL, L"File successfully uploaded", L"Message", MB_OK | MB_ICONINFORMATION);
     }
     else
     {
-        MessageBoxW(NULL, L"Failed to upload file", L"Error", MB_OK | MB_ICONERROR);
+       // MessageBoxW(NULL, L"Failed to upload file", L"Error", MB_OK | MB_ICONERROR);
     }
 }

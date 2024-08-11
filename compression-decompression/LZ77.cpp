@@ -1,5 +1,4 @@
 #include "LZ77.h"
-#include "ErrorHandle.h"
 #include "HandleFile.h"
 
 int LZ77::maxWindowSize;
@@ -88,7 +87,7 @@ std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 		return c == '|';
 		});
 	if (it == vec.end())
-		ErrorHandle::handleError(ErrorHandle::NO_BUFFER_CHARACTER_FOUND);
+		Logger::logError(Logger::NO_BUFFER_CHARACTER_FOUND);
 	int help = start;
 	int resIndex = it - vec.begin();
 	std::string strRes = std::string(vec.begin() + help, vec.begin() + resIndex);
