@@ -14,6 +14,8 @@ public:
 	static const std::string START_FUNCTION;
 	static const std::string END_FUNCTION;
 	static const std::string IN_CLASS;
+	static const std::string TEST_EMPTY_FILE; 
+		;
 
 	//static Warning messages
 	static const std::string WARNING_LARGE_FILE;

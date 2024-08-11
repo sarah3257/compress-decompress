@@ -68,6 +68,7 @@ void Logger::log(const std::string& level, const std::string& message)
 const std::string Logger::START_FUNCTION = "start Function: ";
 const std::string Logger::END_FUNCTION = "Function exit";
 const std::string Logger::IN_CLASS = "In class: ";
+const std::string Logger::TEST_EMPTY_FILE = " Yes, the system supports empty files ";
 
 //static Warning messages
 const std::string Logger:: WARNING_LARGE_FILE="Compressing a large file takes a long time";
