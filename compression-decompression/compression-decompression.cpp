@@ -5,7 +5,6 @@
 #include <vector>
 #include "resource.h"
 #include "Deflate.h"
-#include "ErrorHandle.h"
 #include "Logger.h"
 
 // Declaring the functions
@@ -71,7 +70,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 void runFun()
 {
-    ErrorHandle eh("log.txt");
+
     std::string filePath = "inputFile.txt";
     Deflate::compress(filePath);
     Deflate::decompress("inputFile(zip).bin");
@@ -89,7 +88,6 @@ void compressFun()
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        ErrorHandle eh("log.txt");
         Deflate::compress(filePathStr);
         MessageBoxW(hwndDlg, L"The file was successfully compressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }
@@ -110,7 +108,6 @@ void decompressFun()
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        ErrorHandle eh("log.txt");
         Deflate::decompress(filePathStr);
         MessageBoxW(hwndDlg, L"The file was successfully decompressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }

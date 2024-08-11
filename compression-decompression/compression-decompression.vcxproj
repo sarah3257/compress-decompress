@@ -132,7 +132,6 @@
   <ItemGroup>
     <ClCompile Include="compression-decompression.cpp" />
     <ClCompile Include="Deflate.cpp" />
-    <ClCompile Include="ErrorHandle.cpp" />
     <ClCompile Include="HandleFile.cpp" />
     <ClCompile Include="Huffman.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -140,7 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deflate.h" />
-    <ClInclude Include="ErrorHandle.h" />
     <ClInclude Include="HandleFile.h" />
     <ClInclude Include="Huffman.h" />
     <ClInclude Include="Logger.h" />
