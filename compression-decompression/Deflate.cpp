@@ -32,6 +32,7 @@ void Deflate::compress(const std::string& fileName) {
 		streamHandler.writeBufferCompress(codes, compressText);
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "compress " + Logger::IN_CLASS + "Deflate");
+	iStream->~IStreamInterface();
 }
 
 //decompress the data divided to buffers
@@ -54,6 +55,7 @@ Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Def
 		streamHandler.writeBufferDecompress(decompressRes);
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "decompress " + Logger::IN_CLASS + "Deflate");
+	iStream->~IStreamInterface();
 }
 
 //decompress one buffer
