@@ -1,12 +1,26 @@
 #pragma once
 #include <string>
-
-class ErrorHandle
+#include <fstream>
+class Logger
 {
 public:
-	ErrorHandle(const std::string& logFile);
-	~ErrorHandle();
-	static void handleError(const std::string& errorMessage);
+	Logger(const std::string& logFile);
+
+
+	~Logger();
+
+	static std::wstring stringToWstring(const std::string& str);
+	//static information messages
+	static const std::string START_FUNCTION;
+	static const std::string IN_CLASS;
+	static const std::string END_FUNCTION;
+	static const std::string IN_CLASS;
+	static const std::string TEST_EMPTY_FILE; 
+		;
+
+	//static Warning messages
+	static const std::string WARNING_LARGE_FILE;
+
 	//static error messages 
 	static const std::string CANNOT_OPEN_FILE;
 	static const std::string TRYING_TO_DECODE_UNCOMPRESSED_FILE;
@@ -25,12 +39,16 @@ public:
 	static const std::string FAILED_WRITE_TO_FILE;
 	static const std::string NO_EXTENSION_FOUND;
 	static const std::string NO_FILE_NAME_FOUND;
-
-
 	static const std::string NO_FOUND_KEY;
+
+	static void logInfo(const std::string& message);
+	static void logWarning(const std::string& message);
+	static void logError(const std::string& message);
 	
-private:
-	std::string logFileName;
+	private:
 	static std::ofstream logFileStream;
+	static void log(const std::string& level, const std::string& message);
+
+
 };
 

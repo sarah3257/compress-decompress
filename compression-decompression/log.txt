@@ -1,0 +1,9 @@
+[2024-08-11 17:15:43] Information: start Function: compress In class: Deflate
+[2024-08-11 17:15:43] Information: start Function: compress In class: LZ77
+[2024-08-11 17:15:43] Information: Function exit compress In class: LZ77
+[2024-08-11 17:15:43] Information: start Function: compress In class: Huffman
+[2024-08-11 17:15:43] Information: Function exit compress In class: Huffman
+[2024-08-11 17:15:54] Information: Function exitcompress In class: Deflate
+[2024-08-11 17:16:19] Information: start Function: decompress In class: Deflate
+[2024-08-11 17:16:19] Information: start Function: decompress In class: Huffman
+[2024-08-11 17:16:19] Error: No buffer character found.

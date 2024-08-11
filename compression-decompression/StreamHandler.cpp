@@ -1,7 +1,7 @@
 #include "StreamHandler.h"
-#include "ErrorHandle.h"
 #include "LZ77.h"
 #include "IStreamInterface.h"
+#include "Logger.h"
 #include <algorithm>
 #include <cmath>
 #include <bitset>
@@ -91,7 +91,7 @@ void StreamHandler::insertFileExtension(const std::string& fileName) {
 	// Extract the file extension
 	int pos = fileName.find_last_of('.');
 	if (pos == std::string::npos) {
-		ErrorHandle::handleError(ErrorHandle::NO_EXTENSION_FOUND);
+		Logger::logError(Logger::NO_EXTENSION_FOUND);
 		exit(1);
 	}
 	std::string extension = fileName.substr(pos);
@@ -116,7 +116,7 @@ bool StreamHandler::isCorrectPassword(const std::string& password) {
 	std::vector<char> passwordVector(password.size());
 	streamInterface->readData(passwordVector, password.size());
 	if (passwordVector.empty()) {
-		ErrorHandle::handleError(ErrorHandle::FAILED_READ_PASSWORD_FROM_FILE);
+		Logger::logError(Logger::FAILED_READ_PASSWORD_FROM_FILE);
 		exit(1);
 	}
 	std::string passwordString(passwordVector.begin(), passwordVector.end());
