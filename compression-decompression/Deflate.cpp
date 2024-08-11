@@ -1,6 +1,7 @@
 #include "Deflate.h"
 #include "ErrorHandle.h"
 #include "FileStream.h"
+#include "StreamHandler.h"
 #include <fstream>
 #include <iostream>
 
@@ -17,39 +18,41 @@ std::string Deflate::compressDeflate(const std::vector<char>& buffer, std::unord
 //compress the data divided to buffers
 void Deflate::compress(const std::string& fileName) {
 
-	IStreamInterface* fileStream = new FileStream(fileName,true);
-	HandleFile handleFile(fileStream);
-	handleFile.insertPassword(password);
-	handleFile.insertFileExtension(fileName);
+	IStreamInterface* iStream = new FileStream(fileName);
+	StreamHandler streamHandler(iStream);
+	iStream->openDestinationStream(fileName, true);
+	streamHandler.insertPassword(password);
+	streamHandler.insertFileExtension(fileName);
 	//read the buffers
 	std::vector<char> buffer;
 	std::string compressText;
-	while (handleFile.getRemainingBytesToRead()) {
-		buffer = handleFile.readBufferCompress();
+	while (streamHandler.getRemainingBytesToRead()) {
+		buffer = streamHandler.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
 		compressText = compressDeflate(buffer, codes);
-		handleFile.writeBufferCompress(codes, compressText);
+		streamHandler.writeBufferCompress(codes, compressText);
 	}
 }
 
 //decompress the data divided to buffers
-void Deflate::decompress(const std::string& text) {
-	// check if the password is correct
-	if (!HandleFile::isCorrectPassword(text,password))
-		ErrorHandle::handleError(ErrorHandle::INVALID_PASSWORD);
-	else {
-		std::vector<char> buffer;
-		std::vector<char>  decompressRes;
-		IStreamInterface* fileStream = new FileStream(text,false);
-		HandleFile handleFile(fileStream, password.size());
+void Deflate::decompress(const std::string& fileName) {
 
-		while (handleFile.getRemainingBytesToRead()) {
-			std::unordered_map<char, std::string> codes;
-			buffer = handleFile.readBufferDecompress(codes);
-			decompressRes = decompressDeflate(buffer, codes);
-			handleFile.writeBufferDecompress(decompressRes);
-		}
+	IStreamInterface* iStream = new FileStream(fileName);
+	StreamHandler streamHandler(iStream);
+	// check if the password is correct
+	if (!streamHandler.isCorrectPassword(password))
+		ErrorHandle::handleError(ErrorHandle::INVALID_PASSWORD);
+	
+	iStream->openDestinationStream(fileName,false);
+	std::vector<char> buffer;
+	std::vector<char>  decompressRes;
+	while (streamHandler.getRemainingBytesToRead()) {
+		std::unordered_map<char, std::string> codes;
+		buffer = streamHandler.readBufferDecompress(codes);
+		decompressRes = decompressDeflate(buffer, codes);
+		streamHandler.writeBufferDecompress(decompressRes);
 	}
+
 }
 
 //decompress one buffer

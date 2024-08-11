@@ -134,7 +134,7 @@
     <ClCompile Include="Deflate.cpp" />
     <ClCompile Include="ErrorHandle.cpp" />
     <ClCompile Include="FileStream.cpp" />
-    <ClCompile Include="HandleFile.cpp" />
+    <ClCompile Include="StreamHandler.cpp" />
     <ClCompile Include="Huffman.cpp" />
     <ClCompile Include="IStreamInterface.cpp" />
     <ClCompile Include="LZ77.cpp" />
@@ -143,7 +143,7 @@
     <ClInclude Include="Deflate.h" />
     <ClInclude Include="ErrorHandle.h" />
     <ClInclude Include="FileStream.h" />
-    <ClInclude Include="HandleFile.h" />
+    <ClInclude Include="StreamHandler.h" />
     <ClInclude Include="Huffman.h" />
     <ClInclude Include="IStreamInterface.h" />
     <ClInclude Include="LZ77.h" />

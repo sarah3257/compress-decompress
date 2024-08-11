@@ -3,7 +3,6 @@
 #include <vector>
 #include "LZ77.h"
 #include "Huffman.h"
-#include "HandleFile.h"
 
 class Deflate
 {

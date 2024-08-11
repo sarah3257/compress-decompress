@@ -8,7 +8,7 @@ class FileStream :public IStreamInterface
 	std::ofstream destinationFile;
 
 public:
-	FileStream(const std::string& inputFile, bool isCompress);
+	FileStream(const std::string& inputFile);
 	~FileStream();
 	void readData(std::vector<char>& buffer, long long size) override;
 	void readData(int& size)override;
@@ -16,8 +16,9 @@ public:
 	void writeData(int& size) override;
 	void writeMap(const std::unordered_map<char, std::string>& codes) override;
 	void readMap(std::unordered_map<char, std::string>& codes) override;
-	int getRemainingBytesToRead()override;
-	long long getSourceSize()override;
+	void openDestinationStream(const std::string& sourceNamae, bool isCompress) override;
+	int getRemainingBytesToRead() override;
+	long long getSourceSize() override;
 	std::string readFileExtension();
 	std::string readFileName(const std::string& fileName);
 

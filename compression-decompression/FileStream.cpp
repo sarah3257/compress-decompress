@@ -1,23 +1,11 @@
 #include "FileStream.h"
 #include "ErrorHandle.h"
 
-FileStream::FileStream(const std::string& sourceFilePath, bool isCompress) {
+FileStream::FileStream(const std::string& sourceFilePath) {
 
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile)
 		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-	std::string destinationFilePath = readFileName(sourceFilePath);
-	std::string zipExtension = "(zip)";
-	if (isCompress)
-		destinationFilePath += zipExtension + ".bin";
-	else {
-		destinationFilePath = destinationFilePath.substr(0, destinationFilePath.size() - zipExtension.size());
-		destinationFilePath += "(1)" + readFileExtension();
-	}
-	destinationFile.open(destinationFilePath, std::ios::binary);
-	if (!destinationFile)
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-
 }
 
 FileStream::~FileStream() {
@@ -25,6 +13,25 @@ FileStream::~FileStream() {
 		sourceFile.close();
 	if (destinationFile.is_open())
 		destinationFile.close();
+}
+
+void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCompress) {
+
+	std::string destinationFilePath = readFileName(sourceNamae);
+	std::string zipExtension = "(zip)";
+
+	if (isCompress)
+	{
+		destinationFilePath += zipExtension + ".bin";
+	}
+	else {
+		destinationFilePath = destinationFilePath.substr(0, destinationFilePath.size() - zipExtension.size());
+		destinationFilePath += "(1)" + readFileExtension();
+	}
+
+	destinationFile.open(destinationFilePath, std::ios::binary);
+	if (!destinationFile)
+		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
 }
 
 void FileStream::readData(std::vector<char>& buffer, long long size_buffer) {
@@ -59,31 +66,41 @@ void FileStream::writeData(const std::vector<char>& buffer) {
 	if (destinationFile.fail()) {
 		ErrorHandle::handleError(ErrorHandle::FAILED_WRITE_TO_FILE);
 		exit(1);
-	}	
+	}
 }
 
 void FileStream::writeData(int& size) {
-	destinationFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
+	if (!destinationFile.is_open()) {
+		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
+		exit(1);
+	}	
+	destinationFile.write(reinterpret_cast<const char*>(&size), sizeof(int));
+	if (destinationFile.fail()) {
+		ErrorHandle::handleError(ErrorHandle::FAILED_WRITE_TO_FILE);
+		exit(1);
+	}
 }
 
 void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
-	/*int mapSize = codes.size();
-	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
+	
+	//push map.size and map
+	int mapsize = codes.size();
+	destinationFile.write(reinterpret_cast<const char*>(&mapsize), sizeof(mapsize));
 	for (const auto& pair : codes) {
 		destinationFile.write(&pair.first, sizeof(pair.first));
-		int strSize = pair.second.size();
-		destinationFile.write(reinterpret_cast<const char*>(&strSize), sizeof(strSize));
-		destinationFile.write(pair.second.c_str(), strSize);
-	}*/
+		int strsize = pair.second.size();
+		destinationFile.write(reinterpret_cast<const char*>(&strsize), sizeof(strsize));
+		destinationFile.write(pair.second.c_str(), strsize);
+	}
 	//push map.size and map
-	int mapSize = codes.size();
+	/*int mapSize = codes.size();
 	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
 	for (const auto& pair : codes) {
 		destinationFile.write(reinterpret_cast<const char*>(&pair.first), sizeof(pair.first));
 		int strSize = pair.second.size();
 		destinationFile.write(reinterpret_cast<const char*>(&strSize), sizeof(strSize));
 		destinationFile.write(pair.second.c_str(), strSize);
-	}
+	}*/
 }
 
 void FileStream::readMap(std::unordered_map<char, std::string>& codes) {
@@ -124,7 +141,6 @@ void FileStream::readMap(std::unordered_map<char, std::string>& codes) {
 	}
 }
 
-//V
 int FileStream::getRemainingBytesToRead() {
 	std::streampos current_pos = sourceFile.tellg();
 	sourceFile.seekg(0, std::ios::end);
@@ -134,7 +150,6 @@ int FileStream::getRemainingBytesToRead() {
 	return remaining_size;
 }
 
-//V
 long long FileStream::getSourceSize() {
 	std::streampos currentPos = sourceFile.tellg();
 	sourceFile.seekg(0, std::ios::end);
@@ -142,7 +157,6 @@ long long FileStream::getSourceSize() {
 	sourceFile.seekg(currentPos);
 	return fileSize;
 }
-
 
 //read file name
 std::string FileStream::readFileName(const std::string& fileName) {
@@ -176,3 +190,4 @@ std::string FileStream::readFileExtension() {
 	}
 	return fileExtension;
 }
+

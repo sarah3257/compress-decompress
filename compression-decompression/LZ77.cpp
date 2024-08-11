@@ -1,6 +1,6 @@
 #include "LZ77.h"
 #include "ErrorHandle.h"
-#include "HandleFile.h"
+#include "StreamHandler.h"
 
 int LZ77::maxWindowSize;
 

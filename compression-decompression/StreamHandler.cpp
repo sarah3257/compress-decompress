@@ -1,4 +1,4 @@
-#include "HandleFile.h"
+#include "StreamHandler.h"
 #include "ErrorHandle.h"
 #include "LZ77.h"
 #include "IStreamInterface.h"
@@ -7,18 +7,12 @@
 #include <bitset>
 
 //open the source and destination file
-HandleFile::HandleFile(IStreamInterface * streamInterface, int lengthPassword):streamInterface(streamInterface){
-	
-	// read the length of the password
-	std::vector<char> passwordBuffer(lengthPassword);
-	streamInterface->readData(passwordBuffer, lengthPassword);
-	if (passwordBuffer.empty())
-		ErrorHandle::handleError(ErrorHandle::CANNOT_SEEK_IN_SOURCE_FILE);
+StreamHandler::StreamHandler(IStreamInterface * streamInterface):streamInterface(streamInterface){
 	setMaxWindowSize();
 }
 
 //read buffer from file to compress
-std::vector<char> HandleFile::readBufferCompress() {
+std::vector<char> StreamHandler::readBufferCompress() {
 
 	int remainingSize = getRemainingBytesToRead();
 	int size_buffer = std::min(remainingSize, BUFFER_SIZE);
@@ -28,7 +22,7 @@ std::vector<char> HandleFile::readBufferCompress() {
 }
 
 //write to file the compressed buffer
-void HandleFile::writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::string& text) {
+void StreamHandler::writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::string& text) {
 	
 	// write the map
 	streamInterface->writeMap(codes);
@@ -47,7 +41,7 @@ void HandleFile::writeBufferCompress(const std::unordered_map<char, std::string>
 }
 
 //convert char vector to binary vector
-std::vector<char> HandleFile::convertToBinaryVector(const std::vector<char>& dataBuffer) {
+std::vector<char> StreamHandler::convertToBinaryVector(const std::vector<char>& dataBuffer) {
 	std::vector<char> binaryBuffer;
 	for (char ch : dataBuffer) {
 		std::bitset<8> binary(ch);
@@ -58,7 +52,7 @@ std::vector<char> HandleFile::convertToBinaryVector(const std::vector<char>& dat
 }
 
 //read buffer from file to decompress and fill the codesMap and data
-std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
+std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
 	
 	// read the map
 	streamInterface->readMap(codes);
@@ -80,20 +74,20 @@ std::vector<char> HandleFile::readBufferDecompress(std::unordered_map<char, std:
 }
 
 //write to file the decompressed buffer
-void HandleFile::writeBufferDecompress(const std::vector<char>& text) {
+void StreamHandler::writeBufferDecompress(const std::vector<char>& text) {
 	
 	// Write the vector content as a single string to the file
 	streamInterface->writeData(text);
 }
 
 //insert password
-void HandleFile::insertPassword(const std::string& password) {
+void StreamHandler::insertPassword(const std::string& password) {
 	std::vector<char> buffer(password.begin(), password.end());
 	streamInterface->writeData(buffer);
 }
 
 //insert file extension
-void HandleFile::insertFileExtension(const std::string& fileName) {
+void StreamHandler::insertFileExtension(const std::string& fileName) {
 	// Extract the file extension
 	int pos = fileName.find_last_of('.');
 	if (pos == std::string::npos) {
@@ -101,42 +95,35 @@ void HandleFile::insertFileExtension(const std::string& fileName) {
 		exit(1);
 	}
 	std::string extension = fileName.substr(pos);
-	int extensionSize = extension.size();
+	std::vector<char> buffer(extension.begin(), extension.end());
+	int extensionSize = buffer.size();
 
 	// write the extension size
 	streamInterface->writeData(extensionSize);
 
 	// write the extension
-	std::vector<char> buffer(extension.begin(), extension.end());
 	streamInterface->writeData(buffer);
 }
 
 //get remaining size to read
-int HandleFile::getRemainingBytesToRead() {
+int StreamHandler::getRemainingBytesToRead() {
 	return streamInterface->getRemainingBytesToRead();
 }
 
 //check if the password is correct to the decompressed file's password
-bool HandleFile::isCorrectPassword(const std::string& text, const std::string& password) {
-	// open the file
-	std::ifstream sourceFile(text, std::ios::binary);
-	if (!sourceFile.is_open()) {
-		ErrorHandle::handleError(ErrorHandle::CANNOT_OPEN_FILE);
-		exit(1);
-	}
-	std::string readPassword(password.size(), '\0');
-	// read the password
-	sourceFile.read(&readPassword[0], password.size());
-	if (sourceFile.gcount() != password.size()) {
-		sourceFile.close();
+bool StreamHandler::isCorrectPassword(const std::string& password) {
+
+	std::vector<char> passwordVector(password.size());
+	streamInterface->readData(passwordVector, password.size());
+	if (passwordVector.empty()) {
 		ErrorHandle::handleError(ErrorHandle::FAILED_READ_PASSWORD_FROM_FILE);
 		exit(1);
 	}
-	sourceFile.close();
-	return readPassword == password;
+	std::string passwordString(passwordVector.begin(), passwordVector.end());
+	return passwordString == password;
 }
 
-void HandleFile::setMaxWindowSize() {
+void StreamHandler::setMaxWindowSize() {
 	long long fileSize = streamInterface->getSourceSize();
 	int windowSize = 1024;
 	if (fileSize <= 1 * 1024 * 1024) // עד 1MB
