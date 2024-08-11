@@ -1,3 +1,4 @@
+#pragma once
 #include "IStreamInterface.h"
 #include <vector>
 #include <string>

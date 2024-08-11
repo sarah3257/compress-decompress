@@ -77,7 +77,7 @@ void FileStream::writeData(int& size) {
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
 		exit(1);
 	}	
-	destinationFile.write(reinterpret_cast<const char*>(&size), sizeof(int));
+	destinationFile.write(reinterpret_cast<const char*>(&size), sizeof(size));
 	if (destinationFile.fail()) {
 		Logger::logError(Logger::FAILED_WRITE_TO_FILE);
 		exit(1);
