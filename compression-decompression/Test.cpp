@@ -75,14 +75,13 @@ void Test::writeRandomValuesToTextFile() {
     }
 
     std::srand(std::time(0));
-    const int targetSizeKB = 300; // הגודל המבוקש בקילובייטים
-    const int targetSizeBytes = targetSizeKB * 1024; // המרה לבייטים
+    const int targetSizeKB = 300;
+    const int targetSizeBytes = targetSizeKB * 1024; 
     int currentSizeBytes = 0;
 
     while (currentSizeBytes < targetSizeBytes) {
-        int randomValue = std::rand() % 100; // ערכים רנדומליים בטווח 0-99
-        outFile << randomValue << std::endl; // כתיבה לקובץ
-        currentSizeBytes += std::to_string(randomValue).size() + 1; // עדכון הגודל הנוכחי של הקובץ
+        int randomValue = std::rand() % 100; 
+        currentSizeBytes += std::to_string(randomValue).size() + 1; 
     }
 
     outFile.close();
