@@ -11,9 +11,9 @@ static const int BUFFER_SIZE = 1024 * 1024 * 4;
 class StreamHandler
 {
 	IStreamInterface* streamInterface;
-	std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer);
 
 public:
+	static std::vector<char> convertToBinaryVector(const std::vector<char>& dataBuffer);
 	StreamHandler(IStreamInterface* streamInterfaceh);
 	std::vector<char> readBufferCompress();
 	std::vector<char> readBufferDecompress(std::unordered_map<char, std::string>& codes);
