@@ -48,6 +48,7 @@ public:
 	//static Test messages
 	static const std::string TEST_EMPTY_FILE;
 	static const std::string TEST_RANDOM_FILE;
+	static const std::string TEST_SMALL_FILE;
 
 	private:
 	static std::ofstream logFileStream;
