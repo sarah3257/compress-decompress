@@ -6,12 +6,8 @@
 
 class Deflate
 {
-	static const std::string password;
-	static std::string compressDeflate(const std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
-	static std::vector<char>  decompressDeflate(const std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
-
 public:
-	static void compress(const std::string& fileName);
-	static void decompress(const std::string& text);
+	static std::string compress(const std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
+	static std::vector<char>  decompress(const std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
 };
 
