@@ -1,8 +1,8 @@
 #include "LZ77.h"
-#include "HandleFile.h"
+#include "StreamHandler.h"
+#include "Logger.h"
 
 int LZ77::maxWindowSize;
-#include "Logger.h"
 
 // compression
 

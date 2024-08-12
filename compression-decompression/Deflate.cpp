@@ -1,4 +1,6 @@
 #include "Deflate.h"
+#include "FileStream.h"
+#include "StreamHandler.h"
 #include <fstream>
 #include <iostream>
 #include "Logger.h"
@@ -13,40 +15,47 @@ std::string Deflate::compressDeflate(const std::vector<char>& buffer, std::unord
 
 //compress the data divided to buffers
 void Deflate::compress(const std::string& fileName) {
+
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "Deflate");
-	HandleFile handleFile(fileName);
-	handleFile.insertPassword(password);
-	handleFile.insertFileExtension(fileName);
+	IStreamInterface* iStream = new FileStream(fileName);
+	StreamHandler streamHandler(iStream);
+	iStream->openDestinationStream(fileName, true);
+	streamHandler.insertPassword(password);
+	streamHandler.insertFileExtension(fileName);
 	//read the buffers
 	std::vector<char> buffer;
 	std::string compressText;
-	while (handleFile.getRemainingBytesToRead()) {
-		buffer = handleFile.readBufferCompress();
+	while (streamHandler.getRemainingBytesToRead()) {
+		buffer = streamHandler.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
 		compressText = compressDeflate(buffer, codes);
-		handleFile.writeBufferCompress(codes, compressText);
+		streamHandler.writeBufferCompress(codes, compressText);
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "compress " + Logger::IN_CLASS + "Deflate");
+	iStream->~IStreamInterface();
 }
 
 //decompress the data divided to buffers
-void Deflate::decompress(const std::string& text) {
-	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Deflate");
+void Deflate::decompress(const std::string& fileName) {
+
+Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Deflate");
+
+	IStreamInterface* iStream = new FileStream(fileName);
+	StreamHandler streamHandler(iStream);
 	// check if the password is correct
-	if (!HandleFile::isCorrectPassword(text,password))
+	if (!streamHandler.isCorrectPassword(password))
 		Logger::logError(Logger::INVALID_PASSWORD);
-	else {
-		std::vector<char> buffer;
-		std::vector<char>  decompressRes;
-		HandleFile handleFile(text, false, password.size());
-		while (handleFile.getRemainingBytesToRead()) {
-			std::unordered_map<char, std::string> codes;
-			buffer = handleFile.readBufferDecompress(codes);
-			decompressRes = decompressDeflate(buffer, codes);
-			handleFile.writeBufferDecompress(decompressRes);
-		}
+	iStream->openDestinationStream(fileName,false);
+	std::vector<char> buffer;
+	std::vector<char>  decompressRes;
+	while (streamHandler.getRemainingBytesToRead()) {
+		std::unordered_map<char, std::string> codes;
+		buffer = streamHandler.readBufferDecompress(codes);
+		decompressRes = decompressDeflate(buffer, codes);
+		streamHandler.writeBufferDecompress(decompressRes);
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "decompress " + Logger::IN_CLASS + "Deflate");
+	iStream->~IStreamInterface();
 }
 
 //decompress one buffer
