@@ -1,5 +1,6 @@
 #include "Test.h"
 #include "Logger.h"
+#include "CompressionDecompression.h"
 #include <ctime>
 #include <iomanip>
 #include <windows.h>
@@ -40,8 +41,8 @@ void Test::testEmptyFile()
 {
     std::string filename = "test/empty_file.txt";
     createEmptyFile(filename);
-    Deflate::compress(filename);
-    Deflate::decompress("test/empty_file(zip).bin");
+    CompressionDecompression::compress(filename);
+    CompressionDecompression::decompress("test/empty_file(zip).bin");
     if (areFilesEqual(filename, "test/empty_file(1).txt")) 
         Logger::logTest(Logger::TEST_EMPTY_FILE);
     else {
@@ -54,8 +55,8 @@ void Test::testEmptyFile()
 
 void Test::testRandomFile() {
     writeRandomValuesToTextFile();
-    Deflate::compress("test/randomFile.txt");
-    Deflate::decompress("test/randomFile(zip).bin");
+    CompressionDecompression::compress("test/randomFile.txt");
+    CompressionDecompression::decompress("test/randomFile(zip).bin");
     if (areFilesEqual("test/randomFile.txt", "test/randomFile(1).txt"))
         Logger::logTest(Logger::TEST_RANDOM_FILE);
     else {
@@ -113,8 +114,8 @@ void Test::writeSmallFile() {
 void Test::testSmallFile()
 {
     writeSmallFile();
-    Deflate::compress("test/SmallFile.txt");
-    Deflate::decompress("test/SmallFile(zip).bin");
+    CompressionDecompression::compress("test/SmallFile.txt");
+    CompressionDecompression::decompress("test/SmallFile(zip).bin");
     if (areFilesEqual("test/SmallFile.txt", "test/SmallFile(1).txt"))
         Logger::logTest(Logger::TEST_SMALL_FILE);
     else {

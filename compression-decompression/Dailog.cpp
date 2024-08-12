@@ -1,6 +1,7 @@
 
 #include "Dailog.h"
 #include "Test.h"
+#include "CompressionDecompression.h"
 
 void Dailog::compressFun()
 {
@@ -13,7 +14,7 @@ void Dailog::compressFun()
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        Deflate::compress(filePathStr);
+        CompressionDecompression::compress(filePathStr);
         MessageBoxW(hwndDlg, L"The file was successfully compressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }
     else
@@ -33,7 +34,7 @@ void Dailog::decompressFun(){
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        Deflate::decompress(filePathStr);
+        CompressionDecompression::decompress(filePathStr);
         MessageBoxW(hwndDlg, L"The file was successfully decompressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }
     else
