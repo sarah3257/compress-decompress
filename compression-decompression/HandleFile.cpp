@@ -243,15 +243,15 @@ long long HandleFile::getSourceFileSize() {
 }
 void HandleFile::setMaxWindowSize() {
 	long long fileSize = getSourceFileSize();
-	int windowSize = 1024;
+	int windowSize = 512;
 	if (fileSize <= 1 * 1024 * 1024) // עד 1MB
-		windowSize = 64 * 1024;  // 64KB
+		windowSize = 8 * 1024;  // 64KB
 	else if (fileSize <= 10 * 1024 * 1024) // עד 10MB
-		windowSize = 32 * 1024; // 32KB
+		windowSize = 4 * 1024; // 32KB
 	else if (fileSize <= 100 * 1024 * 1024)  // עד 100MB
-		windowSize = 16 * 1024; // 16KB
+		windowSize = 2 * 1024; // 16KB
 	else if (fileSize <= 1 * 1024 * 1024 * 1024)  // עד 1GB
-		windowSize = 8 * 1024;  // 8KB
+		windowSize = 1 * 1024;  // 8KB
 	LZ77::maxWindowSize = windowSize;
 }
 
