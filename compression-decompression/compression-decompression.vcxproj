@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>C:\Users\user1\Documents\בוטקמפ\ווסטרן דיגיטל\compression and decompression\Debug</OutDir>
+    <OutDir>C:\Users\user1\Documents\בוטקמפ\ווסטרן דיגיטל\compression and decompression\compression-decompression\Debug</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,17 +131,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="compression-decompression.cpp" />
+    <ClCompile Include="Dailog.cpp" />
     <ClCompile Include="Deflate.cpp" />
-    <ClCompile Include="HandleFile.cpp" />
+    <ClCompile Include="FileStream.cpp" />
+    <ClCompile Include="StreamHandler.cpp" />
     <ClCompile Include="Huffman.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="IStreamInterface.cpp" />
     <ClCompile Include="LZ77.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dailog.h" />
     <ClInclude Include="Deflate.h" />
-    <ClInclude Include="HandleFile.h" />
+    <ClInclude Include="FileStream.h" />
+    <ClInclude Include="StreamHandler.h" />
     <ClInclude Include="Huffman.h" />
+    <ClInclude Include="IStreamInterface.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LZ77.h" />
     <ClInclude Include="resource.h" />

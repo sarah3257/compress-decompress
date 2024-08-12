@@ -6,11 +6,15 @@
 class Test
 {
 public:
-	void testEmptyFile();
+	static void playTest();
 private:
-	void createEmptyFile(const std::string& filename);
-	void compress_decompressTest(const std::string& filename);
-	bool areFilesEqual(const std::string& file1, const std::string& file2);
+	static void testEmptyFile();
+	static void createEmptyFile(const std::string& filename);
+	static void writeRandomValuesToTextFile();
+	static void testRandomFile();
+	static void testSmallFile();
+	static bool areFilesEqual(const std::string& file1, const std::string& file2);
+	static void writeSmallFile();
 
 };
 
