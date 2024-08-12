@@ -11,3 +11,6 @@
 [2024-08-12 11:10:08] Test:  The system supports empty files 
 [2024-08-12 11:10:48] Test:  The system supports random files 
 [2024-08-12 11:10:48] Test:  The system supports empty files 
+[2024-08-12 11:25:44] Test: empty files succeeded 
+[2024-08-12 11:25:49] Test: random files succeeded
+[2024-08-12 11:25:49] Test: small files succeeded
