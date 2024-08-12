@@ -1,6 +1,6 @@
 
 #include "Dailog.h"
-
+#include "Test.h"
 
 void Dailog::compressFun()
 {
@@ -106,6 +106,12 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
         {
             //MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
             uploadFile();
+            return (INT_PTR)TRUE;
+        }
+        else if (LOWORD(wParam) == IDC_BUTTON4) {
+            Test::playTest();
+            MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);  
+
             return (INT_PTR)TRUE;
         }
         break;
