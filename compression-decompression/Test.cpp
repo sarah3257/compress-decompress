@@ -3,29 +3,13 @@
 #include <ctime>
 #include <iomanip>
 #include <windows.h>
-#include <cstdlib>  //  rand & srand
+#include <cstdlib>  
 
-
-void Test::createEmptyFile(const std::string& filename)
-{
-    std::ofstream file(filename, std::ios::out | std::ios::trunc);
-    if (file.is_open()) {
-        file.close();
-        std::cout << "Empty file created: " << filename << std::endl;
-    }
-    else {
-        std::cerr << "Failed to create empty file: " << filename << std::endl;
-    }
-}
-
-
-
-bool Test:: areFilesEqual(const std::string& file1, const std::string& file2) {
+bool Test::areFilesEqual(const std::string& file1, const std::string& file2) {
     std::ifstream f1(file1, std::ios::binary);
     std::ifstream f2(file2, std::ios::binary);
 
     if (!f1.is_open() || !f2.is_open()) {
-        std::cerr << "Failed to open one or both files." << std::endl;
         return false;
     }
 
@@ -35,40 +19,54 @@ bool Test:: areFilesEqual(const std::string& file1, const std::string& file2) {
     return std::equal(begin1, end1, begin2);
 }
 
+void Test:: createRegularFile(const std::string& filename1) {
+    const std::string  filename = filename1+".txt";
+    const std::string text = "It is with great excitement that we present to you our crazy project.\nA lot of energy and effort was invested in calculating the algorithm\n";
+    const size_t fileSize = 10 * 1024;
+    const size_t textSize = text.size();
+    std::ofstream outFile(filename, std::ios::binary);
+    if (!outFile) {
+        MessageBox(NULL, L" error open file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+        exit(1);
+    }
+    size_t repetitions = fileSize / textSize;
+    size_t remainingBytes = fileSize % textSize;
+    for (size_t i = 0; i < repetitions; ++i) {
+        outFile.write(text.c_str(), textSize);
+    }
+    outFile.close();
+}
+void Test::testRegularFile()
+{
+    const std::string filename = "test/normalFile" ;
+    createRegularFile(filename);
+    compressAndDecompress(filename);
+}
 
+
+
+void Test::createEmptyFile(const std::string& filename1)
+{
+    const std::string  filename = filename1 + ".txt";
+
+    std::ofstream file(filename, std::ios::out | std::ios::trunc);
+    if (file.is_open()) {
+        file.close();
+    }
+    else {
+        MessageBox(NULL, L"Failed to create empty file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+        exit(1);
+    }
+}
 void Test::testEmptyFile()
 {
-    std::string filename = "test/empty_file.txt";
+    std::string filename = "test/empty_file";
     createEmptyFile(filename);
-    Deflate::compress(filename);
-    Deflate::decompress("test/empty_file(zip).bin");
-    if (areFilesEqual(filename, "test/empty_file(1).txt")) 
-        Logger::logTest(Logger::TEST_EMPTY_FILE);
-    else {
-        MessageBox(NULL, L"Test error in the testEmptyFile function", L"Error_Test", MB_YESNO | MB_ICONERROR);
-        exit(1);
-    }
-
-
+    compressAndDecompress(filename);
 }
 
-void Test::testRandomFile() {
-    writeRandomValuesToTextFile();
-    Deflate::compress("test/randomFile.txt");
-    Deflate::decompress("test/randomFile(zip).bin");
-    if (areFilesEqual("test/randomFile.txt", "test/randomFile(1).txt"))
-        Logger::logTest(Logger::TEST_RANDOM_FILE);
-    else {
-        MessageBox(NULL, L"Test error in the testRandomFile function", L"Error_Test", MB_YESNO | MB_ICONERROR);
-        exit(1);
-    }
-
-}
-
-
-
-void Test::writeRandomValuesToTextFile() {
-    std::string filename = "test/randomFile.txt";
+void Test::writeRandomValuesToTextFile(const std::string& filename1) {
+    const std::string  filename = filename1 + ".txt";
     std::ofstream outFile(filename);
     if (!outFile) {
         MessageBox(NULL, L"Error opening file for writing:", L"Error_Test", MB_YESNO | MB_ICONERROR);
@@ -76,35 +74,37 @@ void Test::writeRandomValuesToTextFile() {
     }
 
     std::srand(std::time(0));
-    const int targetSizeKB = 50; // הגודל המבוקש בקילובייטים
-    const int targetSizeBytes = targetSizeKB * 1024; // המרה לבייטים
+    const int targetSizeKB = 10;
+    const int targetSizeBytes = targetSizeKB * 1024;
     int currentSizeBytes = 0;
 
     while (currentSizeBytes < targetSizeBytes) {
-        int randomValue = std::rand() % 100; // ערכים רנדומליים בטווח 0-99
-        outFile << randomValue << std::endl; // כתיבה לקובץ
-        currentSizeBytes += std::to_string(randomValue).size() + 1; // עדכון הגודל הנוכחי של הקובץ
+        int randomValue = std::rand() % 100;
+        outFile << randomValue << std::endl;
+        currentSizeBytes += std::to_string(randomValue).size() + 1;
     }
 
     outFile.close();
 }
+void Test::testRandomFile() {
+    const std::string filename = "test/randomFile";
+    writeRandomValuesToTextFile(filename);
+    compressAndDecompress(filename);
+}
 
-void Test::writeSmallFile() {
-    std::string filename = "test/SmallFile.txt";
-
+void Test::writeSmallFile(const std::string filename1) {
+    const std::string  filename = filename1 + ".txt";
     std::ofstream outFile(filename);
     if (!outFile) {
         MessageBox(NULL, L"Error opening file for writing:", L"Error_Test", MB_YESNO | MB_ICONERROR);
         return;
     }
-
     std::srand(std::time(0));
-
     const int numChars = 10;
-    char repeatedChar = 'a' + std::rand() % 26;  // בחירת תו רנדומלי אחד
+    char repeatedChar = 'a' + std::rand() % 26;  
 
     for (int i = 0; i < numChars; ++i) {
-        outFile << repeatedChar;  // כתיבת אותו התו מספר פעמים
+        outFile << repeatedChar;  
     }
 
     outFile.close();
@@ -112,21 +112,127 @@ void Test::writeSmallFile() {
 
 void Test::testSmallFile()
 {
-    writeSmallFile();
-    Deflate::compress("test/SmallFile.txt");
-    Deflate::decompress("test/SmallFile(zip).bin");
-    if (areFilesEqual("test/SmallFile.txt", "test/SmallFile(1).txt"))
-        Logger::logTest(Logger::TEST_SMALL_FILE);
-    else {
-        MessageBox(NULL, L"Test error in the testSmallFile function", L"Error_Test", MB_YESNO | MB_ICONERROR);
+    const std::string filename = "test/SmallFile";
+    writeSmallFile(filename);
+    compressAndDecompress(filename);
+}
+void Test::writeCharacterToFile(const std::string filename1) {
+    const std::string  filename = filename1 + ".txt";
+    const size_t fileSize = 10 * 1024;
+    std::ofstream outFile(filename , std::ios::binary);
+    if (!outFile) {
+        MessageBox(NULL, L"Error opening file:", L"Error_Test", MB_YESNO | MB_ICONERROR);
         exit(1);
     }
+    for (size_t i = 0; i < fileSize; ++i) {
+        outFile.put('z');
+    }
+    outFile.close();   
+}
+void Test::testOneCharacterFile()
+{
+    const std::string filename = "test/OneCharacterFile";
+    writeCharacterToFile(filename);
+    compressAndDecompress(filename);
+}
 
+void Test::createFileWithZeros(const std::string filename1) {
+    const std::string  filename = filename1 + ".txt";
+    const size_t fileSize = 10 * 1024;
+    std::ofstream outFile(filename, std::ios::binary);
+
+    if (!outFile) {
+        MessageBox(NULL, L"Error opening file:", L"Error_Test", MB_YESNO | MB_ICONERROR);
+        exit(1);
+    }
+    char zero = 0;
+    for (size_t i = 0; i < fileSize; ++i) {
+        outFile.write(&zero, sizeof(zero));
+    }
+    outFile.close();
+
+}
+void Test::testZeroFile()
+{
+    const std::string  filename ="test/zeroFile";
+    createFileWithZeros(filename);
+    compressAndDecompress(filename);
+  
+}
+
+void Test::createControl_Z_File(const std::string& filename1) {
+    const std::string  filename = filename1 + ".txt";
+    const std::string text = "It is with great excitement that we present to you our crazy project.\nA lot of energy and effort was invested in calculating the algorithm\n";
+    const size_t fileSize = 10 * 1024;
+    const size_t textSize = text.size();
+    const char eofChar = 0x1A; //EOF
+    std::ofstream outFile(filename, std::ios::binary);
+    if (!outFile) {
+        MessageBox(NULL, L"Error opening file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+        exit(1);
+    }
+    for (size_t i = 0; i < fileSize / 2; ++i) {
+        outFile.write(text.c_str(), textSize);
+    }
+    outFile.put(eofChar); // writכ-EOF
+    for (size_t i = 0; i < fileSize / 2; ++i) {
+        outFile.write(text.c_str(), textSize);
+    }
+
+    outFile.close();
+}
+
+
+
+void Test::testControl_Z_File()
+{
+    const std::string  filename =  "test/Control_Z_File";
+    createControl_Z_File(filename);
+    compressAndDecompress(filename);
+}
+void Test::createSizeGBFile(const std::string& filename1) {
+    const std::string  filename = filename1 + ".txt";
+    const std::string text = "It is with great excitement that we present to you our crazy project.A lot of energy and effort was invested in calculating the algorithm";
+    const size_t fileSize = 1024*1024 * 1024;
+    const size_t textSize = text.size();
+    std::ofstream outFile(filename, std::ios::binary);
+    if (!outFile) {
+        MessageBox(NULL, L" error open file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+        exit(1);
+    }
+    size_t repetitions = fileSize / textSize;
+    size_t remainingBytes = fileSize % textSize;
+    for (size_t i = 0; i < repetitions; ++i) {
+        outFile.write(text.c_str(), textSize);
+    }
+    outFile.close();
+}
+
+void Test::testSizeGBFile(){
+    const std::string filename = "test/SizeGBFile";
+    createSizeGBFile(filename);
+    compressAndDecompress(filename);
+}
+void Test::compressAndDecompress(const std::string& filename)
+{
+    Deflate::compress(filename+".txt");
+    Deflate::decompress(filename+"(zip).bin");
+    if (areFilesEqual(filename + ".txt", filename+"(1).txt"))
+        Logger::logTest(Logger::TEST_ZERO_FILE);
+    else {
+        MessageBox(NULL, L"An error was found in the test", L"Error_Test", MB_YESNO | MB_ICONERROR);
+        exit(1);
+    }
 }
 
 void Test::playTest()
 {
+    testRegularFile();
     testEmptyFile();
     testRandomFile();
     testSmallFile();
+    testOneCharacterFile();
+    testZeroFile();
+    testControl_Z_File();
+    //testSizeGBFile();
 }
