@@ -14,24 +14,24 @@ class Dailog
 
 
 
-    static void compressFun();
+	static void compressFun();
 
-    static void decompressFun();
+	static void decompressFun();
 
-    static void uploadFile();
+	static void uploadFile();
 
-   static std::wstring s2ws(const std::string& str);
-   
+	static std::wstring s2ws(const std::string& str);
+
 public:
 
-    static std::string ws2s(const std::wstring& ws);
-    //Handling of Dialog messages
-    static INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-  
+	static std::string ws2s(const std::wstring& ws);
+	//Handling of Dialog messages
+	static INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 
- 
-   
+
+
+
 
 };
 

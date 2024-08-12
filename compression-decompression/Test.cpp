@@ -116,9 +116,9 @@ void Test::testSmallFile()
     Deflate::compress("test/SmallFile.txt");
     Deflate::decompress("test/SmallFile(zip).bin");
     if (areFilesEqual("test/SmallFile.txt", "test/SmallFile(1).txt"))
-        Logger::logTest(Logger::TEST_EMPTY_FILE);
+        Logger::logTest(Logger::TEST_SMALL_FILE);
     else {
-        MessageBox(NULL, L"Test error in the testEmptyFile function", L"Error_Test", MB_YESNO | MB_ICONERROR);
+        MessageBox(NULL, L"Test error in the testSmallFile function", L"Error_Test", MB_YESNO | MB_ICONERROR);
         exit(1);
     }
 
