@@ -228,12 +228,12 @@ void Test::compressAndDecompress(const std::string& filename)
 
 void Test::playTest()
 {
-   testRegularFile();
+    testRegularFile();
     testEmptyFile();
     testRandomFile();
     testSmallFile();
     testOneCharacterFile();
     testZeroFile();
     testControl_Z_File();
-    //testSizeGBFile();
+   // testSizeGBFile();
 }
