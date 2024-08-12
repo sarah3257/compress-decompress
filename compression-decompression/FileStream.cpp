@@ -87,15 +87,6 @@ void FileStream::writeData(int& size) {
 void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 	
 	//push map.size and map
-	/*int mapsize = codes.size();
-	destinationFile.write(reinterpret_cast<const char*>(&mapsize), sizeof(mapsize));
-	for (const auto& pair : codes) {
-		destinationFile.write(&pair.first, sizeof(pair.first));
-		int strsize = pair.second.size();
-		destinationFile.write(reinterpret_cast<const char*>(&strsize), sizeof(strsize));
-		destinationFile.write(pair.second.c_str(), strsize);
-	}*/
-	//push map.size and map
 	int mapSize = codes.size();
 	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
 	for (const auto& pair : codes) {
