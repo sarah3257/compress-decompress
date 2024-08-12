@@ -85,9 +85,14 @@ void Logger::log(const std::string& level, const std::string& message)
 const std::string Logger::START_FUNCTION = "start Function: ";
 const std::string Logger::END_FUNCTION = "Function exit";
 const std::string Logger::IN_CLASS = "In class: ";
+//static test messages
+const std::string Logger::TEST_REGULAR_FILE = "regular files succeeded";
 const std::string Logger::TEST_EMPTY_FILE = "empty files succeeded ";
 const std::string Logger::TEST_RANDOM_FILE = "random files succeeded";
 const std::string Logger::TEST_SMALL_FILE = "small files succeeded";
+const std::string Logger::TEST_ONE_CHARECTER_FILE = "one charecter files succeeded";
+const std::string Logger::TEST_ZERO_FILE = "zero files succeeded";
+
 
 //static Warning messages
 const std::string Logger::WARNING_LARGE_FILE = "Compressing a large file takes a long time";
