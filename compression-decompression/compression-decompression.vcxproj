@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="compression-decompression.cpp" />
+    <ClCompile Include="CompressionMetrics.cpp" />
     <ClCompile Include="Dailog.cpp" />
     <ClCompile Include="Deflate.cpp" />
     <ClCompile Include="FileStream.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompressionMetrics.h" />
     <ClInclude Include="Dailog.h" />
     <ClInclude Include="Deflate.h" />
     <ClInclude Include="FileStream.h" />
