@@ -8,6 +8,8 @@ class FileStream :public IStreamInterface
 	std::ofstream destinationFile;
 
 public:
+	static double originalFileSize;
+	static double destinationFileSize;
 	FileStream(const std::string& inputFile);
 	~FileStream()override;
 	void readData(std::vector<char>& buffer) override;
