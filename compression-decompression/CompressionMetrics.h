@@ -4,7 +4,7 @@
 #include "resource.h"
 #include "Logger.h"
 #include "Test.h"
-#include "Dailog.h"
+#include "Dialog.h"
 #include <windows.h>
 #include <vector>
 #include <string>

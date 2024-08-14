@@ -8,7 +8,7 @@
 #include "Logger.h"
 #include "Test.h"
 
-class Dailog
+class Dialog
 {
 
 

@@ -1,10 +1,10 @@
 
-#include "Dailog.h"
+#include "Dialog.h"
 #include "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
 
-void Dailog::compressFun()
+void Dialog::compressFun()
 {
 	HWND hwndDlg = GetActiveWindow();
 	HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
@@ -24,7 +24,7 @@ void Dailog::compressFun()
 	}
 }
 
-void Dailog::decompressFun() {
+void Dialog::decompressFun() {
 
 	HWND hwndDlg = GetActiveWindow();
 	HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
@@ -44,7 +44,7 @@ void Dailog::decompressFun() {
 	}
 }
 
-void Dailog::uploadFile()
+void Dialog::uploadFile()
 {
 
 	OPENFILENAME ofn;
@@ -75,19 +75,19 @@ void Dailog::uploadFile()
 	}
 }
 
-std::wstring Dailog::s2ws(const std::string& str)
+std::wstring Dialog::s2ws(const std::string& str)
 {
 	std::wstring ws(str.begin(), str.end());
 	return ws;
 }
 
-std::string Dailog::ws2s(const std::wstring& ws)
+std::string Dialog::ws2s(const std::wstring& ws)
 {
 	std::string str(ws.begin(), ws.end());
 	return str;
 }
 
-INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
     {
@@ -123,7 +123,7 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
             int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
 
 
-			//plotComparisonGraph(100, 2, 150, 4, 120, 3);
+			plotComparisonGraph(100, 2, 150, 4, 120, 3);
             CompressionMetrics cm;
             int result = cm.play(hInstance, nCmdShow);
 
@@ -137,7 +137,7 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
     return (INT_PTR)FALSE;
 }
 
-void Dailog::plotComparisonGraph(double lz77_memory, double lz77_speed, double huffman_memory, double huffman_speed, double deflate_memory, double deflate_speed) {
+void Dialog::plotComparisonGraph(double lz77_memory, double lz77_speed, double huffman_memory, double huffman_speed, double deflate_memory, double deflate_speed) {
 	FILE* gnuplotPipe = _popen("\"C:\\Program Files\\gnuplot\\bin\\gnuplot.exe\" -persist", "w");
 
 	// Set the terminal to be non-interactive to disable scrollbars
