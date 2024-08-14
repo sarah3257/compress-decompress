@@ -1,5 +1,4 @@
-﻿
-//#include <windows.h>
+﻿//#include <windows.h>
 //#include <commdlg.h>  //  GetOpenFileName
 #include "resource.h"
 #include "Logger.h"

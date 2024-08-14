@@ -10,7 +10,7 @@ class FileStream :public IStreamInterface
 public:
 	FileStream(const std::string& inputFile);
 	~FileStream()override;
-	void readData(std::vector<char>& buffer, int size) override;
+	void readData(std::vector<char>& buffer) override;
 	void readData(int& size)override;
 	void writeData(const std::vector<char>& buffer) override;
 	void writeData(int& size) override;

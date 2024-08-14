@@ -17,7 +17,7 @@ std::vector<char> StreamHandler::readBufferCompress() {
 	int remainingSize = getRemainingBytesToRead();
 	int size_buffer = std::min(remainingSize, BUFFER_SIZE);
 	std::vector<char> bufferText(size_buffer);
-	streamInterface->readData(bufferText, size_buffer);
+	streamInterface->readData(bufferText);
 	return bufferText;
 }
 
@@ -64,7 +64,7 @@ std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, s
 	// read the data
 	int bufferSize = (dataSize + 7) / 8;
 	std::vector<char> dataBuffer(bufferSize);
-	streamInterface->readData(dataBuffer, bufferSize);
+	streamInterface->readData(dataBuffer);
 
 	// return the value
 	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
@@ -114,7 +114,7 @@ int StreamHandler::getRemainingBytesToRead() {
 bool StreamHandler::isCorrectPassword(const std::string& password) {
 
 	std::vector<char> passwordVector(password.size());
-	streamInterface->readData(passwordVector, password.size());
+	streamInterface->readData(passwordVector);
 	if (passwordVector.empty()) {
 		Logger::logError(Logger::FAILED_READ_PASSWORD_FROM_FILE);
 		exit(1);

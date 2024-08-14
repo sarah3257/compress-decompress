@@ -7,7 +7,7 @@
 const std::string CompressionDecompression::password = "stzip";
 
 //compress the data divided to buffers
-void CompressionDecompression::compress(const std::string& fileName) {
+void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
 
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
 	IStreamInterface* iStream = new FileStream(fileName);
@@ -21,7 +21,7 @@ void CompressionDecompression::compress(const std::string& fileName) {
 	while (streamHandler.getRemainingBytesToRead()) {
 		buffer = streamHandler.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
-		compressText = Deflate::compress(buffer, codes);
+		compressText = compressFunc(buffer, codes);
 		streamHandler.writeBufferCompress(codes, compressText);
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
@@ -30,7 +30,7 @@ void CompressionDecompression::compress(const std::string& fileName) {
 
 
 //decompress the data divided to buffers
-void CompressionDecompression::decompress(const std::string& fileName) {
+void CompressionDecompression::decompress(const std::string& fileName, DecompressFunction compressFunc) {
 
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "CompressionDecompression");
 
@@ -45,7 +45,7 @@ void CompressionDecompression::decompress(const std::string& fileName) {
 	while (streamHandler.getRemainingBytesToRead()) {
 		std::unordered_map<char, std::string> codes;
 		buffer = streamHandler.readBufferDecompress(codes);
-		decompressRes = Deflate::decompress(buffer, codes);
+		decompressRes = compressFunc(buffer, codes);
 		streamHandler.writeBufferDecompress(decompressRes);
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "decompress " + Logger::IN_CLASS + "CompressionDecompression");

@@ -22,7 +22,7 @@ bool Test::areFilesEqual(const std::string& file1, const std::string& file2) {
     return std::equal(begin1, end1, begin2);
 }
 
-void Test:: createRegularFile(const std::string& filename1) {
+void Test::createRegularFile(const std::string& filename1) {
     const std::string  filename = filename1+".txt";
     const std::string text = "It is with great excitement that we present to you our crazy project.\nA lot of energy and effort was invested in calculating the algorithm\n";
     const size_t fileSize = 10 * 1024;
@@ -89,6 +89,7 @@ void Test::writeRandomValuesToTextFile(const std::string& filename1) {
 
     outFile.close();
 }
+
 void Test::testRandomFile() {
     const std::string filename = "test/randomFile";
     writeRandomValuesToTextFile(filename);
