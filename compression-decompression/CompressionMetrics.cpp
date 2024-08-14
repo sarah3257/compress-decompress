@@ -23,7 +23,9 @@ std::vector<Point> dataPoints = {
     {450, 300}
 };
 
-
+std::vector<Point> dataPoints2 = {
+    {50, 250}, {100, 200}, {150, 150}, {200, 100}
+};
 void CompressionMetrics::DrawGraph(HDC hdc) {
     // הגדרת צבעים ורוחב קווים
     HPEN hPenGrid = CreatePen(PS_DASH, 1, RGB(200, 200, 200)); // קווים אפורים לגריד
@@ -55,12 +57,18 @@ void CompressionMetrics::DrawGraph(HDC hdc) {
     for (size_t i = 1; i < dataPoints.size(); ++i) {
         LineTo(hdc, dataPoints[i].x, dataPoints[i].y);
     }
+    MoveToEx(hdc, dataPoints2[0].x, dataPoints2[0].y, NULL);
+    for (size_t i = 1; i < dataPoints2.size(); ++i) {
+        LineTo(hdc, dataPoints2[i].x, dataPoints2[i].y);
+    }
 
     SelectObject(hdc, hPenPoints);
     for (const auto& point : dataPoints) {
         Ellipse(hdc, point.x - 5, point.y - 5, point.x + 5, point.y + 5);
     }
-
+    for (const auto& point : dataPoints2) {
+        Ellipse(hdc, point.x - 5, point.y - 5, point.x + 5, point.y + 5);
+    }
     // ציור תוויות צירים
     SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
     SetBkMode(hdc, TRANSPARENT);
