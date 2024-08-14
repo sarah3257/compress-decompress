@@ -1,6 +1,7 @@
 #include "Test.h"
 #include "Logger.h"
 #include "CompressionDecompression.h"
+#include "Deflate.h"
 #include <ctime>
 #include <iomanip>
 #include <windows.h>
@@ -219,8 +220,8 @@ void Test::testSizeGBFile(){
 }
 void Test::compressAndDecompress(const std::string& filename)
 {
-    CompressionDecompression::compress(filename+".txt");
-    CompressionDecompression::decompress(filename+"(zip).bin");
+    CompressionDecompression::compress(filename+".txt", Deflate::compress);
+    CompressionDecompression::decompress(filename+"(zip).bin", Deflate::decompress);
     if (areFilesEqual(filename + ".txt", filename+"(1).txt"))
         Logger::logTest(Logger::TEST_ZERO_FILE);
     else {
