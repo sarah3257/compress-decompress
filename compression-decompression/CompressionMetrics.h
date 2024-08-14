@@ -22,7 +22,9 @@ public:
 	double LZ77Compression(const std::string& fileName);
 	double DeflateCompression(const std::string& fileName);
 
-	static void DrawGraph(HDC hdc);
+	static void DrawGraph(HDC hdc, double percentLZ77, double percentHuffman, double percentDeflate);
+
+
 	static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	static int WINAPI play(HINSTANCE hInstance, int nCmdShow);
