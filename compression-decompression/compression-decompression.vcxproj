@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>E:\תמר\Westrn Digital\deflate\compression-decompression\x64\Debug</OutDir>
+    <OutDir>C:\Users\user1\Desktop\קמא טק\western digital\compression-decompression\compression-decompression\Debug</OutDir>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
