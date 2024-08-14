@@ -88,7 +88,7 @@ std::unordered_map<std::string, char> Huffman::swapKeysAndValues(std::unordered_
 }
 
 // Decodes the Huffman-encoded text and returns the original text.
-std::vector<char> Huffman::decompress(std::vector<char> text,  std::unordered_map<char, std::string>& codesMap) {
+std::vector<char> Huffman::decompress(std::vector<char>& text,  std::unordered_map<char, std::string>& codesMap) {
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Huffman");
 	std::unordered_map<std::string, char> codesMapRev = swapKeysAndValues(codesMap);
 	int strJul = 0;

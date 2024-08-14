@@ -3,11 +3,15 @@
 #include <bitset>
 #include "StreamHandler.h"
 
+double FileStream::destinationFileSize = 0.0;
+double FileStream::originalFileSize = 0.0;
+
 FileStream::FileStream(const std::string& sourceFilePath) {
 
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile)
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
+	originalFileSize = sourceFile.tellg();
 }
 
 FileStream::~FileStream() {
@@ -32,6 +36,7 @@ void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCo
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!destinationFile)
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
+	destinationFileSize = destinationFile.tellp();
 }
 
 void FileStream::readData(std::vector<char>& buffer) {

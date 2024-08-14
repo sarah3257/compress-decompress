@@ -31,8 +31,9 @@ class Huffman
 public:
 	static std::string compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes);
 	//call to all functions to compress file.
-	static std::vector<char> decompress(std::vector<char> text,  std::unordered_map<char, std::string>& codesMap);
+	static std::vector<char> decompress(std::vector<char>& text,  std::unordered_map<char, std::string>& codesMap);
 	//call to all functions to decompress file.
+	using DecompressFunction = std::vector<char>(*)(std::vector<char>&, std::unordered_map<char, std::string>&);
 
 };
 

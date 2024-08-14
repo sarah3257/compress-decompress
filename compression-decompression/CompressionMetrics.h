@@ -12,14 +12,17 @@
 #define GRAPH_WIDTH 600
 #define GRAPH_HEIGHT 400
 #define MARGIN 50
+
 class CompressionMetrics
 {
 public:
 
-    double HuffmanCompression(const std::string& fileName);
-    double LZ77Compression(const std::string& fileName);
-    double DeflateCompression(const std::string& fileName);
-    static void DrawGraph(HDC hdc, double percentLZ77, double percentHuffman, double percentDeflate);
+	double EfficiencyPercentages();
+	double HuffmanCompression(const std::string& fileName);
+	double LZ77Compression(const std::string& fileName);
+	double DeflateCompression(const std::string& fileName);
+
+	static void DrawGraph(HDC hdc, double percentLZ77, double percentHuffman, double percentDeflate);
 
 
     static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

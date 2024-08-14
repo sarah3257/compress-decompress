@@ -1,32 +1,26 @@
 #include "CompressionMetrics.h"
 #include "CompressionDecompression.h"
+#include "FileStream.h"
+
 #define M 100
 
+double CompressionMetrics::EfficiencyPercentages() {
+	return M - (FileStream::destinationFileSize * M / FileStream::originalFileSize);
+}
+
 double CompressionMetrics::HuffmanCompression(const std::string& fileName) {
-	std::ifstream file(fileName, std::ifstream::ate | std::ifstream::binary);
-	double originalFileSize = file.tellg();
 	CompressionDecompression::compress(fileName, Huffman::compress);
-	std::ifstream zipFile(fileName + "(zip)", std::ifstream::ate | std::ifstream::binary);
-	double zipFileSize = file.tellg();
-	return M - (zipFileSize * M / originalFileSize);
+	return EfficiencyPercentages();
 }
 
 double CompressionMetrics::LZ77Compression(const std::string& fileName) {
-	std::ifstream file(fileName, std::ifstream::ate | std::ifstream::binary);
-	double originalFileSize = file.tellg();
 	CompressionDecompression::compress(fileName, LZ77::compress);
-	std::ifstream zipFile(fileName + "(zip)", std::ifstream::ate | std::ifstream::binary);
-	double zipFileSize = file.tellg();
-	return M - (zipFileSize * M / originalFileSize);
+	return EfficiencyPercentages();
 }
 
 double CompressionMetrics::DeflateCompression(const std::string& fileName) {
-	std::ifstream file(fileName, std::ifstream::ate | std::ifstream::binary);
-	double originalFileSize = file.tellg();
 	CompressionDecompression::compress(fileName, Deflate::compress);
-	std::ifstream zipFile(fileName + "(zip)", std::ifstream::ate | std::ifstream::binary);
-	double zipFileSize = file.tellg();
-	return M - (zipFileSize * M / originalFileSize);
+	return EfficiencyPercentages();
 }
 
 
