@@ -45,8 +45,6 @@ void Test::testRegularFile()
     compressAndDecompress(filename);
 }
 
-
-
 void Test::createEmptyFile(const std::string& filename1)
 {
     const std::string  filename = filename1 + ".txt";
