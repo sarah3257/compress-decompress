@@ -10,5 +10,7 @@ public:
 	using DecompressFunction = std::vector<char>(*)(const std::vector<char>&, std::unordered_map<char, std::string>&);
 	static void compress(const std::string& fileName, CompressFunction compressFunc);
 	static void decompress(const std::string& fileName, DecompressFunction compressFunc);
+	static void compress(const std::string& fileName, const std::vector<char>&);
+	static void decompress(const std::string& fileName, const std::vector<char>&);
 };
 
