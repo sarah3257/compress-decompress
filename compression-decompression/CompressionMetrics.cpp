@@ -105,6 +105,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77,double percentHuf
 
 //// פונקציה לטיפול בהודעות חלון גרפים
 LRESULT CompressionMetrics::GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+
     double percentLZ77 = 300.0, percentHuffman = 280.0, percentDeflate = 100.0;
     switch (uMsg) {
     case WM_PAINT:
@@ -127,8 +128,7 @@ LRESULT CompressionMetrics::GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
 
 
-//// פונקציה ראשית של התוכנית
-int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow) {
+int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow, const std::string& fileName) {
 	const wchar_t GRAPH_CLASS_NAME[] = L"GraphWindowClass";
 
 	WNDCLASS wc = {};

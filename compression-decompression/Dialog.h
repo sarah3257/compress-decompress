@@ -20,6 +20,8 @@ class Dialog
 
 	static void uploadFile();
 
+	static void   playGraph();
+
 	static std::wstring s2ws(const std::string& str);
 
 public:

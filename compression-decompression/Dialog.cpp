@@ -116,19 +116,23 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 
             return (INT_PTR)TRUE;
         }
-        else if (LOWORD(wParam) == IDCANCEL) {
+		else if (LOWORD(wParam) == IDC_BUTTON5) {
+			//ציפיייייייייי כאן
+			plotComparisonGraph(100, 2, 150, 4, 120, 3);
+			return (INT_PTR)TRUE;
+		}
+        else if (LOWORD(wParam) == IDC_BUTTON6) {
 
 
             HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
             int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
 
-
-			plotComparisonGraph(100, 2, 150, 4, 120, 3);
             CompressionMetrics cm;
-            int result = cm.play(hInstance, nCmdShow);
+            int result = cm.play(hInstance, nCmdShow,"sa");
 
             return (INT_PTR)TRUE;
         }
+		
         break;
     case WM_CLOSE:
         EndDialog(hwndDlg, 0);
