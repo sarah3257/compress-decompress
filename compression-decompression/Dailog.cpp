@@ -14,7 +14,7 @@ void Dailog::compressFun()
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        CompressionDecompression::compress(filePathStr);
+        CompressionDecompression::compress(filePathStr,Deflate::compress);
         MessageBoxW(hwndDlg, L"The file was successfully compressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }
     else
@@ -34,7 +34,7 @@ void Dailog::decompressFun(){
         SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
         std::wstring filePathW(filePath);
         std::string filePathStr = ws2s(filePathW);
-        CompressionDecompression::decompress(filePathStr);
+        CompressionDecompression::decompress(filePathStr,Deflate::decompress);
         MessageBoxW(hwndDlg, L"The file was successfully decompressed", L"Message", MB_OK | MB_ICONINFORMATION);
     }
     else
