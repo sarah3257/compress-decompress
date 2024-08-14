@@ -122,6 +122,8 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
             HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
             int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
 
+
+			//plotComparisonGraph(100, 2, 150, 4, 120, 3);
             CompressionMetrics cm;
             int result = cm.play(hInstance, nCmdShow);
 
