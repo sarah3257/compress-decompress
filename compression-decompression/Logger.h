@@ -49,6 +49,9 @@ public:
 	static const std::string TEST_EMPTY_FILE;
 	static const std::string TEST_RANDOM_FILE;
 	static const std::string TEST_SMALL_FILE;
+	static const std::string TEST_ONE_CHARECTER_FILE;
+	static const std::string TEST_ZERO_FILE;
+	static const std::string TEST_REGULAR_FILE;
 
 	private:
 	static std::ofstream logFileStream;

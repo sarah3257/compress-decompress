@@ -64,7 +64,7 @@ std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, s
 	// read the data
 	int bufferSize = (dataSize + 7) / 8;
 	std::vector<char> dataBuffer(bufferSize);
-	streamInterface->readData(dataBuffer, dataSize);
+	streamInterface->readData(dataBuffer, bufferSize);
 
 	// return the value
 	std::vector<char> binaryBuffer = convertToBinaryVector(dataBuffer);
