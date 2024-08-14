@@ -2,6 +2,7 @@
 #include "Dailog.h"
 #include "Test.h"
 #include "CompressionDecompression.h"
+#include "CompressionMetrics.h"
 
 void Dailog::compressFun()
 {
@@ -111,7 +112,18 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
         }
         else if (LOWORD(wParam) == IDC_BUTTON4) {
             Test::playTest();
-            MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);  
+            MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
+
+            return (INT_PTR)TRUE;
+        }
+        else if (LOWORD(wParam) == IDCANCEL) {
+
+
+            HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
+            int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
+
+            CompressionMetrics cm;
+            int result = cm.play(hInstance, nCmdShow);
 
             return (INT_PTR)TRUE;
         }

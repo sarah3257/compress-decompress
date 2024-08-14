@@ -1,6 +1,7 @@
 #include "LZ77.h"
 #include "StreamHandler.h"
 #include "Logger.h"
+#include "string"
 
 int LZ77::maxWindowSize;
 
@@ -71,12 +72,13 @@ std::vector<char> LZ77::changeToString(const std::vector<LZ77Token>& tokens) {
 	return text;
 }
 
-std::vector<char> LZ77::compress(const std::vector<char>& text) {
+std::string LZ77::compress( std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "LZ77");
 	std::vector<LZ77Token> tokens = getTokens(text);
 	std::vector<char> resultText = changeToString(tokens);
 	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "LZ77");
-	return resultText;
+	std::string stringResult = std::string(resultText.begin(), resultText.end());
+	return stringResult;
 }
 
 // decompression
@@ -96,7 +98,7 @@ std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 
 }
 
-std::vector<char> LZ77::decompress(const std::vector<char>& text)
+std::vector<char> LZ77::decompress( std::vector<char>& text,  std::unordered_map<char, std::string>& codesMap)
 {
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "LZ77");
 

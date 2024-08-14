@@ -6,11 +6,9 @@ class CompressionDecompression
 {
 	static const std::string password;
 public:
-	using CompressFunction = std::string(*)(const std::vector<char>&, std::unordered_map<char, std::string>&);
-	using DecompressFunction = std::vector<char>(*)(const std::vector<char>&, std::unordered_map<char, std::string>&);
+	using CompressFunction = std::string(*)( std::vector<char>&, std::unordered_map<char, std::string>&);
+	using DecompressFunction = std::vector<char>(*)( std::vector<char>&, std::unordered_map<char, std::string>&);
 	static void compress(const std::string& fileName, CompressFunction compressFunc);
 	static void decompress(const std::string& fileName, DecompressFunction compressFunc);
-	static void compress(const std::string& fileName, const std::vector<char>&);
-	static void decompress(const std::string& fileName, const std::vector<char>&);
 };
 
