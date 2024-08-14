@@ -24,6 +24,6 @@ public:
 
    static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-   static int WINAPI play(HINSTANCE hInstance, int nCmdShow);
+   static int WINAPI play(HINSTANCE hInstance, int nCmdShow, const std::string& fileName);
 };
 

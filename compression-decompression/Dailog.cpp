@@ -75,6 +75,8 @@ void Dailog::uploadFile()
     }
 }
 
+
+
 std::wstring Dailog::s2ws(const std::string& str)
 {
     std::wstring ws(str.begin(), str.end());
@@ -116,15 +118,9 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 
             return (INT_PTR)TRUE;
         }
-        else if (LOWORD(wParam) == IDCANCEL) {
+        else if (LOWORD(wParam) == IDC_BUTTON6) {
 
-
-            HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
-            int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
-
-            CompressionMetrics cm;
-            int result = cm.play(hInstance, nCmdShow);
-
+            playGraph();
             return (INT_PTR)TRUE;
         }
         break;
@@ -133,4 +129,22 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
         return (INT_PTR)TRUE;
     }
     return (INT_PTR)FALSE;
+}
+void Dailog::playGraph()
+{
+    HWND hwndDlg = GetActiveWindow();
+    HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
+    int selIndex = SendMessage(hListBox, LB_GETCURSEL, 0, 0);
+   
+    wchar_t filePath[MAX_PATH];
+    SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
+    std::wstring filePathW(filePath);
+    std::string filePathStr = ws2s(filePathW);
+   
+    HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
+    int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
+
+    CompressionMetrics cm;
+    
+     int result = cm.play(hInstance, nCmdShow, filePathStr);
 }

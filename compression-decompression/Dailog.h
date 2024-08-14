@@ -20,6 +20,8 @@ class Dailog
 
 	static void uploadFile();
 
+	static void   playGraph();
+
 	static std::wstring s2ws(const std::string& str);
 
 public:
@@ -27,7 +29,7 @@ public:
 	static std::string ws2s(const std::wstring& ws);
 	//Handling of Dialog messages
 	static INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
+	
 
 
 
