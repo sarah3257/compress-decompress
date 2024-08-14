@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "CompressionDecompression.h"
 #include "Deflate.h"
+#include "LZ77.h"
 #include <ctime>
 #include <iomanip>
 #include <windows.h>

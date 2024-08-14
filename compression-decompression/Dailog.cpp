@@ -2,6 +2,7 @@
 #include "Dailog.h"
 #include "Test.h"
 #include "CompressionDecompression.h"
+#include "CompressionMetrics.h"
 
 void Dailog::compressFun()
 {
@@ -88,39 +89,50 @@ std::string Dailog::ws2s(const std::wstring& ws)
 
 INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	switch (uMsg)
-	{
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
-		{
-			//MessageBoxW(hwndDlg, L"Compress button clicked", L"Info", MB_OK);
-			compressFun();
-			return (INT_PTR)TRUE;
-		}
-		else if (LOWORD(wParam) == IDC_BUTTON2)  // button Decompress
-		{
-			// MessageBoxW(hwndDlg, L"Decompress button clicked", L"Info", MB_OK);
-			decompressFun();
-			return (INT_PTR)TRUE;
-		}
-		else if (LOWORD(wParam) == IDC_BUTTON3)  // button Upload File
-		{
-			//MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
-			uploadFile();
-			return (INT_PTR)TRUE;
-		}
-		else if (LOWORD(wParam) == IDC_BUTTON4) {
-			Test::playTest();
-			MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
+    switch (uMsg)
+    {
+    case WM_COMMAND:
+        if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
+        {
+            //MessageBoxW(hwndDlg, L"Compress button clicked", L"Info", MB_OK);
+            compressFun();
+            return (INT_PTR)TRUE;
+        }
+        else if (LOWORD(wParam) == IDC_BUTTON2)  // button Decompress
+        {
+            // MessageBoxW(hwndDlg, L"Decompress button clicked", L"Info", MB_OK);
+            decompressFun();
+            return (INT_PTR)TRUE;
+        }
+        else if (LOWORD(wParam) == IDC_BUTTON3)  // button Upload File
+        {
+            //MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
+            uploadFile();
+            return (INT_PTR)TRUE;
+        }
+        else if (LOWORD(wParam) == IDC_BUTTON4) {
+            Test::playTest();
+            MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
 
-			return (INT_PTR)TRUE;
-		}
-		break;
-	case WM_CLOSE:
-		EndDialog(hwndDlg, 0);
-		return (INT_PTR)TRUE;
-	}
-	return (INT_PTR)FALSE;
+            return (INT_PTR)TRUE;
+        }
+        else if (LOWORD(wParam) == IDCANCEL) {
+
+
+            HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
+            int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
+
+            CompressionMetrics cm;
+            int result = cm.play(hInstance, nCmdShow);
+
+            return (INT_PTR)TRUE;
+        }
+        break;
+    case WM_CLOSE:
+        EndDialog(hwndDlg, 0);
+        return (INT_PTR)TRUE;
+    }
+    return (INT_PTR)FALSE;
 }
 
 void Dailog::plotComparisonGraph(double lz77_memory, double lz77_speed, double huffman_memory, double huffman_speed, double deflate_memory, double deflate_speed) {
