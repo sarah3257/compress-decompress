@@ -87,6 +87,7 @@ void Test::writeRandomValuesToTextFile(const std::string& filename1) {
 
     outFile.close();
 }
+
 void Test::testRandomFile() {
     const std::string filename = "test/randomFile";
     writeRandomValuesToTextFile(filename);

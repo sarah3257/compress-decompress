@@ -34,10 +34,10 @@ void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCo
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
 }
 
-void FileStream::readData(std::vector<char>& buffer, int size_buffer) {
+void FileStream::readData(std::vector<char>& buffer) {
 	if (!sourceFile) 
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
-	sourceFile.read(buffer.data(), size_buffer);
+	sourceFile.read(buffer.data(), buffer.size());
 }
 
 void FileStream::readData(int& dataSize) {
@@ -69,7 +69,7 @@ void FileStream::writeData(int& size) {
 void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 	//push map.size and map
 	int mapSize = codes.size();
-	destinationFile.write(reinterpret_cast<const char*>(&mapSize), sizeof(mapSize));
+	writeData(mapSize);
 	for (const auto& pair : codes) {
 		destinationFile.write(reinterpret_cast<const char*>(&pair.first), sizeof(pair.first));
 		int strSize = pair.second.size();
@@ -110,7 +110,7 @@ void FileStream::readMap(std::unordered_map<char, std::string>& codes) {
 		// read the value
 		int bufferSize = (valueSize + 7) / 8;
 		std::vector<char> dataBuffer(bufferSize);
-		readData(dataBuffer, bufferSize);
+		readData(dataBuffer);
 
 		// return the value
 		std::vector<char> binaryBuffer = StreamHandler::convertToBinaryVector(dataBuffer);
@@ -158,7 +158,7 @@ std::string FileStream::readFileExtension() {
 		Logger::logError(Logger::FAILED_READ_EXTENSION_SIZE_FROM_FILE);
 
 	std::vector<char> fileExtension(extensionSize);
-	readData(fileExtension, extensionSize);
+	readData(fileExtension);
 	if (fileExtension.empty())
 		Logger::logError(Logger::FAILED_READ_EXTENSION_FROM_FILE);
 	std::string fileExtensionString(fileExtension.begin(), fileExtension.end());

@@ -7,7 +7,7 @@ class IStreamInterface
 {
 public:
 	virtual ~IStreamInterface();
-	virtual void readData(std::vector<char>& buffer, int size) = 0;
+	virtual void readData(std::vector<char>& buffer) = 0;
 	virtual void readData(int& size) = 0;
 	virtual void writeData(const std::vector<char>& buffer) = 0;
 	virtual void writeData(int& size) = 0;
