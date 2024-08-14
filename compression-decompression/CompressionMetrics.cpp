@@ -11,9 +11,22 @@ double CompressionMetrics::HuffmanCompression(const std::string& fileName) {
 	return M - (zipFileSize * M / originalFileSize);
 }
 
-void CompressionMetrics::LZ77Compression(const std::string& fileName) {
+double CompressionMetrics::LZ77Compression(const std::string& fileName) {
+	std::ifstream file(fileName, std::ifstream::ate | std::ifstream::binary);
+	double originalFileSize = file.tellg();
 	CompressionDecompression::compress(fileName, LZ77::compress);
+	std::ifstream zipFile(fileName + "(zip)", std::ifstream::ate | std::ifstream::binary);
+	double zipFileSize = file.tellg();
+	return M - (zipFileSize * M / originalFileSize);
+}
 
+double CompressionMetrics::DeflateCompression(const std::string& fileName) {
+	std::ifstream file(fileName, std::ifstream::ate | std::ifstream::binary);
+	double originalFileSize = file.tellg();
+	CompressionDecompression::compress(fileName, Deflate::compress);
+	std::ifstream zipFile(fileName + "(zip)", std::ifstream::ate | std::ifstream::binary);
+	double zipFileSize = file.tellg();
+	return M - (zipFileSize * M / originalFileSize);
 }
 
 // the graph code need to be in the main:
