@@ -1,0 +1,386 @@
+[2024-08-13 22:26:02] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit compress In class: LZ77
+[2024-08-13 22:26:02] Information: start Function: compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit decompress In class: Huffman
+[2024-08-13 22:26:02] Information: start Function: decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit compress In class: LZ77
+[2024-08-13 22:26:02] Information: start Function: compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit decompress In class: Huffman
+[2024-08-13 22:26:02] Information: start Function: decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit compress In class: LZ77
+[2024-08-13 22:26:02] Information: start Function: compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit decompress In class: Huffman
+[2024-08-13 22:26:02] Information: start Function: decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit compress In class: LZ77
+[2024-08-13 22:26:02] Information: start Function: compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit decompress In class: Huffman
+[2024-08-13 22:26:02] Information: start Function: decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit compress In class: LZ77
+[2024-08-13 22:26:02] Information: start Function: compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit decompress In class: Huffman
+[2024-08-13 22:26:02] Information: start Function: decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit decompress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: compress In class: LZ77
+[2024-08-13 22:26:02] Information: Function exit compress In class: LZ77
+[2024-08-13 22:26:02] Information: start Function: compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit compress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-13 22:26:02] Information: start Function: decompress In class: Huffman
+[2024-08-13 22:26:02] Information: Function exit decompress In class: Huffman
+[2024-08-13 22:26:02] Information: start Function: decompress In class: LZ77
+[2024-08-13 22:26:03] Information: Function exit decompress In class: LZ77
+[2024-08-13 22:26:03] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-13 22:27:31] Information: start Function: compress In class: CompressionDecompression
+[2024-08-13 22:27:31] Information: start Function: compress In class: LZ77
+[2024-08-13 22:27:31] Information: Function exit compress In class: LZ77
+[2024-08-13 22:27:31] Information: start Function: compress In class: Huffman
+[2024-08-13 22:27:31] Information: Function exit compress In class: Huffman
+[2024-08-13 22:27:31] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:22] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:22] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:22] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:22] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:22] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:22] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:22] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:22] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:22] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:22] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:22] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:22] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:22] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:22] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:22] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:45] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:45] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:45] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:45] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:45] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:45] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:45] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:45] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:45] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:45] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:45] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:46] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:46] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:46] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:46] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:46] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:46] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:46] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:46] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:46] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:46] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:21:46] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:21:46] Information: start Function: compress In class: LZ77
+[2024-08-14 09:21:46] Information: Function exit compress In class: LZ77
+[2024-08-14 09:21:46] Information: start Function: compress In class: Huffman
+[2024-08-14 09:21:46] Information: Function exit compress In class: Huffman
+[2024-08-14 09:21:46] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:21:46] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:21:46] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:21:46] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:21:46] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:21:46] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:21:46] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit compress In class: LZ77
+[2024-08-14 09:24:47] Information: start Function: compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:24:47] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit compress In class: LZ77
+[2024-08-14 09:24:47] Information: start Function: compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:24:47] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit compress In class: LZ77
+[2024-08-14 09:24:47] Information: start Function: compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:24:47] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit compress In class: LZ77
+[2024-08-14 09:24:47] Information: start Function: compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:24:47] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit compress In class: LZ77
+[2024-08-14 09:24:47] Information: start Function: compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit compress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:24:47] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:24:47] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:24:47] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:24:47] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:24:48] Information: start Function: compress In class: LZ77
+[2024-08-14 09:24:48] Information: Function exit compress In class: LZ77
+[2024-08-14 09:24:48] Information: start Function: compress In class: Huffman
+[2024-08-14 09:24:48] Information: Function exit compress In class: Huffman
+[2024-08-14 09:24:48] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:24:48] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:24:48] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:24:48] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:24:48] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:24:48] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:24:48] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: compress In class: LZ77
+[2024-08-14 09:26:55] Information: Function exit compress In class: LZ77
+[2024-08-14 09:26:55] Information: start Function: compress In class: Huffman
+[2024-08-14 09:26:55] Information: Function exit compress In class: Huffman
+[2024-08-14 09:26:55] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:26:55] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:26:55] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:26:55] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:26:55] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:26:55] Information: start Function: compress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit compress In class: LZ77
+[2024-08-14 09:26:56] Information: start Function: compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:26:56] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit compress In class: LZ77
+[2024-08-14 09:26:56] Information: start Function: compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:26:56] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit compress In class: LZ77
+[2024-08-14 09:26:56] Information: start Function: compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:26:56] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit compress In class: LZ77
+[2024-08-14 09:26:56] Information: start Function: compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:26:56] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exitdecompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: compress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit compress In class: LZ77
+[2024-08-14 09:26:56] Information: start Function: compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit compress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-14 09:26:56] Information: start Function: decompress In class: Huffman
+[2024-08-14 09:26:56] Information: Function exit decompress In class: Huffman
+[2024-08-14 09:26:56] Information: start Function: decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exit decompress In class: LZ77
+[2024-08-14 09:26:56] Information: Function exitdecompress In class: CompressionDecompression

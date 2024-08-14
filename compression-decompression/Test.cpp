@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <windows.h>
 #include <cstdlib>  
+#include <iostream>
+#include <direct.h>
 
 bool Test::areFilesEqual(const std::string& file1, const std::string& file2) {
     std::ifstream f1(file1, std::ios::binary);
@@ -101,7 +103,7 @@ void Test::writeSmallFile(const std::string filename1) {
         return;
     }
     std::srand(std::time(0));
-    const int numChars = 10;
+    const int numChars = 100;
     char repeatedChar = 'a' + std::rand() % 26;  
 
     for (int i = 0; i < numChars; ++i) {
@@ -228,6 +230,7 @@ void Test::compressAndDecompress(const std::string& filename)
 
 void Test::playTest()
 {
+    _mkdir("test");
     testRegularFile();
     testEmptyFile();
     testRandomFile();
