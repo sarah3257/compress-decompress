@@ -12,7 +12,9 @@ double CompressionMetrics::cpuTimeHuffman = 0;
 double CompressionMetrics::memoryUsageHuffman = 0;
 double CompressionMetrics::EfficiencyPercentagesHuffman = 0;
 
-void CompressionRatios(const std::string& fileName) {
+std::string CompressionMetrics::fileName;
+
+void CompressionMetrics::CompressionRatios( std::string& fileName) {
 
 	// deflate
 	CompressionMetrics::cpuTimeDeflate = CompressionDecompression::cpuTime;
@@ -111,29 +113,29 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 //// פונקציה לטיפול בהודעות חלון גרפים
 LRESULT CompressionMetrics::GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
-	double percentLZ77 = 300.0, percentHuffman = 280.0, percentDeflate = 100.0;
-	switch (uMsg) {
-	case WM_PAINT:
-	{
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hwnd, &ps);
-
-		DrawGraph(hdc, percentLZ77, percentHuffman, percentDeflate);
-		EndPaint(hwnd, &ps);
-	}
-	break;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hwnd, uMsg, wParam, lParam);
-	}
-	return 0;
+    double percentLZ77 = 300-CompressionMetrics::EfficiencyPercentagesLZ77*2, percentHuffman = 300-CompressionMetrics::EfficiencyPercentagesHuffman*2, percentDeflate = 300-CompressionMetrics::EfficiencyPercentagesDeflate *2;
+    switch (uMsg) {
+    case WM_PAINT:
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hwnd, &ps);
+    
+        DrawGraph(hdc, percentLZ77, percentHuffman, percentDeflate);
+        EndPaint(hwnd, &ps);
+    }
+    break;
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        break;
+    default:
+        return DefWindowProc(hwnd, uMsg, wParam, lParam);
+    }
+    return 0;
 }
 
 
 
-int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow, const std::string& fileName) {
+int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow) {
 	const wchar_t GRAPH_CLASS_NAME[] = L"GraphWindowClass";
 
 	WNDCLASS wc = {};
