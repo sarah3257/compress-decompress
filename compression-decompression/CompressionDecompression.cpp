@@ -3,12 +3,29 @@
 #include "FileStream.h"
 #include "StreamHandler.h"
 #include "Deflate.h"
+#include <iostream>
+#include <chrono>
+#include <windows.h>
+#include <psapi.h>
 
 const std::string CompressionDecompression::password = "stzip";
+double CompressionDecompression::cpuTime = 0.0;
+double CompressionDecompression::memoryUsage = 0.0;
+
+double CompressionDecompression::printMemoryUsage() {
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+	return pmc.WorkingSetSize / 1024;
+}
 
 //compress the data divided to buffers
 void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
 
+	// save Memory Usage
+	int startMemorySize;
+	startMemorySize = printMemoryUsage();
+	// save cpu time
+	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
 	IStreamInterface* iStream = new FileStream(fileName);
 	StreamHandler streamHandler(iStream);
@@ -26,8 +43,12 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
 	delete iStream;
+	// save cpu time
+	auto stop = std::chrono::high_resolution_clock::now();
+	cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+	// save Memory Usage
+	memoryUsage = printMemoryUsage() - startMemorySize;
 }
-
 
 //decompress the data divided to buffers
 void CompressionDecompression::decompress(const std::string& fileName, DecompressFunction compressFunc) {
