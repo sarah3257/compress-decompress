@@ -17,16 +17,17 @@ class CompressionMetrics
 {
 public:
 
-	double EfficiencyPercentages();
+	double DeflateCompression(const std::string& fileName);
 	double HuffmanCompression(const std::string& fileName);
 	double LZ77Compression(const std::string& fileName);
-	double DeflateCompression(const std::string& fileName);
+
+	void CompressionMetricsZipi(const std::string& fileName);
 
 	static void DrawGraph(HDC hdc, double percentLZ77, double percentHuffman, double percentDeflate);
 
 
-	static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-	static int WINAPI play(HINSTANCE hInstance, int nCmdShow);
+    static int WINAPI play(HINSTANCE hInstance, int nCmdShow);
 };
 

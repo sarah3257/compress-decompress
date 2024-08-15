@@ -4,26 +4,20 @@
 
 #define M 100
 
-double CompressionMetrics::EfficiencyPercentages() {
-	return M - (FileStream::destinationFileSize * M / FileStream::originalFileSize);
+double CompressionMetrics::DeflateCompression(const std::string& fileName) {
+    //CompressionDecompression::compress(fileName, Deflate::compress);
+    return FileStream::EfficiencyPercentages;
 }
 
 double CompressionMetrics::HuffmanCompression(const std::string& fileName) {
 	CompressionDecompression::compress(fileName, Huffman::compress);
-	return EfficiencyPercentages();
+	return FileStream::EfficiencyPercentages;
 }
 
 double CompressionMetrics::LZ77Compression(const std::string& fileName) {
 	CompressionDecompression::compress(fileName, LZ77::compress);
-	return EfficiencyPercentages();
+    return FileStream::EfficiencyPercentages;
 }
-
-double CompressionMetrics::DeflateCompression(const std::string& fileName) {
-	CompressionDecompression::compress(fileName, Deflate::compress);
-	return EfficiencyPercentages();
-}
-
-
 
 //point to DrawGraph
 struct Point {
