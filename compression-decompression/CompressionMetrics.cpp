@@ -2,7 +2,18 @@
 #include "CompressionDecompression.h"
 #include "FileStream.h"
 
+double CompressionMetrics::cpuTimeDeflate = 0;
+double CompressionMetrics::memoryUsageDeflate = 0;
+double CompressionMetrics::EfficiencyPercentagesDeflate = 0;
+double CompressionMetrics::cpuTimeLZ77 = 0;
+double CompressionMetrics::memoryUsageLZ77 = 0;
+double CompressionMetrics::EfficiencyPercentagesLZ77 = 0;
+double CompressionMetrics::cpuTimeHuffman = 0;
+double CompressionMetrics::memoryUsageHuffman = 0;
+double CompressionMetrics::EfficiencyPercentagesHuffman = 0;
+
 void CompressionRatios(const std::string& fileName) {
+
 	// deflate
 	CompressionMetrics::cpuTimeDeflate = CompressionDecompression::cpuTime;
 	CompressionMetrics::memoryUsageDeflate = CompressionDecompression::memoryUsage;
