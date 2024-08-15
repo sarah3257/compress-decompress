@@ -3,22 +3,23 @@
 #include "FileStream.h"
 
 #define M 100
+std::string CompressionMetrics::fileName;
 
 double CompressionMetrics::EfficiencyPercentages() {
 	return M - (FileStream::destinationFileSize * M / FileStream::originalFileSize);
 }
 
-double CompressionMetrics::HuffmanCompression(const std::string& fileName) {
+double CompressionMetrics::HuffmanCompression() {
 	CompressionDecompression::compress(fileName, Huffman::compress);
 	return EfficiencyPercentages();
 }
 
-double CompressionMetrics::LZ77Compression(const std::string& fileName) {
+double CompressionMetrics::LZ77Compression() {
 	CompressionDecompression::compress(fileName, LZ77::compress);
 	return EfficiencyPercentages();
 }
 
-double CompressionMetrics::DeflateCompression(const std::string& fileName) {
+double CompressionMetrics::DeflateCompression() {
 	CompressionDecompression::compress(fileName, Deflate::compress);
 	return EfficiencyPercentages();
 }
@@ -106,7 +107,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77,double percentHuf
 //// פונקציה לטיפול בהודעות חלון גרפים
 LRESULT CompressionMetrics::GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
-    double percentLZ77 = 300.0, percentHuffman = 280.0, percentDeflate = 100.0;
+    double percentLZ77 = 300-LZ77Compression()*2, percentHuffman = 300-HuffmanCompression()*2, percentDeflate = 300- DeflateCompression()*2;
     switch (uMsg) {
     case WM_PAINT:
     {
@@ -128,7 +129,7 @@ LRESULT CompressionMetrics::GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam,
 
 
 
-int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow, const std::string& fileName) {
+int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow) {
 	const wchar_t GRAPH_CLASS_NAME[] = L"GraphWindowClass";
 
 	WNDCLASS wc = {};
