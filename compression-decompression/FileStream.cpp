@@ -1,20 +1,20 @@
 #include "FileStream.h"
 #include "Logger.h"
-#include <bitset>
 #include "StreamHandler.h"
+#include <bitset>
+#define M 100
 
-double FileStream::destinationFileSize = 0.0;
-double FileStream::originalFileSize = 0.0;
+double FileStream::EfficiencyPercentages = 0.0;
 
 FileStream::FileStream(const std::string& sourceFilePath) {
 
 	sourceFile.open(sourceFilePath, std::ios::binary);
 	if (!sourceFile)
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
-	originalFileSize = sourceFile.tellg();
 }
 
 FileStream::~FileStream() {
+	EfficiencyPercentages = M - (destinationFile.tellp() * M / sourceFile.tellg());
 	if (sourceFile.is_open())
 		sourceFile.close();
 	if (destinationFile.is_open())
@@ -36,11 +36,10 @@ void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCo
 	destinationFile.open(destinationFilePath, std::ios::binary);
 	if (!destinationFile)
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
-	destinationFileSize = destinationFile.tellp();
 }
 
 void FileStream::readData(std::vector<char>& buffer) {
-	if (!sourceFile) 
+	if (!sourceFile)
 		Logger::logError(Logger::CANNOT_OPEN_FILE);
 	sourceFile.read(buffer.data(), buffer.size());
 }
