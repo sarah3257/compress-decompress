@@ -122,14 +122,26 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 			return (INT_PTR)TRUE;
 		}
         else if (LOWORD(wParam) == IDC_BUTTON6) {
-
+			HWND hwndDlg = GetActiveWindow();
+			HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
+			int selIndex = SendMessage(hListBox, LB_GETCURSEL, 0, 0);
+			if (selIndex != LB_ERR)
+			{
+				wchar_t filePath[MAX_PATH];
+				SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
+				std::wstring filePathW(filePath);
+				std::string filePathStr = ws2s(filePathW);		
 
             HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
             int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
 
-            CompressionMetrics cm;
-            int result = cm.play(hInstance, nCmdShow,"sa");
-
+            CompressionMetrics cm(filePathStr);
+            int result = cm.play(hInstance, nCmdShow);
+			}
+			else
+			{
+				MessageBoxW(hwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
+			}
             return (INT_PTR)TRUE;
         }
 		
