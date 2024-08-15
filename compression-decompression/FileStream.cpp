@@ -16,11 +16,11 @@ FileStream::FileStream(const std::string& sourceFilePath) {
 FileStream::~FileStream() {
 	int destinationSize = 0, sourceSize = 0;
 	if (sourceFile.is_open()) {
-		EfficiencyPercentages = destinationFile.tellp();
+		sourceSize = sourceFile.tellg();
 		sourceFile.close();
 	}
 	if (destinationFile.is_open()) {
-		sourceFile.tellg();
+		destinationSize= destinationFile.tellp();
 		destinationFile.close();
 	}
 	if(sourceSize!=0)

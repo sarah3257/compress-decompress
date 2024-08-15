@@ -117,8 +117,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
             return (INT_PTR)TRUE;
         }
 		else if (LOWORD(wParam) == IDC_BUTTON5) {
-			//ציפיייייייייי כאן
-			plotComparisonGraph(100, 2, 150, 4, 120, 3);
+			CompressionMetrics::plotComparisonGraph();
 			return (INT_PTR)TRUE;
 		}
         else if (LOWORD(wParam) == IDC_BUTTON6) {
@@ -151,52 +150,4 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
         return (INT_PTR)TRUE;
     }
     return (INT_PTR)FALSE;
-}
-
-void Dialog::plotComparisonGraph(double lz77_memory, double lz77_speed, double huffman_memory, double huffman_speed, double deflate_memory, double deflate_speed) {
-	FILE* gnuplotPipe = _popen("\"C:\\Program Files\\gnuplot\\bin\\gnuplot.exe\" -persist", "w");
-
-	// Set the terminal to be non-interactive to disable scrollbars
-	fprintf(gnuplotPipe, "set terminal wxt size 1600,800 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
-
-	// Provide data using separate datablocks for speed and memory for three algorithms
-	fprintf(gnuplotPipe, "$SpeedData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", lz77_speed);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", huffman_speed);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", deflate_speed);
-	fprintf(gnuplotPipe, "EOD\n");
-
-	fprintf(gnuplotPipe, "$MemoryData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", lz77_memory);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", huffman_memory);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", deflate_memory);
-	fprintf(gnuplotPipe, "EOD\n");
-
-	// Plotting the data in separate graphs with different axis segments
-	fprintf(gnuplotPipe, "set multiplot layout 2,1 title 'Comparison of Compression Algorithms'\n"); // Set up a multiplot with 2 rows and 1 column
-
-	// Plotting Speed with specific y-axis range
-	fprintf(gnuplotPipe, "set title 'Speed'\n");
-	fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
-	fprintf(gnuplotPipe, "set ylabel 'Speed'\n");
-	fprintf(gnuplotPipe, "set style data boxes\n");
-	fprintf(gnuplotPipe, "set boxwidth 0.5\n");
-	fprintf(gnuplotPipe, "set yrange [0:6]\n"); // Set specific y-axis range for Speed
-	fprintf(gnuplotPipe, "plot '$SpeedData' using 2:xtic(1) with boxes title 'Speed' lc rgb 'blue'\n");
-
-	// Plotting Memory with specific y-axis range
-	fprintf(gnuplotPipe, "set title 'Memory'\n");
-	fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
-	fprintf(gnuplotPipe, "set ylabel 'Memory'\n");
-	fprintf(gnuplotPipe, "set style data boxes\n");
-	fprintf(gnuplotPipe, "set boxwidth 0.5\n");
-	fprintf(gnuplotPipe, "set yrange [0:200]\n"); // Set specific y-axis range for Memory
-	fprintf(gnuplotPipe, "plot '$MemoryData' using 2:xtic(1) with boxes title 'Memory' lc rgb 'green'\n");
-
-	fprintf(gnuplotPipe, "unset multiplot\n"); // End the multiplot
-
-	fflush(gnuplotPipe);
-
-	// Close the gnuplot pipe
-	_pclose(gnuplotPipe);
 }
