@@ -12,7 +12,7 @@ double CompressionMetrics::cpuTimeHuffman = 0;
 double CompressionMetrics::memoryUsageHuffman = 0;
 double CompressionMetrics::EfficiencyPercentagesHuffman = 0;
 
-void CompressionRatios(const std::string& fileName) {
+void CompressionMetrics::CompressionRatios(const std::string& fileName) {
 
 	// deflate
 	CompressionMetrics::cpuTimeDeflate = CompressionDecompression::cpuTime;
