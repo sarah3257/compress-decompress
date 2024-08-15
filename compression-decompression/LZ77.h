@@ -24,7 +24,7 @@ class LZ77
 
 public:
 	static int maxWindowSize;
-	static std::string compress( std::vector<char>& text, std::unordered_map<char, std::string>& codes);
+	static std::vector<char> compress( std::vector<char>& text, std::unordered_map<char, std::string>& codes);
 	static std::vector<char> decompress( std::vector<char>& text, std::unordered_map<char, std::string>& codesMap);
 	
 };

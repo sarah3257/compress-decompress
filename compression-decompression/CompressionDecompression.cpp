@@ -34,7 +34,7 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	streamHandler.insertFileExtension(fileName);
 	//read the buffers
 	std::vector<char> buffer;
-	std::string compressText;
+	std::vector<char> compressText;
 	while (streamHandler.getRemainingBytesToRead()) {
 		buffer = streamHandler.readBufferCompress();
 		std::unordered_map<char, std::string> codes;

@@ -20,7 +20,7 @@ public:
 	static std::string fileName;
 	CompressionMetrics(){}
 	CompressionMetrics(std::string fileName) {
-	//	CompressionRatios(fileName);
+		CompressionRatios(fileName);
 		this->fileName = fileName;
 
 	}

@@ -8,7 +8,7 @@ class CompressionDecompression
 public:
 	static double cpuTime;
 	static double memoryUsage;
-	using CompressFunction = std::string(*)( std::vector<char>&, std::unordered_map<char, std::string>&);
+	using CompressFunction = std::vector<char>(*)( std::vector<char>&, std::unordered_map<char, std::string>&);
 	using DecompressFunction = std::vector<char>(*)( std::vector<char>&, std::unordered_map<char, std::string>&);
 	static double printMemoryUsage();
 	static void compress(const std::string& fileName, CompressFunction compressFunc);

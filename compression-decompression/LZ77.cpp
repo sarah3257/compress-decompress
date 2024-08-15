@@ -72,13 +72,13 @@ std::vector<char> LZ77::changeToString(const std::vector<LZ77Token>& tokens) {
 	return text;
 }
 
-std::string LZ77::compress( std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
+std::vector<char> LZ77::compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "LZ77");
 	std::vector<LZ77Token> tokens = getTokens(text);
 	std::vector<char> resultText = changeToString(tokens);
+	resultText.push_back(0);
 	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "LZ77");
-	std::string stringResult = std::string(resultText.begin(), resultText.end());
-	return stringResult;
+	return resultText;
 }
 
 // decompression

@@ -7,7 +7,7 @@
 #include <bitset>
 
 //open the source and destination file
-StreamHandler::StreamHandler(IStreamInterface * streamInterface):streamInterface(streamInterface){
+StreamHandler::StreamHandler(IStreamInterface* streamInterface) :streamInterface(streamInterface) {
 	setMaxWindowSize();
 }
 
@@ -22,21 +22,15 @@ std::vector<char> StreamHandler::readBufferCompress() {
 }
 
 //write to file the compressed buffer
-void StreamHandler::writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::string& text) {
-	
-	// write the map
+void StreamHandler::writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::vector<char>& buffer) {
+
+	//push the map
 	streamInterface->writeMap(codes);
 	//push data.size and data
-	int dataSize = text.size();
-	while (text.size() % 8)
-		text.push_back('0');
-	std::vector<char> buffer;
-	for (int i = 0; i < text.size(); i += 8) {
-		std::string byteString = text.substr(i, 8);
-		std::bitset<8> byte(byteString);
-		buffer.push_back(static_cast<char>(byte.to_ulong()));
-	}
-	streamInterface->writeData(dataSize);
+	int addedBits = buffer[buffer.size() - 1];
+	buffer.pop_back();
+	int bufferSize = buffer.size() * 8 - addedBits;
+	streamInterface->writeData(bufferSize);
 	streamInterface->writeData(buffer);
 }
 
@@ -53,7 +47,7 @@ std::vector<char> StreamHandler::convertToBinaryVector(const std::vector<char>& 
 
 //read buffer from file to decompress and fill the codesMap and data
 std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
-	
+
 	// read the map
 	streamInterface->readMap(codes);
 
@@ -75,7 +69,7 @@ std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, s
 
 //write to file the decompressed buffer
 void StreamHandler::writeBufferDecompress(const std::vector<char>& text) {
-	
+
 	// Write the vector content as a single string to the file
 	streamInterface->writeData(text);
 }
@@ -90,10 +84,8 @@ void StreamHandler::insertPassword(const std::string& password) {
 void StreamHandler::insertFileExtension(const std::string& fileName) {
 	// Extract the file extension
 	int pos = fileName.find_last_of('.');
-	if (pos == std::string::npos) {
+	if (pos == std::string::npos)
 		Logger::logError(Logger::NO_EXTENSION_FOUND);
-		exit(1);
-	}
 	std::string extension = fileName.substr(pos);
 	std::vector<char> buffer(extension.begin(), extension.end());
 	int extensionSize = buffer.size();
@@ -115,10 +107,8 @@ bool StreamHandler::isCorrectPassword(const std::string& password) {
 
 	std::vector<char> passwordVector(password.size());
 	streamInterface->readData(passwordVector);
-	if (passwordVector.empty()) {
+	if (passwordVector.empty())
 		Logger::logError(Logger::FAILED_READ_PASSWORD_FROM_FILE);
-		exit(1);
-	}
 	std::string passwordString(passwordVector.begin(), passwordVector.end());
 	return passwordString == password;
 }
