@@ -14,7 +14,7 @@ FileStream::FileStream(const std::string& sourceFilePath) {
 }
 
 FileStream::~FileStream() {
-	EfficiencyPercentages = M - (destinationFile.tellp() * M / sourceFile.tellg());
+	//EfficiencyPercentages = M - (destinationFile.tellp() * M / sourceFile.tellg());
 	if (sourceFile.is_open())
 		sourceFile.close();
 	if (destinationFile.is_open())

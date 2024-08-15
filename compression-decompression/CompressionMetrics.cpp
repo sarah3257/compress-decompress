@@ -113,7 +113,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 //// פונקציה לטיפול בהודעות חלון גרפים
 LRESULT CompressionMetrics::GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 
-    double percentLZ77 = 300-CompressionMetrics::EfficiencyPercentagesLZ77*2, percentHuffman = 300-CompressionMetrics::EfficiencyPercentagesHuffman*2, percentDeflate = 300-CompressionMetrics::EfficiencyPercentagesDeflate *2;
+    double percentLZ77 = 300, percentHuffman =200 , percentDeflate = 100;
     switch (uMsg) {
     case WM_PAINT:
     {

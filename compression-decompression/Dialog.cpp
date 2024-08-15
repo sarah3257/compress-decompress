@@ -152,12 +152,11 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     return (INT_PTR)FALSE;
 }
-
 void Dialog::plotComparisonGraph(double lz77_memory, double lz77_speed, double huffman_memory, double huffman_speed, double deflate_memory, double deflate_speed) {
 	FILE* gnuplotPipe = _popen("\"C:\\Program Files\\gnuplot\\bin\\gnuplot.exe\" -persist", "w");
 
 	// Set the terminal to be non-interactive to disable scrollbars
-	fprintf(gnuplotPipe, "set terminal wxt size 1600,800 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
+	fprintf(gnuplotPipe, "set terminal wxt size 800,400 noraise noninteractive\n"); // Update the size of the window to 800x400 pixels and make it non-interactive
 
 	// Provide data using separate datablocks for speed and memory for three algorithms
 	fprintf(gnuplotPipe, "$SpeedData << EOD\n");
