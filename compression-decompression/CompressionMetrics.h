@@ -4,7 +4,7 @@
 #include "resource.h"
 #include "Logger.h"
 #include "Test.h"
-#include "Dailog.h"
+#include "Dialog.h"
 #include <windows.h>
 #include <vector>
 #include <string>
@@ -28,6 +28,6 @@ public:
 
     static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-    static int WINAPI play(HINSTANCE hInstance, int nCmdShow);
+   static int WINAPI play(HINSTANCE hInstance, int nCmdShow, const std::string& fileName);
 };
 

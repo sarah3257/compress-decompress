@@ -3,7 +3,7 @@
 #include "resource.h"
 #include "Logger.h"
 #include "Test.h"
-#include "Dailog.h"
+#include "Dialog.h"
 #include "CompressionMetrics.h"
 #include <windows.h>
 #include <psapi.h>
@@ -35,7 +35,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     Logger logger("log.txt");
     //Dialog
    // CompressionMetrics::play(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-    DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL,Dailog::DialogProc);
+    DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL,Dialog::DialogProc);
 
         return 0;
 }

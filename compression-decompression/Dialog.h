@@ -8,7 +8,7 @@
 #include "Logger.h"
 #include "Test.h"
 
-class Dailog
+class Dialog
 {
 
 
@@ -19,6 +19,8 @@ class Dailog
 	static void decompressFun();
 
 	static void uploadFile();
+
+	static void   playGraph();
 
 	static std::wstring s2ws(const std::string& str);
 
