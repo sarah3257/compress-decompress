@@ -20,7 +20,7 @@ FileStream::~FileStream() {
 		sourceFile.close();
 	}
 	if (destinationFile.is_open()) {
-		destinationSize = destinationFile.tellp();
+		destinationSize= destinationFile.tellp();
 		destinationFile.close();
 	}
 	if (sourceSize != 0)
