@@ -8477,3 +8477,51 @@
 [2024-08-15 12:12:01] Information: start Function: compress In class: CompressionDecompression
 [2024-08-15 12:14:29] Information: start Function: compress In class: LZ77
 [2024-08-15 12:14:29] Information: Function exit compress In class: LZ77
+[2024-08-15 13:07:13] Information: start Function: compress In class: CompressionDecompression
+[2024-08-15 13:07:13] Information: start Function: compress In class: LZ77
+[2024-08-15 13:07:19] Information: Function exit compress In class: LZ77
+[2024-08-15 13:07:19] Information: start Function: compress In class: Huffman
+[2024-08-15 13:07:19] Information: Function exit compress In class: Huffman
+[2024-08-15 13:07:19] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-15 13:07:44] Information: start Function: compress In class: CompressionDecompression
+[2024-08-15 13:07:44] Information: start Function: compress In class: LZ77
+[2024-08-15 13:07:47] Information: Function exit compress In class: LZ77
+[2024-08-15 13:07:47] Information: start Function: compress In class: Huffman
+[2024-08-15 13:07:47] Information: Function exit compress In class: Huffman
+[2024-08-15 13:07:47] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-15 13:09:26] Information: start Function: compress In class: CompressionDecompression
+[2024-08-15 13:09:26] Information: start Function: compress In class: LZ77
+[2024-08-15 13:09:29] Information: Function exit compress In class: LZ77
+[2024-08-15 13:09:29] Information: start Function: compress In class: Huffman
+[2024-08-15 13:09:29] Information: Function exit compress In class: Huffman
+[2024-08-15 13:09:30] Information: Function exitcompress In class: CompressionDecompression
+[2024-08-15 13:09:38] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:09:38] Error: Invalid password
+[2024-08-15 13:10:04] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:10:04] Error: Invalid password
+[2024-08-15 13:11:19] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:11:19] Error: Invalid password
+[2024-08-15 13:15:41] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:15:41] Error: Invalid password
+[2024-08-15 13:18:03] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:18:03] Error: Invalid password
+[2024-08-15 13:19:50] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:19:50] Warning: Invalid password
+[2024-08-15 13:20:45] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:20:45] Warning: Invalid password
+[2024-08-15 13:30:11] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:30:11] Warning: Invalid password
+[2024-08-15 13:31:32] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:31:32] Warning: Invalid password
+[2024-08-15 13:32:38] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:32:38] Warning: Invalid password
+[2024-08-15 13:34:17] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:34:17] Error: Invalid password
+[2024-08-15 13:36:46] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:36:46] Error: Invalid password
+[2024-08-15 13:36:59] Information: start Function: decompress In class: CompressionDecompression
+[2024-08-15 13:36:59] Information: start Function: decompress In class: Huffman
+[2024-08-15 13:36:59] Information: Function exit decompress In class: Huffman
+[2024-08-15 13:36:59] Information: start Function: decompress In class: LZ77
+[2024-08-15 13:36:59] Information: Function exit decompress In class: LZ77
+[2024-08-15 13:36:59] Information: Function exitdecompress In class: CompressionDecompression

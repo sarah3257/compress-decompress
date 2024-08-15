@@ -75,7 +75,6 @@ std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, s
 
 //write to file the decompressed buffer
 void StreamHandler::writeBufferDecompress(const std::vector<char>& text) {
-	
 	// Write the vector content as a single string to the file
 	streamInterface->writeData(text);
 }
@@ -90,10 +89,8 @@ void StreamHandler::insertPassword(const std::string& password) {
 void StreamHandler::insertFileExtension(const std::string& fileName) {
 	// Extract the file extension
 	int pos = fileName.find_last_of('.');
-	if (pos == std::string::npos) {
+	if (pos == std::string::npos)
 		Logger::logError(Logger::NO_EXTENSION_FOUND);
-		exit(1);
-	}
 	std::string extension = fileName.substr(pos);
 	std::vector<char> buffer(extension.begin(), extension.end());
 	int extensionSize = buffer.size();
@@ -115,10 +112,8 @@ bool StreamHandler::isCorrectPassword(const std::string& password) {
 
 	std::vector<char> passwordVector(password.size());
 	streamInterface->readData(passwordVector);
-	if (passwordVector.empty()) {
+	if (passwordVector.empty())
 		Logger::logError(Logger::FAILED_READ_PASSWORD_FROM_FILE);
-		exit(1);
-	}
 	std::string passwordString(passwordVector.begin(), passwordVector.end());
 	return passwordString == password;
 }
