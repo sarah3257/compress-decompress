@@ -17,11 +17,18 @@ class CompressionMetrics
 {
 public:
 
-	double DeflateCompression(const std::string& fileName);
-	double HuffmanCompression(const std::string& fileName);
-	double LZ77Compression(const std::string& fileName);
 
-	void CompressionMetricsZipi(const std::string& fileName);
+	static double cpuTimeDeflate;
+	static double memoryUsageDeflate;
+	static double EfficiencyPercentagesDeflate;
+	static double cpuTimeLZ77;
+	static double memoryUsageLZ77;
+	static double EfficiencyPercentagesLZ77;
+	static double cpuTimeHuffman;
+	static double memoryUsageHuffman;
+	static double EfficiencyPercentagesHuffman;
+
+	void CompressionRatios(const std::string& fileName);
 
 	static void DrawGraph(HDC hdc, double percentLZ77, double percentHuffman, double percentDeflate);
 
