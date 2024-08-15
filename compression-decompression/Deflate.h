@@ -4,10 +4,9 @@
 #include "LZ77.h"
 #include "Huffman.h"
 
-class Deflate
+namespace Deflate
 {
-public:
-	static std::string compress( std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
-	static std::vector<char>  decompress( std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
+	 std::string compress( std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
+	 std::vector<char>  decompress( std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
 };
 

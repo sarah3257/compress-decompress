@@ -14,11 +14,17 @@ FileStream::FileStream(const std::string& sourceFilePath) {
 }
 
 FileStream::~FileStream() {
-	//EfficiencyPercentages = M - (destinationFile.tellp() * M / sourceFile.tellg());
-	if (sourceFile.is_open())
+	int destinationSize = 0, sourceSize = 0;
+	if (sourceFile.is_open()) {
+		EfficiencyPercentages = destinationFile.tellp();
 		sourceFile.close();
-	if (destinationFile.is_open())
+	}
+	if (destinationFile.is_open()) {
+		sourceFile.tellg();
 		destinationFile.close();
+	}
+	if(sourceSize!=0)
+	EfficiencyPercentages = M - (destinationSize * M / sourceSize);
 }
 
 void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCompress) {
