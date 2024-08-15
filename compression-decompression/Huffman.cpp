@@ -1,5 +1,6 @@
 #include "Huffman.h"
 #include "Logger.h"
+#include <bitset>
 
 // Counts character frequencies in the text and returns a map.
 std::unordered_map<char, int> Huffman::calculateFrequencies(const std::vector<char>& text) {
@@ -64,15 +65,25 @@ std::string Huffman::encodeText(const std::unordered_map<char, std::string>& cod
 }
 
 // Compresses the text using Huffman coding and returns the encoded string.
-std::string Huffman::compress( std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
+std::vector<char> Huffman::compress( std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "Huffman");
 	std::unordered_map<char, int> freqMap = calculateFrequencies(text);
 	std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode> pq = buildHuffmanPriorityQueue(freqMap);
 	HuffmanNode* tree = buildHuffmanTree(pq);
 	codes = getHuffmanCodes(tree);
 	std::string result = encodeText(codes, text);
+	int dataSize = result.size();
+	while (result.size() % 8)
+		result.push_back('0');
+	std::vector<char> buffer;
+	for (int i = 0; i < result.size(); i += 8) {
+		std::string byteString = result.substr(i, 8);
+		std::bitset<8> byte(byteString);
+		buffer.push_back(static_cast<char>(byte.to_ulong()));
+	}
+	buffer.push_back(8-dataSize%8);
 	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "Huffman");
-	return result;
+	return buffer;
 }
 
 

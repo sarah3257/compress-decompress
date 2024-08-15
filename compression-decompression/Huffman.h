@@ -29,7 +29,7 @@ class Huffman
 	static std::string encodeText(const std::unordered_map<char, std::string>& codes, const std::vector<char>& text);
 	static std::unordered_map<std::string, char> swapKeysAndValues(std::unordered_map<char, std::string> originalMap);
 public:
-	static std::string compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes);
+	static std::vector<char> compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes);
 	//call to all functions to compress file.
 	static std::vector<char> decompress(std::vector<char>& text,  std::unordered_map<char, std::string>& codesMap);
 	//call to all functions to decompress file.

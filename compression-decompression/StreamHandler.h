@@ -17,7 +17,7 @@ public:
 	StreamHandler(IStreamInterface* streamInterfaceh);
 	std::vector<char> readBufferCompress();
 	std::vector<char> readBufferDecompress(std::unordered_map<char, std::string>& codes);
-	void writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::string& text);
+	void writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::vector<char>& buffer);
 	void writeBufferDecompress(const std::vector<char>& text);
 	bool isCorrectPassword(const std::string& password) ;
 	void insertPassword(const std::string& password);

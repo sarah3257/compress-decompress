@@ -7,7 +7,7 @@
 class Deflate
 {
 public:
-	static std::string compress( std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
+	static std::vector<char> compress( std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
 	static std::vector<char>  decompress( std::vector<char>& buffer, std::unordered_map<char, std::string>& codes);
 };
 
