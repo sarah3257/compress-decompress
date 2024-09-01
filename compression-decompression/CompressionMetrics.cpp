@@ -183,9 +183,9 @@ void CompressionMetrics::plotComparisonGraph() {
 
 	double maxMemoryUsage = min(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman, CompressionMetrics::memoryUsageDeflate);
 	fprintf(gnuplotPipe, "$MemoryData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77 / maxMemoryUsage);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman / maxMemoryUsage);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::memoryUsageDeflate / maxMemoryUsage);
+	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77/10 );
+	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman/10 );
+	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::memoryUsageDeflate/10);
 	fprintf(gnuplotPipe, "EOD\n");
 
 	// Plotting the data in separate graphs with different axis segments
