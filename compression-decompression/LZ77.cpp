@@ -4,7 +4,9 @@
 #include "string"
 
 namespace LZ77 {
-	int maxWindowSize = 1024;
+
+	int maxWindowSize = 1024; 
+
 	// Internal function implementations
 	namespace Detail {
 
@@ -96,7 +98,7 @@ namespace LZ77 {
 		return resultText;
 	}
 
-	std::vector<char> decompress( std::vector<char>& text,  std::unordered_map<char, std::string>& codesMap) {
+	std::vector<char> decompress(std::vector<char>& text, std::unordered_map<char, std::string>& codesMap) {
 		Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "LZ77");
 
 		std::vector<char> decompressText;

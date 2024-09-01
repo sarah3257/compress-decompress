@@ -27,6 +27,8 @@ void StreamHandler::writeBufferCompress(const std::unordered_map<char, std::stri
 	//push the map
 	streamInterface->writeMap(codes);
 	//push data.size and data
+	//אולי זה מה שדניאל אמר 
+	//int addedBits = buffer.back(); // גישה ישירה ל back
 	int addedBits = buffer[buffer.size() - 1];
 	buffer.pop_back();
 	int bufferSize = buffer.size() * 8 - addedBits;
