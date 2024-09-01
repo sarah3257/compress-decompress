@@ -3,29 +3,18 @@
 #include <string>
 #include <unordered_map>
 
+namespace LZ77 {
+	struct LZ77Token {
+		int offset;
+		int length;
+		char nextChar;
+		LZ77Token(int offset, int length, char nextChar)
+			: offset(offset), length(length), nextChar(nextChar) {}
+	};
 
-//const int MAX_WINDOW_SIZE = 1024;  // Maximum window size 8KB
-//const int MAX_WINDOW_SIZE = 256;
-//const int MAX_WINDOW_SIZE = 32768; // 32KB
+	extern int maxWindowSize;
 
-struct LZ77Token {
-	int offset;
-	int length;
-	char nextChar;
-	LZ77Token(int offset, int length, char nextChar)
-		: offset(offset), length(length), nextChar(nextChar) {}
-};
-
-class LZ77
-{	
-	static std::vector<LZ77Token> getTokens(const std::vector<char>& text);
-	static std::vector<char> changeToString(const std::vector<LZ77Token>& tokens);
-	static std::string findIndex(const std::vector<char>& vec, int& start);
-
-public:
-	static int maxWindowSize;
-	static std::vector<char> compress( std::vector<char>& text, std::unordered_map<char, std::string>& codes);
-	static std::vector<char> decompress( std::vector<char>& text, std::unordered_map<char, std::string>& codesMap);
-	
-};
-
+	// Public interface
+	std::vector<char> compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes);
+	std::vector<char> decompress(std::vector<char>& text, std::unordered_map<char, std::string>& codesMap);
+}

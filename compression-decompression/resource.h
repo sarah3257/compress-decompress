@@ -11,6 +11,7 @@
 #define IDC_BUTTON4                     1006  
 #define IDC_BUTTON5                     1007  
 #define IDC_BUTTON6                     1008  
+#define IDC_BUTTONFOLDER                1009  
 
 
 // Next default values for new objects

@@ -41,11 +41,12 @@ void CompressionDecompression:: play(const std::string& fileName, CompressFuncti
 	StreamHandler streamHandler(iStream);
 	iStream->openDestinationStream(fileName, true);
 	streamHandler.insertPassword(password);
+	//-----------------------start to devide to files
 	streamHandler.insertFileExtension(fileName);
 	//read the buffers
 	std::vector<char> buffer;
 	std::vector<char> compressText;
-	while (streamHandler.getRemainingBytesToRead()) {
+	while (streamHandler.getRemainingBytesToRead()) {//if remainig another files
 		buffer = streamHandler.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
 		compressText = compressFunc(buffer, codes);
@@ -67,13 +68,17 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	if (check_path_is_directory(fileName)) {
 
 		fs::path originalPath(fileName);
-		fs::path newPath = originalPath.string() + "STRzip";
+		fs::path newPath = originalPath.string() + "STZip";
 		fs::create_directory(newPath);//יצירה
 		// לולאה שעוברת על כל הקבצים בתיקיה
 		for (const auto& entry : fs::directory_iterator(originalPath)) {
 			// בדיקה אם הערך הנוכחי בלולאה הוא קובץ רגיל ולא תיקיה
+			const std::string& fileInFolder=entry.path().string();
+			//מקור-entry.path().string();
+			//יעד
+			//originalPath.string() + "STZip\\"+entry.path().filename().string();
 			if (fs::is_regular_file(entry.status())) {
-				CompressionDecompression::play(fileName, compressFunc);
+				CompressionDecompression::play(fileInFolder, compressFunc);
 			}
 		}
 
