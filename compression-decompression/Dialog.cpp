@@ -3,6 +3,8 @@
 #include "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
+#include <windows.h>  
+#include <shlobj.h>  
 
 void Dialog::compressFun()
 {
@@ -74,7 +76,44 @@ void Dialog::uploadFile()
 		// MessageBoxW(NULL, L"Failed to upload file", L"Error", MB_OK | MB_ICONERROR);
 	}
 }
+void Dialog::uploadFolder()
+{
+	BROWSEINFO bi;
+	ZeroMemory(&bi, sizeof(bi));
 
+	bi.lpszTitle = L"Select Folder to Upload";
+	bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
+	bi.hwndOwner = GetActiveWindow();
+
+	LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+	if (pidl != NULL)
+	{
+		wchar_t szFolder[MAX_PATH];
+		if (SHGetPathFromIDList(pidl, szFolder))
+		{
+			// הוסף את נתיב התיקיה לרשימה
+			HWND hwndDlg = GetActiveWindow();
+			HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
+			SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)szFolder);
+
+			// הצגת הודעה לתיקיה שהועלתה בהצלחה
+			// MessageBoxW(NULL, L"Folder successfully uploaded", L"Message", MB_OK | MB_ICONINFORMATION);
+		}
+		else
+		{
+			// הצגת הודעת שגיאה אם לא הצליח להעלות תיקיה
+			// MessageBoxW(NULL, L"Failed to upload folder", L"Error", MB_OK | MB_ICONERROR);
+		}
+
+		// שחרור הזיכרון שהוקצה עבור ה-pidl
+		IMalloc* imalloc = NULL;
+		if (SUCCEEDED(SHGetMalloc(&imalloc)))
+		{
+			imalloc->Free(pidl);
+			imalloc->Release();
+		}
+	}
+}
 std::wstring Dialog::s2ws(const std::string& str)
 {
 	std::wstring ws(str.begin(), str.end());
@@ -110,6 +149,13 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
             uploadFile();
             return (INT_PTR)TRUE;
         }
+		else if (LOWORD(wParam) == IDC_BUTTONFOLDER) {
+			//MessageBoxW(hwndDlg, L"Upload folder button clicked", L"Info", MB_OK);
+			uploadFolder();
+			return (INT_PTR)TRUE;
+
+
+		}
         else if (LOWORD(wParam) == IDC_BUTTON4) {
             Test::playTest();
             MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);

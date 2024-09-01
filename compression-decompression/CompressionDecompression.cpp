@@ -8,6 +8,7 @@
 #include <windows.h>
 #include <psapi.h>
 
+
 const std::string CompressionDecompression::password = "stzip";
 double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
@@ -31,11 +32,12 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	StreamHandler streamHandler(iStream);
 	iStream->openDestinationStream(fileName, true);
 	streamHandler.insertPassword(password);
+	//-----------------------start to devide to files
 	streamHandler.insertFileExtension(fileName);
 	//read the buffers
 	std::vector<char> buffer;
 	std::vector<char> compressText;
-	while (streamHandler.getRemainingBytesToRead()) {
+	while (streamHandler.getRemainingBytesToRead()) {//if remainig another files
 		buffer = streamHandler.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
 		compressText = compressFunc(buffer, codes);
