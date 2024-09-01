@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "StreamHandler.h"
 #include <bitset>
+
 #define M 100
 
 double FileStream::EfficiencyPercentages = 0.0;
@@ -87,18 +88,14 @@ void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 		while (text.size() % 8)
 			text.push_back('0');
 		std::vector<char> buffer;
-		for (int i = 0; i < text.size(); i += 8) {
-			//שרה-
-			//דניאל נתן בהערות שלו את הבעיה שהמחרוזת שלנו היא ענקית והוא מקצה מחרוזת 
-		   //גדולה מאד בשביל לחתוך לחתיכה קטנה (אם הבנתי טוב)זה יוצר שימוש רב בזיכרון לכן יש פתרון
-		  //std::string_view byteString(text.data() + i, 8);//לבדוק אתכן ביחד אולי להחליף לשורה הזאת
-			std::string byteString = text.substr(i, 8);
-			std::bitset<8> byte(byteString);
+		for (size_t i = 0; i < text.size(); i += 8) {
+			std::bitset<8> byte(std::string(text.data() + i, 8));
 			buffer.push_back(static_cast<char>(byte.to_ulong()));
 		}
+
 		writeData(strSize);
 		writeData(buffer);
-	}
+	}	
 }
 
 void FileStream::readMap(std::unordered_map<char, std::string>& codes) {
