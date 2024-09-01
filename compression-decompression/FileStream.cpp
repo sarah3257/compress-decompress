@@ -20,7 +20,7 @@ FileStream::~FileStream() {
 		sourceFile.close();
 	}
 	if (destinationFile.is_open()) {
-		destinationSize = destinationFile.tellp();
+		destinationSize= destinationFile.tellp();
 		destinationFile.close();
 	}
 	if (sourceSize != 0)
@@ -88,6 +88,10 @@ void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 			text.push_back('0');
 		std::vector<char> buffer;
 		for (int i = 0; i < text.size(); i += 8) {
+			//שרה-
+			//דניאל נתן בהערות שלו את הבעיה שהמחרוזת שלנו היא ענקית והוא מקצה מחרוזת 
+		   //גדולה מאד בשביל לחתוך לחתיכה קטנה (אם הבנתי טוב)זה יוצר שימוש רב בזיכרון לכן יש פתרון
+		  //std::string_view byteString(text.data() + i, 8);//לבדוק אתכן ביחד אולי להחליף לשורה הזאת
 			std::string byteString = text.substr(i, 8);
 			std::bitset<8> byte(byteString);
 			buffer.push_back(static_cast<char>(byte.to_ulong()));

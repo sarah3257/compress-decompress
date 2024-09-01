@@ -18,7 +18,7 @@ class CompressionMetrics
 
 public:
 	static std::string fileName;
-	CompressionMetrics(){}
+	CompressionMetrics() {}
 	CompressionMetrics(std::string fileName) {
 		CompressionRatios(fileName);
 		this->fileName = fileName;
@@ -35,15 +35,12 @@ public:
 	static double memoryUsageHuffman;
 	static double EfficiencyPercentagesHuffman;
 
-	static void CompressionRatios( std::string& fileName);
-
+	static void CompressionRatios(std::string& fileName);
 
 
 	static void DrawGraph(HDC hdc, double percentLZ77, double percentHuffman, double percentDeflate);
-
-
-    static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-   static int WINAPI play(HINSTANCE hInstance, int nCmdShow);
+	static void plotComparisonGraph();
+	static LRESULT CALLBACK GraphWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	static int WINAPI play(HINSTANCE hInstance, int nCmdShow);
 };
 
