@@ -7,6 +7,9 @@
 #include <chrono>
 #include <windows.h>
 #include <psapi.h>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 const std::string CompressionDecompression::password = "stzip";
 double CompressionDecompression::cpuTime = 0.0;
@@ -21,28 +24,56 @@ double CompressionDecompression::printMemoryUsage() {
 //compress the data divided to buffers
 void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
 
+	// בדוק אם הנתיב הוא ספרייה או קובץ טקסט
+	fs::path path(fileName);
 	// save Memory Usage
 	int startMemorySize;
 	startMemorySize = printMemoryUsage();
 	// save cpu time
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
-	IStreamInterface* iStream = new FileStream(fileName);
-	StreamHandler streamHandler(iStream);
-	iStream->openDestinationStream(fileName, true);
-	streamHandler.insertPassword(password);
-	streamHandler.insertFileExtension(fileName);
-	//read the buffers
-	std::vector<char> buffer;
-	std::vector<char> compressText;
-	while (streamHandler.getRemainingBytesToRead()) {
-		buffer = streamHandler.readBufferCompress();
-		std::unordered_map<char, std::string> codes;
-		compressText = compressFunc(buffer, codes);
-		streamHandler.writeBufferCompress(codes, compressText);
+	//////
+	std::string newPath = fileName + "(zip)";
+	fs::create_directory(newPath);
+	if (fs::is_directory(path)) {
+		for (const auto& entry : fs::directory_iterator(path)) {
+			if (fs::is_regular_file(entry)) {
+				IStreamInterface* iStream = new FileStream(newPath + entry.path().filename().string());
+				StreamHandler streamHandler(iStream);
+				iStream->openDestinationStream(fileName, true);
+				streamHandler.insertPassword(password);
+				streamHandler.insertFileExtension(fileName);
+				//read the buffers
+				std::vector<char> buffer;
+				std::vector<char> compressText;
+				while (streamHandler.getRemainingBytesToRead()) {
+					buffer = streamHandler.readBufferCompress();
+					std::unordered_map<char, std::string> codes;
+					compressText = compressFunc(buffer, codes);
+					streamHandler.writeBufferCompress(codes, compressText);
+				}
+				delete iStream;
+			}
+		}
+	}
+	else {
+		IStreamInterface* iStream = new FileStream(fileName);
+		StreamHandler streamHandler(iStream);
+		iStream->openDestinationStream(fileName, true);
+		streamHandler.insertPassword(password);
+		streamHandler.insertFileExtension(fileName);
+		//read the buffers
+		std::vector<char> buffer;
+		std::vector<char> compressText;
+		while (streamHandler.getRemainingBytesToRead()) {
+			buffer = streamHandler.readBufferCompress();
+			std::unordered_map<char, std::string> codes;
+			compressText = compressFunc(buffer, codes);
+			streamHandler.writeBufferCompress(codes, compressText);
+		}
+		delete iStream;
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
-	delete iStream;
 	// save cpu time
 	auto stop = std::chrono::high_resolution_clock::now();
 	cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();

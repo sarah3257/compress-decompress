@@ -1,6 +1,8 @@
 #include "CompressionMetrics.h"
 #include "CompressionDecompression.h"
 #include "FileStream.h"
+#define CPUTIME 1000000
+#define MEMORY 10
 
 double CompressionMetrics::cpuTimeDeflate = 0;
 double CompressionMetrics::memoryUsageDeflate = 0;
@@ -176,16 +178,16 @@ void CompressionMetrics::plotComparisonGraph() {
 	// Provide data using separate datablocks for speed and memory for three algorithms
 	double maxCpuTime = min(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman, CompressionMetrics::cpuTimeDeflate);
 	fprintf(gnuplotPipe, "$SpeedData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77 / 1000000);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman / 1000000);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate / 1000000);
+	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77 / CPUTIME);
+	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman / CPUTIME);
+	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate / CPUTIME);
 	fprintf(gnuplotPipe, "EOD\n");
 
 	double maxMemoryUsage = min(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman, CompressionMetrics::memoryUsageDeflate);
 	fprintf(gnuplotPipe, "$MemoryData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77/20);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman/20);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::memoryUsageDeflate/20);
+	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77 / MEMORY);
+	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman / MEMORY);
+	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::memoryUsageDeflate / MEMORY);
 	fprintf(gnuplotPipe, "EOD\n");
 
 	// Plotting the data in separate graphs with different axis segments
