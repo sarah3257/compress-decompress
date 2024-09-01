@@ -47,10 +47,10 @@ void Dialog::decompressFun() {
 void Dialog::uploadFile()
 {
 
-	OPENFILENAME ofn;
-	wchar_t szFile[260] = { 0 };
+	OPENFILENAME ofn;//Setting parameters for the dialog to open a file
+	wchar_t szFile[260] = { 0 };//Array for saving routing
 
-	ZeroMemory(&ofn, sizeof(ofn));
+	ZeroMemory(&ofn, sizeof(ofn));//Resets the struct ofn
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = GetActiveWindow();
 	ofn.lpstrFile = szFile;

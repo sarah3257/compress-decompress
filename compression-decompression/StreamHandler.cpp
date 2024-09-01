@@ -27,6 +27,8 @@ void StreamHandler::writeBufferCompress(const std::unordered_map<char, std::stri
 	//push the map
 	streamInterface->writeMap(codes);
 	//push data.size and data
+	//אולי זה מה שדניאל אמר 
+	//int addedBits = buffer.back(); // גישה ישירה ל back
 	int addedBits = buffer[buffer.size() - 1];
 	buffer.pop_back();
 	int bufferSize = buffer.size() * 8 - addedBits;
@@ -39,6 +41,12 @@ std::vector<char> StreamHandler::convertToBinaryVector(const std::vector<char>& 
 	std::vector<char> binaryBuffer;
 	for (char ch : dataBuffer) {
 		std::bitset<8> binary(ch);
+		//הבעיה שדניאל אמר, זה שזה מאד לא יעיל לעבור כך עבור כל תו
+		//לכן דניאל הציע להתמש במשהו אחר , התחלתי לחקור עליו
+		//אולי זה המשך הלולאה מכאן עד הסוף , נדון בזה
+		//std::string binaryString=binary.to_string();
+		//binaryBuffer.insert(binaryBuffer.end(), binaryString.begin(), binaryString.end());
+
 		for (std::size_t i = 0; i < 8; ++i)
 			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0');
 	}
