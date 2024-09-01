@@ -8,6 +8,17 @@
 #include <windows.h>
 #include <psapi.h>
 
+//הוספה לניהול תיקיות
+#include <filesystem> // כלילת ספרייה לעבודה עם מערכת הקבצים
+
+namespace fs = std::filesystem; // שימוש בקיצור למרחב השמות של מערכת הקבצים
+
+bool check_path_is_directory(const std::string& fileName) {
+	fs::path path(fileName); // המרת מחרוזת ל- fs::path לצורך עבודה עם מערכת הקבצים
+	return fs::is_directory(path);
+	
+}
+
 const std::string CompressionDecompression::password = "stzip";
 double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
@@ -17,9 +28,7 @@ double CompressionDecompression::printMemoryUsage() {
 	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
 	return pmc.WorkingSetSize / 1024;
 }
-
-//compress the data divided to buffers
-void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
+void CompressionDecompression:: play(const std::string& fileName, CompressFunction compressFunc) {
 
 	// save Memory Usage
 	int startMemorySize;
@@ -27,6 +36,7 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	// save cpu time
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
+
 	IStreamInterface* iStream = new FileStream(fileName);
 	StreamHandler streamHandler(iStream);
 	iStream->openDestinationStream(fileName, true);
@@ -49,6 +59,31 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	// save Memory Usage
 	memoryUsage = printMemoryUsage() - startMemorySize;
 }
+
+//compress the data divided to buffers
+void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
+	//בדיקה אם אתה תקייה או קובץ
+	//אם זה תיקיה 
+	if (check_path_is_directory(fileName)) {
+
+		fs::path originalPath(fileName);
+		fs::path newPath = originalPath.string() + "STRzip";
+		fs::create_directory(newPath);//יצירה
+		// לולאה שעוברת על כל הקבצים בתיקיה
+		for (const auto& entry : fs::directory_iterator(originalPath)) {
+			// בדיקה אם הערך הנוכחי בלולאה הוא קובץ רגיל ולא תיקיה
+			if (fs::is_regular_file(entry.status())) {
+				CompressionDecompression::play(fileName, compressFunc);
+			}
+		}
+
+	}
+	else {
+		CompressionDecompression::play(fileName, compressFunc);
+	}
+
+}
+
 
 //decompress the data divided to buffers
 void CompressionDecompression::decompress(const std::string& fileName, DecompressFunction compressFunc) {
