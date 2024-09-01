@@ -5,11 +5,13 @@
 
 namespace LZ77 {
 
+	int maxWindowSize = 1024; 
+
 	// Internal function implementations
 	namespace Detail {
 
 		// get a vector of char and return a vector of LZ77Token struct that containing:
-        // the strings with length, offset and next char 
+		// the strings with length, offset and next char 
 		std::vector<LZ77Token> getTokens(const std::vector<char>& text) {
 			std::vector<LZ77Token> tokens;
 			int i = 0;
@@ -46,7 +48,7 @@ namespace LZ77 {
 		}
 
 		// get tokens - a vector of LZ77Token struct and return a vector of char that containing:
-        // all the value from the tokens with the character '|' between each character
+		// all the value from the tokens with the character '|' between each character
 		std::vector<char> changeToString(const std::vector<LZ77Token>& tokens) {
 			std::vector<char> text;
 			std::string numberString;
@@ -87,7 +89,7 @@ namespace LZ77 {
 	}
 
 	// Public function implementations
-	std::vector<char> compress(const std::vector<char>& text, const std::unordered_map<char, std::string>& codes) {
+	std::vector<char> compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
 		Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "LZ77");
 		std::vector<LZ77Token> tokens = Detail::getTokens(text);
 		std::vector<char> resultText = Detail::changeToString(tokens);
@@ -96,7 +98,7 @@ namespace LZ77 {
 		return resultText;
 	}
 
-	std::vector<char> decompress(const std::vector<char>& text, const std::unordered_map<char, std::string>& codesMap) {
+	std::vector<char> decompress(std::vector<char>& text, std::unordered_map<char, std::string>& codesMap) {
 		Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "LZ77");
 
 		std::vector<char> decompressText;
