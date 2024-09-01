@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "StreamHandler.h"
 #include <bitset>
+#include <string_view>
 #define M 100
 
 double FileStream::EfficiencyPercentages = 0.0;
@@ -88,8 +89,7 @@ void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 			text.push_back('0');
 		std::vector<char> buffer;
 		for (int i = 0; i < text.size(); i += 8) {
-			std::string byteString = text.substr(i, 8);
-			std::bitset<8> byte(byteString);
+			std::bitset<8> byte(std::string(text.data() + i, 8));
 			buffer.push_back(static_cast<char>(byte.to_ulong()));
 		}
 		writeData(strSize);

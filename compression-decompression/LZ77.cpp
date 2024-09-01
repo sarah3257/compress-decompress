@@ -3,6 +3,9 @@
 #include "Logger.h"
 #include "string"
 
+// שאר הקוד שלך...
+
+
 int LZ77::maxWindowSize;
 
 // compression

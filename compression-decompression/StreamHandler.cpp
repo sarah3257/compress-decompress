@@ -39,8 +39,8 @@ std::vector<char> StreamHandler::convertToBinaryVector(const std::vector<char>& 
 	std::vector<char> binaryBuffer;
 	for (char ch : dataBuffer) {
 		std::bitset<8> binary(ch);
-		for (std::size_t i = 0; i < 8; ++i)
-			binaryBuffer.push_back(binary.test(7 - i) ? '1' : '0');
+		std::string binaryString=binary.to_string();
+		binaryBuffer.insert(binaryBuffer.end(), binaryString.begin(), binaryString.end());
 	}
 	return binaryBuffer;
 }
