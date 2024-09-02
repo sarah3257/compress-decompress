@@ -68,29 +68,6 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	// save cpu time
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
-
-	//fs::path originalPath(fileName);
-	////Checking if you are a folder or a file
-	//if (fs::is_directory(originalPath)) {
-
-	//	fs::path originalPath(fileName);
-	//	fs::path newPath = originalPath.string() + "STZip";
-	//	fs::create_directory(newPath);//יצירה
-	//	// A loop that goes through all the files in the folder
-	//	for (const auto& entry : fs::directory_iterator(originalPath)) {
-	//		const std::string& fileInFolder=entry.path().string();
-	//		const std::string& fileDestination=originalPath.string() + "STZip\\"+entry.path().filename().string();
-
-	//		if (fs::is_regular_file(entry.status())) {
-	//			CompressionDecompression::play(fileInFolder, fileDestination, compressFunc);
-	//		}
-	//	}
-
-	//}
-	//else {
-	//	CompressionDecompression::play(fileName, fileName, compressFunc);
-	//}
-
 	compressRec(fileName, fileName, compressFunc);
 
 	// save cpu time
