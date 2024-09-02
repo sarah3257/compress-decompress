@@ -110,11 +110,13 @@ void CompressionDecompression::deCompressRec(const std::string& filesource, cons
 	fs::path originalPath(filesource);
 	fs::path DesPath(fileDestination);
 	if (!fs::is_directory(originalPath)) {
+
 		CompressionDecompression::playDecompress(filesource, fileDestination, deCompressFunc);
 		return;
 	}
 	//fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size()) + "(1)";
-	fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) // all the path without the file name
+	fs::path newPath = fileDestination
+		//.substr(0, fileDestination.size() - DesPath.filename().string().size()) // all the path without the file name
 		+ originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size())// remove the exteion STZip
 		+ "(1)";
 	fs::create_directory(newPath);
@@ -125,6 +127,8 @@ void CompressionDecompression::deCompressRec(const std::string& filesource, cons
 		deCompressRec(fileInFolder, fileDestination, deCompressFunc);*/
 		//const std::string& fileInFolder = entry.path().string();
 		//const std::string& fileDestination = newPath.string() + "\\" + entry.path().filename().string();
-		deCompressRec(entry.path().string(), newPath.string() + "\\" + entry.path().filename().string(), deCompressFunc);
+		deCompressRec(entry.path().string(), newPath.string() 
+			//+ "\\" + entry.path().filename().string()
+			, deCompressFunc);
 	}
 }
