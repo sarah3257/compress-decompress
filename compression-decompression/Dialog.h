@@ -1,6 +1,6 @@
 #pragma once
 #include <windows.h>
-#include <commdlg.h>  //  GetOpenFileName
+#include <commdlg.h> 
 #include <string>
 #include <vector>
 #include "resource.h"
@@ -18,7 +18,7 @@ class Dialog
 
 	static void uploadFile();
 
-	static void   playGraph();
+	static void uploadFolder();
 
 	static std::wstring s2ws(const std::string& str);
 

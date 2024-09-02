@@ -24,7 +24,6 @@ double CompressionDecompression::printMemoryUsage() {
 //compress the data divided to buffers
 void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
 
-	// בדוק אם הנתיב הוא ספרייה או קובץ טקסט
 	fs::path path(fileName);
 	// save Memory Usage
 	int startMemorySize;
@@ -32,17 +31,17 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	// save cpu time
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
-	//////
-	std::string newPath = fileName + "(zip)";
-	fs::create_directory(newPath);
+	/////////
 	if (fs::is_directory(path)) {
+		std::string newPath = fileName + "(zip)";
+		fs::create_directory(newPath);
 		for (const auto& entry : fs::directory_iterator(path)) {
 			if (fs::is_regular_file(entry)) {
-				IStreamInterface* iStream = new FileStream(newPath + entry.path().filename().string());
+				IStreamInterface* iStream = new FileStream(entry.path().string());
 				StreamHandler streamHandler(iStream);
-				iStream->openDestinationStream(fileName, true);
+				iStream->openDestinationStream(newPath + "\\" + entry.path().filename().string(), true);
 				streamHandler.insertPassword(password);
-				streamHandler.insertFileExtension(fileName);
+				streamHandler.insertFileExtension(newPath + "\\" + entry.path().filename().string());
 				//read the buffers
 				std::vector<char> buffer;
 				std::vector<char> compressText;
