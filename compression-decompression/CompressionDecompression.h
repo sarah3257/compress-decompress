@@ -15,6 +15,6 @@ public:
 	static void compress(const std::string& fileName, CompressFunction compressFunc);
 	static void decompress(const std::string& fileName, DecompressFunction compressFunc);
 	static void play(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) ;
-
+	static void compressRec(const std::string& filesource, const std::string& fileDestination, CompressFunction compressFunc);
 };
 
