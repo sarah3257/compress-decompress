@@ -11,7 +11,7 @@
 
 namespace fs = std::filesystem; 
 
-const std::string CompressionDecompression::password = "stzip";
+const std::string CompressionDecompression::password = "STZip";
 double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
 
@@ -28,7 +28,7 @@ double CompressionDecompression::printMemoryUsage() {
 }
 //compress the data divided to buffers
 
-void CompressionDecompression:: play(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
+void CompressionDecompression:: playCompress(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
 
 	IStreamInterface* iStream = new FileStream(fileName);
 	StreamHandler streamHandler(iStream);
@@ -74,13 +74,13 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 			//יעד
 			const std::string& fileDestination=originalPath.string() + "STZip\\"+entry.path().filename().string();
 			if (fs::is_regular_file(entry.status())) {
-				CompressionDecompression::play(fileInFolder, fileDestination, compressFunc);
+				CompressionDecompression::playCompress(fileInFolder, fileDestination, compressFunc);
 			}
 		}
 
 	}
 	else {
-		CompressionDecompression::play(fileName, fileName, compressFunc);
+		CompressionDecompression::playCompress(fileName, fileName, compressFunc);
 	}
 
 	// save cpu time
@@ -92,16 +92,39 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 
 
 //decompress the data divided to buffers
-void CompressionDecompression::decompress(const std::string& fileName, DecompressFunction compressFunc) {
+void CompressionDecompression::decompress(const std::string& path, DecompressFunction decompressFunc) {
 
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "CompressionDecompression");
 
-	IStreamInterface* iStream = new FileStream(fileName);
+	if (check_path_is_directory(path)) {
+
+		fs::path originalPath(path);
+		fs::path newPath = path.substr(0, path.size() - CompressionDecompression::password.size())+"(1)";
+		fs::create_directory(newPath);
+		// לולאה שעוברת על כל הקבצים בתיקיה
+		for (const auto& entry : fs::directory_iterator(originalPath)) {
+			// בדיקה אם הערך הנוכחי בלולאה הוא קובץ רגיל ולא תיקיה
+			const std::string& fileInFolder = entry.path().string();//remove the chars:(STZip) -> wiki(1)(1).txt
+			const std::string& fileDestination = newPath.string();
+			if (fs::is_regular_file(entry.status())) {
+				CompressionDecompression::playDecompress(fileInFolder, fileDestination,decompressFunc);
+			}
+		}
+
+	}
+	else {
+		CompressionDecompression::playDecompress(path, path, decompressFunc);
+	}
+}
+
+void CompressionDecompression::playDecompress(const std::string& path, const std::string& fileDestination, DecompressFunction compressFunc) {
+	IStreamInterface* iStream = new FileStream(path);
 	StreamHandler streamHandler(iStream);
 	// check if the password is correct
 	if (!streamHandler.isCorrectPassword(password))
 		Logger::logError(Logger::INVALID_PASSWORD);
-	iStream->openDestinationStream(fileName, false);
+	fs::path destinationPath(path);
+	iStream->openDestinationStream(fileDestination +"\\"+ destinationPath.filename().string(), false);
 	std::vector<char> buffer;
 	std::vector<char>  decompressRes;
 	while (streamHandler.getRemainingBytesToRead()) {
@@ -113,4 +136,3 @@ void CompressionDecompression::decompress(const std::string& fileName, Decompres
 	Logger::logInfo(Logger::END_FUNCTION + "decompress " + Logger::IN_CLASS + "CompressionDecompression");
 	delete iStream;
 }
-
