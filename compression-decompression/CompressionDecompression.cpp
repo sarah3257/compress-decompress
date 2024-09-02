@@ -28,7 +28,7 @@ double CompressionDecompression::printMemoryUsage() {
 	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
 	return pmc.WorkingSetSize / 1024;
 }
-void CompressionDecompression:: play(const std::string& fileName, CompressFunction compressFunc) {
+void CompressionDecompression:: play(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
 
 	// save Memory Usage
 	int startMemorySize;
@@ -39,10 +39,10 @@ void CompressionDecompression:: play(const std::string& fileName, CompressFuncti
 
 	IStreamInterface* iStream = new FileStream(fileName);
 	StreamHandler streamHandler(iStream);
-	iStream->openDestinationStream(fileName, true);
+	iStream->openDestinationStream(fileDestination, true);
 	streamHandler.insertPassword(password);
 	//-----------------------start to devide to files
-	streamHandler.insertFileExtension(fileName);
+	streamHandler.insertFileExtension(fileDestination);
 	//read the buffers
 	std::vector<char> buffer;
 	std::vector<char> compressText;
@@ -76,15 +76,15 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 			const std::string& fileInFolder=entry.path().string();
 			//מקור-entry.path().string();
 			//יעד
-			//originalPath.string() + "STZip\\"+entry.path().filename().string();
+			const std::string& fileDestination=originalPath.string() + "STZip\\"+entry.path().filename().string();
 			if (fs::is_regular_file(entry.status())) {
-				CompressionDecompression::play(fileInFolder, compressFunc);
+				CompressionDecompression::play(fileInFolder, fileDestination, compressFunc);
 			}
 		}
 
 	}
 	else {
-		CompressionDecompression::play(fileName, compressFunc);
+		CompressionDecompression::play(fileName, fileName, compressFunc);
 	}
 
 }
