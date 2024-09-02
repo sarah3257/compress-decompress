@@ -140,7 +140,9 @@
     <ClCompile Include="CompressionMetrics.cpp" />
     <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="Deflate.cpp" />
-    <ClCompile Include="FileStream.cpp" />
+    <ClCompile Include="FileStream.cpp">
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp17</LanguageStandard>
+    </ClCompile>
     <ClCompile Include="StreamHandler.cpp" />
     <ClCompile Include="Huffman.cpp" />
     <ClCompile Include="Logger.cpp" />
