@@ -7,46 +7,38 @@
 #include <chrono>
 #include <windows.h>
 #include <psapi.h>
+#include <filesystem> 
 
-//הוספה לניהול תיקיות
-#include <filesystem> // כלילת ספרייה לעבודה עם מערכת הקבצים
-
-namespace fs = std::filesystem; // שימוש בקיצור למרחב השמות של מערכת הקבצים
-
-bool check_path_is_directory(const std::string& fileName) {
-	fs::path path(fileName); // המרת מחרוזת ל- fs::path לצורך עבודה עם מערכת הקבצים
-	return fs::is_directory(path);
-	
-}
+namespace fs = std::filesystem; 
 
 const std::string CompressionDecompression::password = "stzip";
 double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
+
+bool check_path_is_directory(const std::string& fileName) {
+	fs::path path(fileName); 
+	return fs::is_directory(path);
+	
+}
 
 double CompressionDecompression::printMemoryUsage() {
 	PROCESS_MEMORY_COUNTERS_EX pmc;
 	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
 	return pmc.WorkingSetSize / 1024;
 }
-void CompressionDecompression:: play(const std::string& fileName, CompressFunction compressFunc) {
 
-	// save Memory Usage
-	int startMemorySize;
-	startMemorySize = printMemoryUsage();
-	// save cpu time
-	auto start = std::chrono::high_resolution_clock::now();
-	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
+//compress the data divided to buffers
+void CompressionDecompression:: play(const std::string& fileName, CompressFunction compressFunc) {
 
 	IStreamInterface* iStream = new FileStream(fileName);
 	StreamHandler streamHandler(iStream);
 	iStream->openDestinationStream(fileName, true);
 	streamHandler.insertPassword(password);
-	//-----------------------start to devide to files
 	streamHandler.insertFileExtension(fileName);
 	//read the buffers
 	std::vector<char> buffer;
 	std::vector<char> compressText;
-	while (streamHandler.getRemainingBytesToRead()) {//if remainig another files
+	while (streamHandler.getRemainingBytesToRead()) {
 		buffer = streamHandler.readBufferCompress();
 		std::unordered_map<char, std::string> codes;
 		compressText = compressFunc(buffer, codes);
@@ -54,15 +46,18 @@ void CompressionDecompression:: play(const std::string& fileName, CompressFuncti
 	}
 	Logger::logInfo(Logger::END_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
 	delete iStream;
-	// save cpu time
-	auto stop = std::chrono::high_resolution_clock::now();
-	cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-	// save Memory Usage
-	memoryUsage = printMemoryUsage() - startMemorySize;
 }
 
-//compress the data divided to buffers
+// compress the folder and files
 void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
+	
+	// save Memory Usage
+	int startMemorySize;
+	startMemorySize = printMemoryUsage();
+	// save cpu time
+	auto start = std::chrono::high_resolution_clock::now();
+	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
+
 	//בדיקה אם אתה תקייה או קובץ
 	//אם זה תיקיה 
 	if (check_path_is_directory(fileName)) {
@@ -87,6 +82,11 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 		CompressionDecompression::play(fileName, compressFunc);
 	}
 
+	// save cpu time
+	auto stop = std::chrono::high_resolution_clock::now();
+	cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+	// save Memory Usage
+	memoryUsage = printMemoryUsage() - startMemorySize;
 }
 
 
