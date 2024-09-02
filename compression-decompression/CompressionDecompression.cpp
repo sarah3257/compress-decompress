@@ -47,16 +47,17 @@ void CompressionDecompression::playCompress(const std::string& fileName, const s
 
 void CompressionDecompression::compressRec(const std::string& filesource, const std::string& fileDestination, CompressFunction compressFunc) {
 	fs::path originalPath(filesource);
+	fs::path DesPath(fileDestination);
 	if (!fs::is_directory(originalPath)) {//לבדוק אולי מומלץ לבדוק אם זה קובץ השאלה מה זה קובץ רגיל
 
 		CompressionDecompression::playCompress(filesource, fileDestination, compressFunc);
 		return;
 	}
-	fs::path newPath = originalPath.string() + "STZip";
-	fs::create_directory(newPath);
+		fs::path newPath = DesPath.string() + "STZip";
+		fs::create_directory(newPath);
 	for (const auto& entry : fs::directory_iterator(originalPath)) {
 
-		compressRec(entry.path().string(), originalPath.string() + "STZip\\" + entry.path().filename().string(), compressFunc);
+		compressRec(entry.path().string(), DesPath.string() + "STZip\\" + entry.path().filename().string(), compressFunc);
 	}
 }
 
@@ -68,8 +69,7 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	// save cpu time
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
-
-		compressRec(fileName, fileName, compressFunc);
+	compressRec(fileName, fileName, compressFunc);
 
 		// save cpu time
 		auto stop = std::chrono::high_resolution_clock::now();
