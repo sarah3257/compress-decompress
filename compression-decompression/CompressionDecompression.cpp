@@ -9,17 +9,13 @@
 #include <psapi.h>
 #include <filesystem> 
 
-namespace fs = std::filesystem; 
+namespace fs = std::filesystem;
 
 const std::string CompressionDecompression::password = "STZip";
 double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
 
-bool check_path_is_directory(const std::string& fileName) {
-	fs::path path(fileName); 
-	return fs::is_directory(path);
-	
-}
+
 
 double CompressionDecompression::printMemoryUsage() {
 	PROCESS_MEMORY_COUNTERS_EX pmc;
@@ -28,7 +24,7 @@ double CompressionDecompression::printMemoryUsage() {
 }
 //compress the data divided to buffers
 
-void CompressionDecompression:: playCompress(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
+void CompressionDecompression::playCompress(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
 
 	IStreamInterface* iStream = new FileStream(fileName);
 	StreamHandler streamHandler(iStream);
@@ -49,9 +45,23 @@ void CompressionDecompression:: playCompress(const std::string& fileName, const 
 	delete iStream;
 }
 
+void CompressionDecompression::compressRec(const std::string& filesource, const std::string& fileDestination, CompressFunction compressFunc) {
+	fs::path originalPath(filesource);
+	if (!fs::is_directory(originalPath)) {//לבדוק אולי מומלץ לבדוק אם זה קובץ השאלה מה זה קובץ רגיל
+
+		CompressionDecompression::playCompress(filesource, fileDestination, compressFunc);
+		return;
+	}
+	fs::path newPath = originalPath.string() + "STZip";
+	fs::create_directory(newPath);
+	for (const auto& entry : fs::directory_iterator(originalPath)) {
+
+		compressRec(entry.path().string(), originalPath.string() + "STZip\\" + entry.path().filename().string(), compressFunc);
+	}
+}
+
 // compress the folder and files
 void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
-	
 	// save Memory Usage
 	int startMemorySize;
 	startMemorySize = printMemoryUsage();
@@ -59,47 +69,25 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
 
-	//בדיקה אם אתה תקייה או קובץ
-	//אם זה תיקיה 
-	if (check_path_is_directory(fileName)) {
+		compressRec(fileName, fileName, compressFunc);
 
-		fs::path originalPath(fileName);
-		fs::path newPath = originalPath.string() + "STZip";
-		fs::create_directory(newPath);//יצירה
-		// לולאה שעוברת על כל הקבצים בתיקיה
-		for (const auto& entry : fs::directory_iterator(originalPath)) {
-			// בדיקה אם הערך הנוכחי בלולאה הוא קובץ רגיל ולא תיקיה
-			const std::string& fileInFolder=entry.path().string();
-			//מקור-entry.path().string();
-			//יעד
-			const std::string& fileDestination=originalPath.string() + "STZip\\"+entry.path().filename().string();
-			if (fs::is_regular_file(entry.status())) {
-				CompressionDecompression::playCompress(fileInFolder, fileDestination, compressFunc);
-			}
-		}
-
-	}
-	else {
-		CompressionDecompression::playCompress(fileName, fileName, compressFunc);
-	}
-
-	// save cpu time
-	auto stop = std::chrono::high_resolution_clock::now();
-	cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
-	// save Memory Usage
-	memoryUsage = printMemoryUsage() - startMemorySize;
+		// save cpu time
+		auto stop = std::chrono::high_resolution_clock::now();
+		cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+		// save Memory Usage
+		memoryUsage = printMemoryUsage() - startMemorySize;
+	
 }
-
 
 //decompress the data divided to buffers
 void CompressionDecompression::decompress(const std::string& path, DecompressFunction decompressFunc) {
 
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "CompressionDecompression");
-
-	if (check_path_is_directory(path)) {
+	fs::path originalPath(path);
+	if (fs::is_directory(originalPath)) {
 
 		fs::path originalPath(path);
-		fs::path newPath = path.substr(0, path.size() - CompressionDecompression::password.size())+"(1)";
+		fs::path newPath = path.substr(0, path.size() - CompressionDecompression::password.size()) + "(1)";
 		fs::create_directory(newPath);
 		// לולאה שעוברת על כל הקבצים בתיקיה
 		for (const auto& entry : fs::directory_iterator(originalPath)) {
@@ -107,7 +95,7 @@ void CompressionDecompression::decompress(const std::string& path, DecompressFun
 			const std::string& fileInFolder = entry.path().string();//remove the chars:(STZip) -> wiki(1)(1).txt
 			const std::string& fileDestination = newPath.string();
 			if (fs::is_regular_file(entry.status())) {
-				CompressionDecompression::playDecompress(fileInFolder, fileDestination,decompressFunc);
+				CompressionDecompression::playDecompress(fileInFolder, fileDestination, decompressFunc);
 			}
 		}
 
@@ -124,7 +112,7 @@ void CompressionDecompression::playDecompress(const std::string& path, const std
 	if (!streamHandler.isCorrectPassword(password))
 		Logger::logError(Logger::INVALID_PASSWORD);
 	fs::path destinationPath(path);
-	iStream->openDestinationStream(fileDestination +"\\"+ destinationPath.filename().string(), false);
+	iStream->openDestinationStream(fileDestination + "\\" + destinationPath.filename().string(), false);
 	std::vector<char> buffer;
 	std::vector<char>  decompressRes;
 	while (streamHandler.getRemainingBytesToRead()) {
