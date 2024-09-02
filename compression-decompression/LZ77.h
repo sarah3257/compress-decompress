@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-
 namespace LZ77 {
 	struct LZ77Token {
 		int offset;
