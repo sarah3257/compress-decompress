@@ -46,16 +46,17 @@ void CompressionDecompression:: play(const std::string& fileName, const std::str
 }
 void CompressionDecompression::compressRec(const std::string& filesource, const std::string & fileDestination, CompressFunction compressFunc) {
 	fs::path originalPath(filesource);
+	fs::path DesPath(fileDestination);
 	if (!fs::is_directory(originalPath)) {//לבדוק אולי מומלץ לבדוק אם זה קובץ השאלה מה זה קובץ רגיל
 
 		CompressionDecompression::play(filesource, fileDestination, compressFunc);
 		return;
 	}
-		fs::path newPath = originalPath.string() + "STZip";
+		fs::path newPath = DesPath.string() + "STZip";
 		fs::create_directory(newPath);
 	for (const auto& entry : fs::directory_iterator(originalPath)) {
 
-		compressRec(entry.path().string(), originalPath.string() + "STZip\\" + entry.path().filename().string(), compressFunc);
+		compressRec(entry.path().string(), DesPath.string() + "STZip\\" + entry.path().filename().string(), compressFunc);
 	}
 }
 
