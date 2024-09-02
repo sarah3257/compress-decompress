@@ -7,16 +7,13 @@
 #include <chrono>
 #include <windows.h>
 #include <psapi.h>
-
-//הוספה לניהול תיקיות
-#include <filesystem> // כלילת ספרייה לעבודה עם מערכת הקבצים
+#include <filesystem>
 
 namespace fs = std::filesystem; // שימוש בקיצור למרחב השמות של מערכת הקבצים
 
 bool check_path_is_directory(const std::string& fileName) {
 	fs::path path(fileName); // המרת מחרוזת ל- fs::path לצורך עבודה עם מערכת הקבצים
 	return fs::is_directory(path);
-	
 }
 
 const std::string CompressionDecompression::password = "stzip";
