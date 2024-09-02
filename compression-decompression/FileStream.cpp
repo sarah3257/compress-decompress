@@ -31,7 +31,7 @@ FileStream::~FileStream() {
 void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCompress) {
 
 	std::string destinationFilePath = readFileName(sourceNamae);
-	std::string zipExtension = "(zip)";
+	std::string zipExtension = "(STZip)";
 
 	if (isCompress)
 		destinationFilePath += zipExtension + ".bin";

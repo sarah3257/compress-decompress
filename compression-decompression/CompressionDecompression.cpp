@@ -9,9 +9,9 @@
 #include <psapi.h>
 #include <filesystem> 
 
-namespace fs = std::filesystem; 
+namespace fs = std::filesystem;
 
-const std::string CompressionDecompression::password = "stzip";
+const std::string CompressionDecompression::password = "STZip";
 double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
 
@@ -24,7 +24,7 @@ double CompressionDecompression::printMemoryUsage() {
 }
 //compress the data divided to buffers
 
-void CompressionDecompression:: play(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
+void CompressionDecompression::playCompress(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
 
 	IStreamInterface* iStream = new FileStream(fileName);
 	StreamHandler streamHandler(iStream);
@@ -44,16 +44,17 @@ void CompressionDecompression:: play(const std::string& fileName, const std::str
 	Logger::logInfo(Logger::END_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
 	delete iStream;
 }
-void CompressionDecompression::compressRec(const std::string& filesource, const std::string & fileDestination, CompressFunction compressFunc) {
+
+void CompressionDecompression::compressRec(const std::string& filesource, const std::string& fileDestination, CompressFunction compressFunc) {
 	fs::path originalPath(filesource);
 	fs::path DesPath(fileDestination);
 	if (!fs::is_directory(originalPath)) {//לבדוק אולי מומלץ לבדוק אם זה קובץ השאלה מה זה קובץ רגיל
 
-		CompressionDecompression::play(filesource, fileDestination, compressFunc);
+		CompressionDecompression::playCompress(filesource, fileDestination, compressFunc);
 		return;
 	}
-		fs::path newPath = DesPath.string() + "STZip";
-		fs::create_directory(newPath);
+	fs::path newPath = DesPath.string() + "STZip";
+	fs::create_directory(newPath);
 	for (const auto& entry : fs::directory_iterator(originalPath)) {
 
 		compressRec(entry.path().string(), DesPath.string() + "STZip\\" + entry.path().filename().string(), compressFunc);
@@ -75,20 +76,24 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 	cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
 	// save Memory Usage
 	memoryUsage = printMemoryUsage() - startMemorySize;
+
 }
 
-
 //decompress the data divided to buffers
-void CompressionDecompression::decompress(const std::string& fileName, DecompressFunction compressFunc) {
+void CompressionDecompression::decompress(const std::string& path, DecompressFunction decompressFunc) {
 
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "CompressionDecompression");
+	deCompressRec(path, path, decompressFunc);
+}
 
-	IStreamInterface* iStream = new FileStream(fileName);
+void CompressionDecompression::playDecompress(const std::string& path, const std::string& fileDestination, DecompressFunction compressFunc) {
+	IStreamInterface* iStream = new FileStream(path);
 	StreamHandler streamHandler(iStream);
 	// check if the password is correct
 	if (!streamHandler.isCorrectPassword(password))
 		Logger::logError(Logger::INVALID_PASSWORD);
-	iStream->openDestinationStream(fileName, false);
+	fs::path destinationPath(path);
+	iStream->openDestinationStream(fileDestination + "\\" + destinationPath.filename().string(), false);
 	std::vector<char> buffer;
 	std::vector<char>  decompressRes;
 	while (streamHandler.getRemainingBytesToRead()) {
@@ -101,3 +106,23 @@ void CompressionDecompression::decompress(const std::string& fileName, Decompres
 	delete iStream;
 }
 
+void CompressionDecompression::deCompressRec(const std::string& filesource, const std::string& fileDestination, DecompressFunction deCompressFunc) {
+	fs::path originalPath(filesource);
+	fs::path DesPath(fileDestination);
+
+	if (!fs::is_directory(originalPath)) {
+		const std::string& desFile = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string();
+		CompressionDecompression::playDecompress(filesource, desFile, deCompressFunc);
+		return;
+	}
+	fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size()) + "(1)";
+	fs::create_directory(newPath);
+	//-STZip+(1)
+	
+	// a loop for all the files in the folder
+	for (const auto& entry : fs::directory_iterator(originalPath)) {
+		const std::string& fileInFolder = entry.path().string();
+		const std::string& fileDestination = newPath.string()+"\\"+entry.path().filename().string();
+		deCompressRec(fileInFolder, fileDestination, deCompressFunc);
+	}
+}
