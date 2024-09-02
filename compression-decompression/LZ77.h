@@ -24,10 +24,10 @@ class LZ77
 {
 	static std::vector<char> changeToString(const std::vector<LZ77Token>& tokens);
 	static std::string findIndex(const std::vector<char>& vec, int& start);
-	static std::vector<LZ77Token> getTokens(const std::vector<char>& text);
 
 
 public:
+	static std::vector<LZ77Token> getTokens(const std::vector<char>& text);
 	static int maxWindowSize;
 	static std::vector<char> compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes);
 	static std::vector<char> decompress(std::vector<char>& text, std::unordered_map<char, std::string>& codesMap);
