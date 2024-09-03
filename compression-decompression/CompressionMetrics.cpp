@@ -75,16 +75,16 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 	// ציור הקווים והנקודות
 	SelectObject(hdc, hPenLine);
 	//MoveToEx(hdc, dataPoints[0].x, GRAPH_HEIGHT - MARGIN - dataPoints[0].y, NULL);
-	MoveToEx(hdc, dataPoints[0].x, dataPoints[0].y, NULL);
+	MoveToEx(hdc, static_cast<int>(dataPoints[0].x), static_cast<int>(dataPoints[0].y), NULL);
 	for (size_t i = 1; i < dataPoints.size(); ++i) {
 		//LineTo(hdc, dataPoints[i].x, GRAPH_HEIGHT - MARGIN - dataPoints[i].y);
-		LineTo(hdc, dataPoints[i].x, dataPoints[i].y);
+		LineTo(hdc, static_cast<int>(dataPoints[i].x), static_cast<int>(dataPoints[i].y));
 	}
 
 
 	SelectObject(hdc, hPenPoints);
 	for (const auto& point : dataPoints) {
-		Ellipse(hdc, point.x - 5, point.y - 5, point.x + 5, point.y + 5);
+		Ellipse(hdc, static_cast<int>(point.x) - 5, static_cast<int>(point.y) - 5, static_cast<int>(point.x) + 5, static_cast<int>(point.y) + 5);
 	}
 
 	// ציור תוויות צירים
@@ -94,13 +94,13 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 	for (int i = MARGIN; i < GRAPH_WIDTH - MARGIN; i += 50) {
 		//std::wstring label = std::to_wstring(i);
 		std::wstring label = std::to_wstring(i / 50 * 25);
-		TextOutW(hdc, i, GRAPH_HEIGHT - MARGIN + 10, label.c_str(), label.length());
+		TextOutW(hdc, i, GRAPH_HEIGHT - MARGIN + 10, label.c_str(), static_cast<int>(label.length()));
 	}
 	for (int j = MARGIN; j < GRAPH_HEIGHT - MARGIN; j += 25) {
 
 		std::wstring label = std::to_wstring(100 - ((j - MARGIN) / 25 * 10));
 		// std::wstring label = std::to_wstring(GRAPH_HEIGHT - j);
-		TextOutW(hdc, MARGIN - 30, j - 10, label.c_str(), label.length());
+		TextOutW(hdc, MARGIN - 30, j - 10, label.c_str(), static_cast<int>(label.length()));
 	}
 
 	// ניקוי משאבים
@@ -176,14 +176,17 @@ void CompressionMetrics::plotComparisonGraph() {
 	fprintf(gnuplotPipe, "set terminal wxt size 1600,800 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
 
 	// Provide data using separate datablocks for speed and memory for three algorithms
-	double maxCpuTime = min(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman, CompressionMetrics::cpuTimeDeflate);
+	double maxCpuTime = min(
+		min(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman),
+		CompressionMetrics::cpuTimeDeflate
+	);
 	fprintf(gnuplotPipe, "$SpeedData << EOD\n");
 	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77 / CPUTIME);
 	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman / CPUTIME);
 	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate / CPUTIME);
 	fprintf(gnuplotPipe, "EOD\n");
 
-	double maxMemoryUsage = min(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman, CompressionMetrics::memoryUsageDeflate);
+	double maxMemoryUsage = min(min(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
 	fprintf(gnuplotPipe, "$MemoryData << EOD\n");
 	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77 / MEMORY);
 	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman / MEMORY);

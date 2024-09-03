@@ -1,3 +1,4 @@
+
 #include "Test.h"
 #include "Logger.h"
 #include "CompressionDecompression.h"
@@ -76,7 +77,7 @@ void Test::writeRandomValuesToTextFile(const std::string& filename1) {
         return;
     }
 
-    std::srand(std::time(0));
+    std::srand(static_cast<unsigned int>(std::time(0)));
     const int targetSizeKB = 10;
     const int targetSizeBytes = targetSizeKB * 1024;
     int currentSizeBytes = 0;
@@ -84,7 +85,7 @@ void Test::writeRandomValuesToTextFile(const std::string& filename1) {
     while (currentSizeBytes < targetSizeBytes) {
         int randomValue = std::rand() % 100;
         outFile << randomValue << std::endl;
-        currentSizeBytes += std::to_string(randomValue).size() + 1;
+        currentSizeBytes += static_cast<int>(std::to_string(randomValue).size()) + 1;
     }
 
     outFile.close();
@@ -103,7 +104,7 @@ void Test::writeSmallFile(const std::string filename1) {
         MessageBox(NULL, L"Error opening file for writing:", L"Error_Test", MB_YESNO | MB_ICONERROR);
         return;
     }
-    std::srand(std::time(0));
+    std::srand(static_cast<unsigned int>(std::time(0)));
     const int numChars = 100;
     char repeatedChar = 'a' + std::rand() % 26;  
 
@@ -220,7 +221,7 @@ void Test::testSizeGBFile(){
 void Test::compressAndDecompress(const std::string& filename)
 {
     CompressionDecompression::compress(filename+".txt", Deflate::compress);
-    CompressionDecompression::decompress(filename+"(zip).bin", Deflate::decompress);
+    CompressionDecompression::decompress(filename+ "(" + CompressionDecompression::password + ").bin", Deflate::decompress);
     if (areFilesEqual(filename + ".txt", filename+"(1).txt"))
         Logger::logTest(Logger::TEST_ZERO_FILE);
     else {
@@ -231,7 +232,8 @@ void Test::compressAndDecompress(const std::string& filename)
 
 void Test::playTest()
 {
-    _mkdir("test");
+    if (!_mkdir("test"))
+        Logger::logError(Logger::CANNOT_CREATE_FOLDER);
     testRegularFile();
     testEmptyFile();
     testRandomFile();
