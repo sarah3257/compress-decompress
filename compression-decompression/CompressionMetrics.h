@@ -22,7 +22,6 @@ public:
 	CompressionMetrics(std::string fileName) {
 		CompressionRatios(fileName);
 		this->fileName = fileName;
-
 	}
 
 	static double cpuTimeDeflate;
