@@ -73,9 +73,9 @@ std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 	if (it == vec.end())
 		Logger::logError(Logger::NO_BUFFER_CHARACTER_FOUND);
 	int help = start;
-	int resIndex = it - vec.begin();
+	int resIndex = static_cast<int>(it - vec.begin());
 	std::string strRes = std::string(vec.begin() + help, vec.begin() + resIndex);
-	start = start + strRes.length() + 1;
+	start = start + static_cast<int>(strRes.length()) + 1;
 	return strRes;
 }
 
@@ -102,7 +102,7 @@ std::vector<char> LZ77::decompress(std::vector<char>& text, std::unordered_map<c
 		char nextChar = ' ';
 		if (i < text.size())
 			nextChar = text[i++];
-		int start = decompressText.size() - offsetText;
+		int start = static_cast<int>(decompressText.size()) - offsetText;
 
 		for (int copyText = start; copyText < lengthText + start; copyText++) {
 			decompressText.push_back(decompressText[copyText]);
