@@ -5,7 +5,7 @@ TEST(testsmallinput, TestName) {
 	std::unordered_map<char, int> expected = { {'0',1},
 		{'1',1} };
 	std::unordered_map<char, int> res = Huffman::calculateFrequencies(vec);
-	EXPECT_EQ(expected.size()+1, res.size());
+	EXPECT_EQ(expected.size(), res.size());
   EXPECT_TRUE(true);
 }
 

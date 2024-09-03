@@ -31,7 +31,7 @@ void StreamHandler::writeBufferCompress(const std::unordered_map<char, std::stri
 	//int addedBits = buffer.back(); // גישה ישירה ל back
 	int addedBits = buffer[buffer.size() - 1];
 	buffer.pop_back();
-	int bufferSize = buffer.size() * 8 - addedBits;
+	int bufferSize = static_cast<int>(buffer.size()) * 8 - addedBits;
 	streamInterface->writeData(bufferSize);
 	streamInterface->writeData(buffer);
 }
@@ -85,12 +85,12 @@ void StreamHandler::insertPassword(const std::string& password) {
 //insert file extension
 void StreamHandler::insertFileExtension(const std::string& fileName) {
 	// Extract the file extension
-	int pos = fileName.find_last_of('.');
+	int pos = static_cast<int>(fileName.find_last_of('.'));
 	if (pos == std::string::npos)
 		Logger::logError(Logger::NO_EXTENSION_FOUND);
 	std::string extension = fileName.substr(pos);
 	std::vector<char> buffer(extension.begin(), extension.end());
-	int extensionSize = buffer.size();
+	int extensionSize = static_cast<int>(buffer.size());
 
 	// write the extension size
 	streamInterface->writeData(extensionSize);

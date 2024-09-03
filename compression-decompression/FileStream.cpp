@@ -17,11 +17,11 @@ FileStream::FileStream(const std::string& sourceFilePath) {
 FileStream::~FileStream() {
 	int destinationSize = 0, sourceSize = 0;
 	if (sourceFile.is_open()) {
-		sourceSize = sourceFile.tellg();
+		sourceSize = static_cast<int>(sourceFile.tellg());
 		sourceFile.close();
 	}
 	if (destinationFile.is_open()) {
-		destinationSize= destinationFile.tellp();
+		destinationSize= static_cast<int>(destinationFile.tellp());
 		destinationFile.close();
 	}
 	if (sourceSize != 0)
@@ -79,11 +79,11 @@ void FileStream::writeData(int& size) {
 
 void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 	//push map.size and map
-	int mapSize = codes.size();
+	int mapSize = static_cast<int>(codes.size());
 	writeData(mapSize);
 	for (const auto& pair : codes) {
 		destinationFile.write(reinterpret_cast<const char*>(&pair.first), sizeof(pair.first));
-		int strSize = pair.second.size();
+		int strSize = static_cast<int>(pair.second.size());
 		std::string text = pair.second;
 		while (text.size() % 8)
 			text.push_back('0');
@@ -138,7 +138,7 @@ int FileStream::getRemainingBytesToRead() {
 	sourceFile.seekg(0, std::ios::end);
 	std::streampos file_size = sourceFile.tellg();
 	sourceFile.seekg(current_pos);
-	int remaining_size = file_size - current_pos;
+	int remaining_size = static_cast<int>(file_size - current_pos);
 	return remaining_size;
 }
 
@@ -152,7 +152,7 @@ long long FileStream::getSourceSize() {
 
 //read file name
 std::string FileStream::readFileName(const std::string& fileName) {
-	int pos = fileName.find_last_of('.');
+	int pos = static_cast<int>(fileName.find_last_of('.'));
 	if (pos == std::string::npos)
 		Logger::logError(Logger::NO_FILE_NAME_FOUND);
 	return fileName.substr(0, pos);

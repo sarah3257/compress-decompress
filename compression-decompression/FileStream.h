@@ -22,6 +22,5 @@ public:
 	long long getSourceSize() override;
 	std::string readFileExtension();
 	std::string readFileName(const std::string& fileName);
-
 };
 
