@@ -3,17 +3,10 @@
 #include "Logger.h"
 #include "string"
 
-// שאר הקוד שלך...
 
+int LZ77::maxWindowSize = 1024;
 
-int LZ77::maxWindowSize;
-
-// compression
-
-// get a vector of char and return a vector of LZ77Token struct that containing:
-// the strings with length, offset and next char 
 std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
-
 	std::vector<LZ77Token> tokens;
 	int i = 0;
 
@@ -48,10 +41,7 @@ std::vector<LZ77Token> LZ77::getTokens(const std::vector<char>& text) {
 	return tokens;
 }
 
-// get tokens - a vector of LZ77Token struct and return a vector of char that containing:
-// all the value from the tokens with the character '|' between each character
 std::vector<char> LZ77::changeToString(const std::vector<LZ77Token>& tokens) {
-
 	std::vector<char> text;
 	std::string numberString;
 
@@ -75,18 +65,7 @@ std::vector<char> LZ77::changeToString(const std::vector<LZ77Token>& tokens) {
 	return text;
 }
 
-std::vector<char> LZ77::compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
-	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "LZ77");
-	std::vector<LZ77Token> tokens = getTokens(text);
-	std::vector<char> resultText = changeToString(tokens);
-	resultText.push_back(0);
-	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "LZ77");
-	return resultText;
-}
-
-// decompression
-
-// this is fun- helper function  LZ77::decompress to find  from vector <char> a buffer charcter = | 
+// this is fun - helper function  LZ77::decompress to find  from vector <char> a buffer charcter = |
 std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 	auto it = std::find_if(vec.begin() + start, vec.end(), [](char c) {
 		return c == '|';
@@ -98,11 +77,19 @@ std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 	std::string strRes = std::string(vec.begin() + help, vec.begin() + resIndex);
 	start = start + strRes.length() + 1;
 	return strRes;
-
 }
 
-std::vector<char> LZ77::decompress( std::vector<char>& text,  std::unordered_map<char, std::string>& codesMap)
-{
+// Public function implementations
+std::vector<char> LZ77::compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
+	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "LZ77");
+	std::vector<LZ77Token> tokens = getTokens(text);
+	std::vector<char> resultText = changeToString(tokens);
+	resultText.push_back(0);
+	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "LZ77");
+	return resultText;
+}
+
+std::vector<char> LZ77::decompress(std::vector<char>& text, std::unordered_map<char, std::string>& codesMap) {
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "LZ77");
 
 	std::vector<char> decompressText;
@@ -126,3 +113,4 @@ std::vector<char> LZ77::decompress( std::vector<char>& text,  std::unordered_map
 	Logger::logInfo(Logger::END_FUNCTION + " decompress " + Logger::IN_CLASS + "LZ77");
 	return decompressText;
 }
+

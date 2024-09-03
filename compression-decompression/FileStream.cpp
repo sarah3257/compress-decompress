@@ -2,7 +2,7 @@
 #include "Logger.h"
 #include "StreamHandler.h"
 #include <bitset>
-#include <string_view>
+
 #define M 100
 
 double FileStream::EfficiencyPercentages = 0.0;
@@ -31,7 +31,7 @@ FileStream::~FileStream() {
 void FileStream::openDestinationStream(const std::string& sourceNamae, bool isCompress) {
 
 	std::string destinationFilePath = readFileName(sourceNamae);
-	std::string zipExtension = "(zip)";
+	std::string zipExtension = "(STZip)";
 
 	if (isCompress)
 		destinationFilePath += zipExtension + ".bin";
@@ -88,13 +88,14 @@ void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
 		while (text.size() % 8)
 			text.push_back('0');
 		std::vector<char> buffer;
-		for (int i = 0; i < text.size(); i += 8) {
+		for (size_t i = 0; i < text.size(); i += 8) {
 			std::bitset<8> byte(std::string(text.data() + i, 8));
 			buffer.push_back(static_cast<char>(byte.to_ulong()));
 		}
+
 		writeData(strSize);
 		writeData(buffer);
-	}
+	}	
 }
 
 void FileStream::readMap(std::unordered_map<char, std::string>& codes) {

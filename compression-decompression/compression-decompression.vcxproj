@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>C:\Users\user1\Desktop\קמא טק\western digital\compression-decompression\x64\Debug</OutDir>
+    <OutDir>E:\תמר\Westrn Digital\deflate\compression-decompression\x64\Debug</OutDir>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -115,7 +115,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,7 +140,9 @@
     <ClCompile Include="CompressionMetrics.cpp" />
     <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="Deflate.cpp" />
-    <ClCompile Include="FileStream.cpp" />
+    <ClCompile Include="FileStream.cpp">
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp17</LanguageStandard>
+    </ClCompile>
     <ClCompile Include="StreamHandler.cpp" />
     <ClCompile Include="Huffman.cpp" />
     <ClCompile Include="Logger.cpp" />
