@@ -1,10 +1,10 @@
 
-#include "Dailog.h"
+#include "Dialog.h"
 #include "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
 
-void Dailog::compressFun()
+void Dialog::compressFun()
 {
     HWND hwndDlg = GetActiveWindow();
     HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
@@ -24,7 +24,7 @@ void Dailog::compressFun()
     }
 }
 
-void Dailog::decompressFun(){
+void Dialog::decompressFun(){
 
     HWND hwndDlg = GetActiveWindow();
     HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
@@ -44,7 +44,7 @@ void Dailog::decompressFun(){
     }
 }
 
-void Dailog::uploadFile()
+void Dialog::uploadFile()
 {
 
     OPENFILENAME ofn;
@@ -77,19 +77,19 @@ void Dailog::uploadFile()
 
 
 
-std::wstring Dailog::s2ws(const std::string& str)
+std::wstring Dialog::s2ws(const std::string& str)
 {
     std::wstring ws(str.begin(), str.end());
     return ws;
 }
 
-std::string Dailog::ws2s(const std::wstring& ws)
+std::string Dialog::ws2s(const std::wstring& ws)
 {
     std::string str(ws.begin(), ws.end());
     return str;
 }
 
-INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
     {
@@ -143,7 +143,7 @@ INT_PTR Dailog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     return (INT_PTR)FALSE;
 }
-void Dailog::playGraph()
+void Dialog::playGraph()
 {
     HWND hwndDlg = GetActiveWindow();
     HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);

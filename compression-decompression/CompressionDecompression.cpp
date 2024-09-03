@@ -20,7 +20,7 @@ double CompressionDecompression::memoryUsage = 0.0;
 double CompressionDecompression::printMemoryUsage() {
 	PROCESS_MEMORY_COUNTERS_EX pmc;
 	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
-	return pmc.WorkingSetSize / 1024;
+	return static_cast<double>(pmc.WorkingSetSize / 1024);
 }
 //compress the data divided to buffers
 
@@ -65,7 +65,7 @@ void CompressionDecompression::compressRec(const std::string& filesource, const 
 void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
 	// save Memory Usage
 	int startMemorySize;
-	startMemorySize = printMemoryUsage();
+	startMemorySize = static_cast<int>(printMemoryUsage());
 	// save cpu time
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
@@ -73,7 +73,7 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 
 	// save cpu time
 	auto stop = std::chrono::high_resolution_clock::now();
-	cpuTime = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+	cpuTime = static_cast<double>(std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count());
 	// save Memory Usage
 	memoryUsage = printMemoryUsage() - startMemorySize;
 
@@ -107,7 +107,7 @@ void CompressionDecompression::playDecompress(const std::string& path, const std
 }
 
 void CompressionDecompression::deCompressRec(const std::string& filesource, const std::string& fileDestination, DecompressFunction deCompressFunc) {
-	
+
 	fs::path originalPath(filesource);
 	fs::path DesPath(fileDestination);
 	if (!fs::is_directory(originalPath)) {

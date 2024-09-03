@@ -66,12 +66,13 @@ void Dialog::compressFun()
 
 	HWND hwndDlg = GetActiveWindow();
 	HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
-	int selIndex = SendMessage(hListBox, LB_GETCURSEL, 0, 0);
-
+	int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
 	if (selIndex != LB_ERR)
 	{
-		wchar_t filePath[MAX_PATH];
+		wchar_t filePath[MAX_PATH] = { 0 };
 		SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
+		filePath[MAX_PATH - 1] = L'\0';
+
 		std::wstring filePathW(filePath);
 		std::string filePathStr = ws2s(filePathW);
 
@@ -94,10 +95,10 @@ void Dialog::decompressFun() {
 
 	HWND hwndDlg = GetActiveWindow();
 	HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
-	int selIndex = SendMessage(hListBox, LB_GETCURSEL, 0, 0);
+	int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
 	if (selIndex != LB_ERR)
 	{
-		wchar_t filePath[MAX_PATH];
+		wchar_t filePath[MAX_PATH] = { 0 };
 		SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
 		std::wstring filePathW(filePath);
 		std::string filePathStr = ws2s(filePathW);
@@ -211,7 +212,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON2)  // button Decompress
 		{
-			// MessageBoxW(hwndDlg, L"Decompress button clicked", L"Info", MB_OK);
+
 			decompressFun();
 			return (INT_PTR)TRUE;
 		}
@@ -241,10 +242,10 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 		else if (LOWORD(wParam) == IDC_BUTTON6) {
 			HWND hwndDlg = GetActiveWindow();
 			HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
-			int selIndex = SendMessage(hListBox, LB_GETCURSEL, 0, 0);
+			int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
 			if (selIndex != LB_ERR)
 			{
-				wchar_t filePath[MAX_PATH];
+				wchar_t filePath[MAX_PATH] = { 0 };
 				SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
 				std::wstring filePathW(filePath);
 				std::string filePathStr = ws2s(filePathW);

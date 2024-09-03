@@ -100,6 +100,7 @@ const std::string Logger::WARNING_LARGE_FILE = "Compressing a large file takes a
 
 // Definition of static const error messages
 const std::string Logger::CANNOT_OPEN_FILE = "Cannot open the file.";
+const std::string Logger::CANNOT_CREATE_FOLDER = "Cannot create folder.";
 const std::string Logger::TRYING_TO_DECODE_UNCOMPRESSED_FILE = "Trying to decode an uncompressed file.";
 const std::string Logger::NO_BUFFER_CHARACTER_FOUND = "No buffer character found.";
 const std::string Logger::INVALID_PASSWORD = "Invalid password";
