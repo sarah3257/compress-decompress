@@ -55,3 +55,7 @@
 [2024-09-03 17:13:43] Information: Function exit compress In class: Huffman
 [2024-09-03 17:13:43] Information: start Function: decompress In class: Huffman
 [2024-09-03 17:13:49] Information: Function exit decompress In class: Huffman
+[2024-09-03 17:20:32] Information: start Function: compress In class: Huffman
+[2024-09-03 17:20:32] Information: Function exit compress In class: Huffman
+[2024-09-03 17:20:32] Information: start Function: decompress In class: Huffman
+[2024-09-03 17:20:32] Information: Function exit decompress In class: Huffman
