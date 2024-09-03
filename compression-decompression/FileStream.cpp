@@ -125,7 +125,7 @@ void FileStream::readMap(std::unordered_map<char, std::string>& codes) {
 
 		// return the value
 		std::vector<char> binaryBuffer = StreamHandler::convertToBinaryVector(dataBuffer);
-		for (int i = 0; i < bufferSize * 8 - valueSize; i++)
+		for (int j = 0; j < bufferSize * 8 - valueSize; j++)
 			binaryBuffer.pop_back();
 		std::string value(binaryBuffer.begin(), binaryBuffer.end());
 		// insert the value to the unordered_map
