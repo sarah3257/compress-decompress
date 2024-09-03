@@ -23,7 +23,7 @@ class Dialog
 	static std::wstring s2ws(const std::string& str);
 
 
-
+	//HINSTANCE g_hinst;
 
 public:
 
@@ -31,10 +31,6 @@ public:
 	//Handling of Dialog messages
 	static INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static void plotComparisonGraph(double lz77_memory, double lz77_speed, double huffman_memory, double huffman_speed, double deflate_memory, double deflate_speed);
-
-
-
-
 
 };
 
