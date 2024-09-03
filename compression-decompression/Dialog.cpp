@@ -80,7 +80,7 @@ void Dialog::compressFun()
 		// start the compress in another thread
 		compressionInProgress = true;
 		std::thread compressionThread(compressInBackground, filePathStr);
-		compressionThread.detach(); // ניתוק התהליכון על מנת שלא יתפס משאב זיכרון מיותר
+		compressionThread.detach(); // disconnecting the tread so that it doesn't take up an unnecessary memory resource
 		UpdateProgressBar(hwndPB);
 		MessageBoxW(hwndDlg, L"The file was successfully compressed", L"Message", MB_OK | MB_ICONINFORMATION);
 	}
@@ -107,7 +107,7 @@ void Dialog::decompressFun() {
 		// start the decompress in another thread
 		compressionInProgress = true;
 		std::thread decompressionThread(DecompressInBackground, filePathStr);
-		decompressionThread.detach(); // ניתוק התהליכון על מנת שלא יתפס משאב זיכרון מיותר
+		decompressionThread.detach(); // disconnecting the tread so that it doesn't take up an unnecessary memory resource
 		UpdateProgressBar(hwndPB);
 		MessageBoxW(hwndDlg, L"The file was successfully decompressed", L"Message", MB_OK | MB_ICONINFORMATION);
 	}
