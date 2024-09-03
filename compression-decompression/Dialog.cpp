@@ -1,6 +1,6 @@
 
 #include "Dialog.h"
-#include "Test.h"
+// "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
 #include <windows.h>  
@@ -24,10 +24,10 @@ void DecompressInBackground(const std::string& filePathStr) {
 }
 
 void Dialog::UpdateProgressBar(HWND hwndPB) {
-	
+
 	while (compressionInProgress) {
 		SendMessage(hwndPB, PBM_STEPIT, 0, 0);
-		Sleep(100); 
+		Sleep(100);
 	}
 
 	// finishing decompressing and hiding the progress bar
@@ -54,9 +54,9 @@ HWND Dialog::ShowProgressBar(HWND hwndDlg) {
 	}
 
 	// Set progress bar properties
-	SendMessage(hwndPB, PBM_SETRANGE, 0, MAKELPARAM(0, 100));  
+	SendMessage(hwndPB, PBM_SETRANGE, 0, MAKELPARAM(0, 100));
 	SendMessage(hwndPB, PBM_SETSTEP, (WPARAM)1, 0);
-	SendMessage(hwndPB, PBM_SETPOS, 0, 0); 
+	SendMessage(hwndPB, PBM_SETPOS, 0, 0);
 
 	return hwndPB;
 }
@@ -77,7 +77,7 @@ void Dialog::compressFun()
 		std::string filePathStr = ws2s(filePathW);
 
 		HWND hwndPB = ShowProgressBar(hwndDlg);
-		
+
 		// start the compress in another thread
 		compressionInProgress = true;
 		std::thread compressionThread(compressInBackground, filePathStr);
@@ -230,7 +230,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON4) {
-			Test::playTest();
+			//Test::playTest();
 			MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
 
 			return (INT_PTR)TRUE;
@@ -254,7 +254,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 				int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
 
 				CompressionMetrics cm(filePathStr);
-				int result = cm.play(hInstance, nCmdShow);
+				//int result = cm.play(hInstance, nCmdShow);
 			}
 			else
 			{

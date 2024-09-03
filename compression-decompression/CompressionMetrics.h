@@ -19,9 +19,9 @@ class CompressionMetrics
 public:
 	static std::string fileName;
 	CompressionMetrics() {}
-	CompressionMetrics(std::string fileName) {
-		CompressionRatios(fileName);
-		this->fileName = fileName;
+	CompressionMetrics(std::string path) {
+		CompressionRatios(path);
+		fileName = path;
 
 	}
 

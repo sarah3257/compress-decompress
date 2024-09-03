@@ -1,0 +1,10 @@
+[2024-09-03 16:03:51] Information: start Function: compress In class: LZ77
+[2024-09-03 16:03:51] Information: Function exit compress In class: LZ77
+[2024-09-03 16:06:21] Information: start Function: compress In class: LZ77
+[2024-09-03 16:06:21] Information: Function exit compress In class: LZ77
+[2024-09-03 16:06:40] Information: start Function: compress In class: LZ77
+[2024-09-03 16:06:40] Information: Function exit compress In class: LZ77
+[2024-09-03 16:11:49] Information: start Function: compress In class: LZ77
+[2024-09-03 16:11:49] Information: Function exit compress In class: LZ77
+[2024-09-03 16:19:50] Information: start Function: compress In class: LZ77
+[2024-09-03 16:19:50] Information: Function exit compress In class: LZ77
