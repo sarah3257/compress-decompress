@@ -93,7 +93,7 @@ void CompressionDecompression::playDecompress(const std::string& path, const std
 	if (!streamHandler.isCorrectPassword(password))
 		Logger::logError(Logger::INVALID_PASSWORD);
 	fs::path destinationPath(path);
-	iStream->openDestinationStream(fileDestination + "\\" + destinationPath.filename().string(), false);
+	iStream->openDestinationStream(fileDestination, false);
 	std::vector<char> buffer;
 	std::vector<char>  decompressRes;
 	while (streamHandler.getRemainingBytesToRead()) {
@@ -109,20 +109,22 @@ void CompressionDecompression::playDecompress(const std::string& path, const std
 void CompressionDecompression::deCompressRec(const std::string& filesource, const std::string& fileDestination, DecompressFunction deCompressFunc) {
 	fs::path originalPath(filesource);
 	fs::path DesPath(fileDestination);
-
 	if (!fs::is_directory(originalPath)) {
-		const std::string& desFile = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string();
-		CompressionDecompression::playDecompress(filesource, desFile, deCompressFunc);
+		CompressionDecompression::playDecompress(filesource, fileDestination, deCompressFunc);
 		return;
 	}
-	fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size()) + "(1)";
+	//fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size()) + "(1)";
+	fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) // all the path without the file name
+		+ originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size())// remove the exteion STZip
+		+ "(1)";
 	fs::create_directory(newPath);
-	//-STZip+(1)
-	
 	// a loop for all the files in the folder
 	for (const auto& entry : fs::directory_iterator(originalPath)) {
-		const std::string& fileInFolder = entry.path().string();
+		/*const std::string& fileInFolder = entry.path().string();
 		const std::string& fileDestination = newPath.string()+"\\"+entry.path().filename().string();
-		deCompressRec(fileInFolder, fileDestination, deCompressFunc);
+		deCompressRec(fileInFolder, fileDestination, deCompressFunc);*/
+		//const std::string& fileInFolder = entry.path().string();
+		//const std::string& fileDestination = newPath.string() + "\\" + entry.path().filename().string();
+		deCompressRec(entry.path().string(), newPath.string() + "\\" + entry.path().filename().string(), deCompressFunc);
 	}
 }
