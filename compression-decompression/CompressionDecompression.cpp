@@ -107,24 +107,22 @@ void CompressionDecompression::playDecompress(const std::string& path, const std
 }
 
 void CompressionDecompression::deCompressRec(const std::string& filesource, const std::string& fileDestination, DecompressFunction deCompressFunc) {
+	
 	fs::path originalPath(filesource);
 	fs::path DesPath(fileDestination);
 	if (!fs::is_directory(originalPath)) {
 		CompressionDecompression::playDecompress(filesource, fileDestination, deCompressFunc);
 		return;
 	}
-	//fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size()) + "(1)";
-	fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) // all the path without the file name
-		+ originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size())// remove the exteion STZip
-		+ "(1)";
+	// create new path in 3 steps
+	// 1. all the path without the file name
+	// 2. add the file name without the exteion :STZip
+	// 3. add the extion (1)
+	fs::path newPath = fileDestination.substr(0, fileDestination.size() - DesPath.filename().string().size()) + originalPath.filename().string().substr(0, originalPath.filename().string().size() - CompressionDecompression::password.size()) + "(1)";
 	fs::create_directory(newPath);
+
 	// a loop for all the files in the folder
 	for (const auto& entry : fs::directory_iterator(originalPath)) {
-		/*const std::string& fileInFolder = entry.path().string();
-		const std::string& fileDestination = newPath.string()+"\\"+entry.path().filename().string();
-		deCompressRec(fileInFolder, fileDestination, deCompressFunc);*/
-		//const std::string& fileInFolder = entry.path().string();
-		//const std::string& fileDestination = newPath.string() + "\\" + entry.path().filename().string();
 		deCompressRec(entry.path().string(), newPath.string() + "\\" + entry.path().filename().string(), deCompressFunc);
 	}
 }
