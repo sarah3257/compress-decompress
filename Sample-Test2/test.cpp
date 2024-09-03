@@ -29,12 +29,12 @@ TEST(LZ77Test, CompressSimpleInput) {
 }
 
 TEST(testsmallinput, TestName) {
-    std::vector<char>vec = { '0','1' };
-    std::unordered_map<char, int> expected = { {'0',1},
-        {'1',1} };
-    std::unordered_map<char, int> res = Huffman::calculateFrequencies(vec);
-    EXPECT_EQ(expected.size(), res.size());
-    EXPECT_TRUE(true);
+	std::vector<char>vec = { '0','1' };
+	std::unordered_map<char, int> expected = { {'0',1},
+		{'1',1} };
+	std::unordered_map<char, int> res = Huffman::calculateFrequencies(vec);
+	EXPECT_EQ(expected.size(), res.size());
+  EXPECT_TRUE(true);
 }
 
 int main(int argc, char** argv) {

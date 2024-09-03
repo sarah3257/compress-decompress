@@ -1,6 +1,6 @@
 
 #include "Dialog.h"
-// "Test.h"
+//#include "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
 #include <windows.h>  
@@ -230,7 +230,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON4) {
-			//Test::playTest();
+		//	Test::playTest();
 			MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
 
 			return (INT_PTR)TRUE;
