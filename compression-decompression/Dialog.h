@@ -22,8 +22,9 @@ class Dialog
 
 	static std::wstring s2ws(const std::string& str);
 
+	static void UpdateProgressBar(HWND hwndPB);
 
-	//HINSTANCE g_hinst;
+	static HWND ShowProgressBar(HWND hwndDlg);
 
 public:
 
