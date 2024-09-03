@@ -6,26 +6,64 @@
 #include <windows.h>  
 #include <shlobj.h>  
 #include <commctrl.h> 
+#include <thread>
+#include <atomic>
 
-// ParseALargeFile - uses a progress bar to indicate the progress of a parsing operation.
-//
-// Returns TRUE if successful, or FALSE otherwise.
-//
-// hwndParent - parent window of the progress bar.
-//
-// lpszFileName - name of the file to parse. 
-// 
-// Global variable 
-//     g_hinst - instance handle.
-//
+std::atomic<bool> compressionInProgress(false);
 
-extern HINSTANCE g_hinst;
-HINSTANCE g_hinst = nullptr;
+extern HINSTANCE g_hinst = nullptr;
 
-//HINSTANCE g_hinst = NULL;
+void compressInBackground(const std::string& filePathStr) {
+	CompressionDecompression::compress(filePathStr, Deflate::compress);
+	compressionInProgress = false;
+}
+
+void DecompressInBackground(const std::string& filePathStr) {
+	CompressionDecompression::decompress(filePathStr, Deflate::decompress);
+	compressionInProgress = false;
+}
+
+void Dialog::UpdateProgressBar(HWND hwndPB) {
+	
+	while (compressionInProgress) {
+		SendMessage(hwndPB, PBM_STEPIT, 0, 0);
+		Sleep(100); 
+	}
+
+	// finishing decompressing and hiding the progress bar
+	DestroyWindow(hwndPB);
+}
+
+HWND Dialog::ShowProgressBar(HWND hwndDlg) {
+
+	RECT rcClient;
+	int cyVScroll;
+	HWND hwndPB;
+
+	GetClientRect(hwndDlg, &rcClient);
+	cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
+
+	hwndPB = CreateWindowEx(0, PROGRESS_CLASS, (LPTSTR)NULL,
+		WS_CHILD | WS_VISIBLE, rcClient.left,
+		rcClient.bottom - cyVScroll,
+		rcClient.right, cyVScroll,
+		hwndDlg, (HMENU)0, g_hinst, NULL);
+
+	if (!hwndPB) {
+		return NULL;
+	}
+
+	// Set progress bar properties
+	SendMessage(hwndPB, PBM_SETRANGE, 0, MAKELPARAM(0, 100));  
+	SendMessage(hwndPB, PBM_SETSTEP, (WPARAM)1, 0);
+	SendMessage(hwndPB, PBM_SETPOS, 0, 0); 
+
+	return hwndPB;
+}
 
 void Dialog::compressFun()
 {
+
 	HWND hwndDlg = GetActiveWindow();
 	HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
 	int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
@@ -38,8 +76,13 @@ void Dialog::compressFun()
 		std::wstring filePathW(filePath);
 		std::string filePathStr = ws2s(filePathW);
 
-
-		CompressionDecompression::compress(filePathStr, Deflate::compress);
+		HWND hwndPB = ShowProgressBar(hwndDlg);
+		
+		// start the compress in another thread
+		compressionInProgress = true;
+		std::thread compressionThread(compressInBackground, filePathStr);
+		compressionThread.detach(); // ניתוק התהליכון על מנת שלא יתפס משאב זיכרון מיותר
+		UpdateProgressBar(hwndPB);
 		MessageBoxW(hwndDlg, L"The file was successfully compressed", L"Message", MB_OK | MB_ICONINFORMATION);
 	}
 	else
@@ -58,11 +101,16 @@ void Dialog::decompressFun() {
 		wchar_t filePath[MAX_PATH] = { 0 };
 		SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
 		std::wstring filePathW(filePath);
-		//filePath[MAX_PATH - 1] = L'\0';
 		std::string filePathStr = ws2s(filePathW);
 
+		HWND hwndPB = ShowProgressBar(hwndDlg);
+		BOOL success = ParseALargeFile(hwndDlg, filePath);
 
-		CompressionDecompression::decompress(filePathStr, Deflate::decompress);
+		// start the decompress in another thread
+		compressionInProgress = true;
+		std::thread decompressionThread(DecompressInBackground, filePathStr);
+		decompressionThread.detach(); // ניתוק התהליכון על מנת שלא יתפס משאב זיכרון מיותר
+		UpdateProgressBar(hwndPB);
 		MessageBoxW(hwndDlg, L"The file was successfully decompressed", L"Message", MB_OK | MB_ICONINFORMATION);
 	}
 	else
@@ -139,59 +187,6 @@ void Dialog::uploadFolder()
 		}
 	}
 }
-//
-//BOOL ParseALargeFile(HWND hwndParent, LPTSTR lpszFileName)
-//{
-//	RECT rcClient;
-//	int cyVScroll;
-//	HWND hwndPB;
-//	HANDLE hFile;
-//	DWORD cb;
-//	LPCH pch;
-//	LPCH pchTmp;
-//
-//	InitCommonControls();
-//
-//	GetClientRect(hwndParent, &rcClient);
-//
-//	cyVScroll = GetSystemMetrics(SM_CYVSCROLL);
-//
-//	hwndPB = CreateWindowEx(0, PROGRESS_CLASS, (LPTSTR)NULL,
-//		WS_CHILD | WS_VISIBLE, rcClient.left,
-//		rcClient.bottom - cyVScroll,
-//		rcClient.right, cyVScroll,
-//		hwndParent, (HMENU)0, g_hinst, NULL);
-//
-//	hFile = CreateFile(lpszFileName, GENERIC_READ, FILE_SHARE_READ,
-//		(LPSECURITY_ATTRIBUTES)NULL, OPEN_EXISTING,
-//		FILE_ATTRIBUTE_NORMAL, (HANDLE)NULL);
-//
-//	if (hFile == (HANDLE)INVALID_HANDLE_VALUE)
-//		return FALSE;
-//
-//	cb = GetFileSize(hFile, (LPDWORD)NULL);
-//
-//	SendMessage(hwndPB, PBM_SETRANGE, 0, MAKELPARAM(0, cb / 2048));
-//
-//	SendMessage(hwndPB, PBM_SETSTEP, (WPARAM)1, 0);
-//
-//	pch = (LPCH)LocalAlloc(LPTR, sizeof(char) * 2048);
-//
-//	pchTmp = pch;
-//
-//	do {
-//		ReadFile(hFile, pchTmp, sizeof(char) * 2048, &cb, (LPOVERLAPPED)NULL);
-//
-//		SendMessage(hwndPB, PBM_STEPIT, 0, 0);
-//
-//	} while (cb);
-//
-//	CloseHandle((HANDLE)hFile);
-//
-//	DestroyWindow(hwndPB);
-//
-//	return TRUE;
-//}
 
 std::wstring Dialog::s2ws(const std::string& str)
 {
@@ -218,7 +213,6 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON2)  // button Decompress
 		{
-			// MessageBoxW(hwndDlg, L"Decompress button clicked", L"Info", MB_OK);
 
 			decompressFun();
 			return (INT_PTR)TRUE;
