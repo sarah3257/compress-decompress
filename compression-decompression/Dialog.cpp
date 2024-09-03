@@ -104,7 +104,6 @@ void Dialog::decompressFun() {
 		std::string filePathStr = ws2s(filePathW);
 
 		HWND hwndPB = ShowProgressBar(hwndDlg);
-		BOOL success = ParseALargeFile(hwndDlg, filePath);
 
 		// start the decompress in another thread
 		compressionInProgress = true;
