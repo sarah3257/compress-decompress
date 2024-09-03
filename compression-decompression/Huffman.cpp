@@ -72,7 +72,7 @@ std::vector<char> Huffman::compress( std::vector<char>& text, std::unordered_map
 	HuffmanNode* tree = buildHuffmanTree(pq);
 	codes = getHuffmanCodes(tree);
 	std::string result = encodeText(codes, text);
-	int dataSize = result.size();
+	int dataSize = static_cast<int>(result.size());
 	while (result.size() % 8)
 		result.push_back('0');
 	std::vector<char> buffer;

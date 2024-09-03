@@ -22,6 +22,7 @@ public:
 
 	//static error messages 
 	static const std::string CANNOT_OPEN_FILE;
+	static const std::string CANNOT_CREATE_FOLDER;
 	static const std::string TRYING_TO_DECODE_UNCOMPRESSED_FILE;
 	static const std::string NO_BUFFER_CHARACTER_FOUND;
 	static const std::string INVALID_PASSWORD;

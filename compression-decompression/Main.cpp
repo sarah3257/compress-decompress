@@ -7,15 +7,11 @@
 #include "CompressionMetrics.h"
 
 // main
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdLine, _In_ int nCmdShow)
 {
+	Logger logger("log.txt");
+	//Dialog
+	DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL, Dialog::DialogProc);
 
-    //CompressionMetrics n;
-    //n.CompressionRatios("C:\\Users\\USER\\Downloads\\STzip.txt");
-    Logger logger("log.txt");
-    //Dialog
-   // CompressionMetrics::play(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-    DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL,Dialog::DialogProc);
-
-        return 0;
+	return 0;
 }
