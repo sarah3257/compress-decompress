@@ -71,6 +71,12 @@
 [2024-09-03 16:11:49] Information: Function exit compress In class: LZ77
 [2024-09-03 16:19:50] Information: start Function: compress In class: LZ77
 [2024-09-03 16:19:50] Information: Function exit compress In class: LZ77
+<<<<<<< HEAD
+[2024-09-04 10:31:29] Information: start Function: compress In class: LZ77
+[2024-09-04 10:31:29] Information: Function exit compress In class: LZ77
+[2024-09-04 10:35:16] Information: start Function: compress In class: LZ77
+[2024-09-04 10:35:16] Information: Function exit compress In class: LZ77
+=======
 >>>>>>> 97c4c2d8da622f1444975c57c0d2f08696f748e5
 [2024-09-03 18:23:51] Information: start Function: compress In class: LZ77
 [2024-09-03 18:23:51] Information: Function exit compress In class: LZ77
@@ -78,3 +84,4 @@
 [2024-09-03 18:23:51] Information: Function exit compress In class: Huffman
 [2024-09-03 18:23:51] Information: start Function: decompress In class: Huffman
 [2024-09-03 18:23:51] Information: Function exit decompress In class: Huffman
+>>>>>>> 68648a23eceb62504b23d74e12099e47c860b9d8

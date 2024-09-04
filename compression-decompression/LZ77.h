@@ -8,8 +8,8 @@ struct LZ77Token {
 	char nextChar;
 	LZ77Token(int offset, int length, char nextChar)
 		: offset(offset), length(length), nextChar(nextChar) {}
-	bool operator==(const LZ77Token& other)const {
-		return other.length == length && other.nextChar == nextChar && other.offset == offset;
+	bool operator==(const LZ77Token& other) const {
+		return offset == other.offset && length == other.length && nextChar == other.nextChar;
 	}
 };
 class LZ77 {
