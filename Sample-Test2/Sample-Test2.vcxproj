@@ -45,6 +45,7 @@
     <ClInclude Include="..\compression-decompression\LZ77.h" />
     <ClInclude Include="..\compression-decompression\resource.h" />
     <ClInclude Include="..\compression-decompression\StreamHandler.h" />
+    <ClInclude Include="..\compression-decompression\SystemTest.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,7 @@
     <ClCompile Include="..\compression-decompression\LZ77.cpp" />
     <ClCompile Include="..\compression-decompression\Main.cpp" />
     <ClCompile Include="..\compression-decompression\StreamHandler.cpp" />
+    <ClCompile Include="..\compression-decompression\SystemTest.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

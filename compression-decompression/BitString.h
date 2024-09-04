@@ -14,6 +14,9 @@ public:
 	// Constructor to initialize with a string of bits (e.g., "101010")
 	BitString(const std::string& bitString);
 
+	//
+	std::string toString() const;
+
 	// Operator overloading
 	bool operator[](size_t index) const;
 

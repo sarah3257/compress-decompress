@@ -26,6 +26,5 @@ private:
 	static void testSizeGBFile();
 	static void createSizeGBFile(const std::string& filename1);
 	static void compressAndDecompress(const std::string& filename);
-
 };
 
