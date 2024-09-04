@@ -34,16 +34,6 @@ size_t BitString::size() const {
 	return length;
 }
 
-// Convert to a string of '0' and '1'
-std::string BitString::toString() const {
-	std::string result;
-	result.reserve(length);
-	for (size_t i = 0; i < length; ++i) {
-		result += (*this)[i] ? '1' : '0';
-	}
-	return result;
-}
-
 // Convert to a string of characters based on the stored bits
 std::vector<char> BitString::toCharVector() const {
 	std::vector<char> result;

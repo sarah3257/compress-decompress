@@ -58,13 +58,8 @@ TEST(LZ77, Compress) {
     // a simple string
     std::vector<char> inputText = { 'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd' };
 
-<<<<<<< HEAD
 	// empty unordered_map<char, std::string>
 	std::unordered_map<char, BitString> codes;
-=======
-    // empty unordered_map<char, std::string>
-    std::unordered_map<char, std::string> codes;
->>>>>>> c79e465dd35427f2a8f6587449ddc457fdf34f7d
 
     // LZ77compress
     std::vector<char> compressedOutput = LZ77::compress(inputText, codes);
@@ -94,7 +89,7 @@ TEST(LZ77, Decompress) {
      0 };
 
     // empty unordered_map<char, std::string>
-    std::unordered_map<char, std::string> codesMap;
+    std::unordered_map<char, BitString> codesMap;
 
     // LZ77decompress
     std::vector<char> decompressedOutput = LZ77::decompress(compressedText, codesMap);

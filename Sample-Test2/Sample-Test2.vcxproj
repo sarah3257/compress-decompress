@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B593E189-1662-4675-8171-AAEED378389B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -45,6 +45,7 @@
     <ClInclude Include="..\compression-decompression\LZ77.h" />
     <ClInclude Include="..\compression-decompression\resource.h" />
     <ClInclude Include="..\compression-decompression\StreamHandler.h" />
+    <ClInclude Include="..\compression-decompression\SystemTest.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,7 @@
     <ClCompile Include="..\compression-decompression\LZ77.cpp" />
     <ClCompile Include="..\compression-decompression\Main.cpp" />
     <ClCompile Include="..\compression-decompression\StreamHandler.cpp" />
+    <ClCompile Include="..\compression-decompression\SystemTest.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -100,9 +102,11 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>C:\Users\user1\Desktop\kamaTech\WesternDigital\compression-decompression\compression-decompression;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>E:\Tamar\Western Digital\deflate\compression-decompression;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>
+				C:\Users\user1\Desktop\kamaTech\WesternDigital\compression-decompression\compression-decompression;%(AdditionalIncludeDirectories)
+			</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
