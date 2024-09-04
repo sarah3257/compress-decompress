@@ -16,19 +16,19 @@ double CompressionMetrics::EfficiencyPercentagesHuffman = 0;
 
 std::string CompressionMetrics::fileName;
 
-void CompressionMetrics::CompressionRatios(std::string& fileName) {
+void CompressionMetrics::CompressionRatios(std::string& path) {
 
 	// deflate
 	CompressionMetrics::cpuTimeDeflate = CompressionDecompression::cpuTime;
 	CompressionMetrics::memoryUsageDeflate = CompressionDecompression::memoryUsage;
 	CompressionMetrics::EfficiencyPercentagesDeflate = FileStream::EfficiencyPercentages;
 	// lz77
-	CompressionDecompression::compress(fileName, LZ77::compress);
+	CompressionDecompression::compress(path, LZ77::compress);
 	CompressionMetrics::cpuTimeLZ77 = CompressionDecompression::cpuTime;
 	CompressionMetrics::memoryUsageLZ77 = CompressionDecompression::memoryUsage;
 	CompressionMetrics::EfficiencyPercentagesLZ77 = FileStream::EfficiencyPercentages;
 	// huffman
-	CompressionDecompression::compress(fileName, Huffman::compress);
+	CompressionDecompression::compress(path, Huffman::compress);
 	CompressionMetrics::cpuTimeHuffman = CompressionDecompression::cpuTime;
 	CompressionMetrics::memoryUsageHuffman = CompressionDecompression::memoryUsage;
 	CompressionMetrics::EfficiencyPercentagesHuffman = FileStream::EfficiencyPercentages;
@@ -176,17 +176,12 @@ void CompressionMetrics::plotComparisonGraph() {
 	fprintf(gnuplotPipe, "set terminal wxt size 1600,800 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
 
 	// Provide data using separate datablocks for speed and memory for three algorithms
-	double maxCpuTime = min(
-		min(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman),
-		CompressionMetrics::cpuTimeDeflate
-	);
 	fprintf(gnuplotPipe, "$SpeedData << EOD\n");
 	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77 / CPUTIME);
 	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman / CPUTIME);
 	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate / CPUTIME);
 	fprintf(gnuplotPipe, "EOD\n");
 
-	double maxMemoryUsage = min(min(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
 	fprintf(gnuplotPipe, "$MemoryData << EOD\n");
 	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77 / MEMORY);
 	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman / MEMORY);
