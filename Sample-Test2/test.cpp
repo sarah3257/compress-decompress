@@ -3,8 +3,13 @@
 #include "Huffman.h"
 #include "Logger.h"
 #include <gtest/gtest.h>
+#pragma warning(push)
+#pragma warning(disable: 26495)
+#include <gtest/gtest.h>
+#pragma warning(pop)
 
-TEST(LZ77Test, CompressSimpleInput) {
+
+TEST(LZ77, Compress) {
 
     // a simple string
     std::vector<char> inputText = {'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'};
@@ -28,6 +33,30 @@ TEST(LZ77Test, CompressSimpleInput) {
     EXPECT_EQ(compressedOutput, expectedOutput);
 }
 
+TEST(LZ77, Decompress) {
+
+    // a simple vector<char>
+    std::vector<char> compressedText =
+    { '0', '|', '0', '|', 'a', '|',
+     '0', '|', '0', '|', 'b', '|',
+     '2', '|', '2', '|', 'c', '|',
+     '0', '|', '0', '|', 'd', '|',
+     '4', '|', '3', '|', 'd', '|',
+     0 };
+
+    // empty unordered_map<char, std::string>
+    std::unordered_map<char, std::string> codesMap;
+
+    // LZ77decompress
+    std::vector<char> decompressedOutput = LZ77::decompress(compressedText, codesMap);
+
+    // the expected output
+    std::vector<char> expectedOutput = { 'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd' };
+
+    // compare the outputs
+    EXPECT_EQ(decompressedOutput, expectedOutput);
+}
+
 TEST(testsmallinput, TestName) {
     std::vector<char>vec = { '0','1' };
     std::unordered_map<char, int> expected = { {'0',1},
@@ -43,12 +72,3 @@ int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-
-
-
-
-
-
-
-
-

@@ -57,7 +57,6 @@ void Huffman::buildCodes(HuffmanNode* root, std::string str, std::unordered_map<
 // Encodes the text using the provided Huffman codes and returns the encoded string.
 std::string Huffman::encodeText(const std::unordered_map<char, std::string>& codes, const std::vector<char>& text) {
 	std::string result = "";
-	int index = 0;
 	for (auto ch : text) {
 		result.append(codes.at(ch));
 	}
@@ -102,7 +101,6 @@ std::unordered_map<std::string, char> Huffman::swapKeysAndValues(std::unordered_
 std::vector<char> Huffman::decompress(std::vector<char>& text,  std::unordered_map<char, std::string>& codesMap) {
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Huffman");
 	std::unordered_map<std::string, char> codesMapRev = swapKeysAndValues(codesMap);
-	int strJul = 0;
 	std::string keyToFind = "", strResult = "";
 
 	for (int i = 0; i < text.size(); i++) {

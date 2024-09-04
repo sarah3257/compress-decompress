@@ -1,6 +1,6 @@
 
 #include "Dialog.h"
-// "Test.h"
+//#include "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
 #include <windows.h>  
@@ -193,13 +193,13 @@ std::wstring Dialog::s2ws(const std::string& str)
 	return ws;
 }
 
-std::string Dialog::ws2s(const std::wstring& ws)
-{
-	std::string str(ws.begin(), ws.end());
+std::string Dialog::ws2s(const std::wstring& ws) {
+	int size_needed = WideCharToMultiByte(CP_UTF8, 0, &ws[0], (int)ws.size(), nullptr, 0, nullptr, nullptr);
+	std::string str(size_needed, 0);
+	WideCharToMultiByte(CP_UTF8, 0, &ws[0], (int)ws.size(), &str[0], size_needed, nullptr, nullptr);
 	return str;
 }
-
-INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 {
 	switch (uMsg)
 	{
@@ -240,8 +240,8 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON6) {
-			HWND hwndDlg = GetActiveWindow();
-			HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
+			HWND localHwndDlg = GetActiveWindow();
+			HWND hListBox = GetDlgItem(localHwndDlg, IDC_LIST1);
 			int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
 			if (selIndex != LB_ERR)
 			{
@@ -250,15 +250,11 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 				std::wstring filePathW(filePath);
 				std::string filePathStr = ws2s(filePathW);
 
-				HINSTANCE hInstance = GetModuleHandle(NULL); // קבלת ה-HINSTANCE של היישום
-				int nCmdShow = SW_SHOW; // לדוגמה, הצגת החלון בצורה רגילה
-
 				CompressionMetrics cm(filePathStr);
-				//int result = cm.play(hInstance, nCmdShow);
 			}
 			else
 			{
-				MessageBoxW(hwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
+				MessageBoxW(localHwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
 			}
 			return (INT_PTR)TRUE;
 		}
