@@ -31,11 +31,10 @@ void Test::createRegularFile(const std::string& filename1) {
 	const size_t textSize = text.size();
 	std::ofstream outFile(filename, std::ios::binary);
 	if (!outFile) {
-		MessageBox(NULL, L" error open file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L" error open file", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		exit(1);
 	}
 	size_t repetitions = fileSize / textSize;
-	size_t remainingBytes = fileSize % textSize;
 	for (size_t i = 0; i < repetitions; ++i) {
 		outFile.write(text.c_str(), textSize);
 	}
@@ -57,7 +56,7 @@ void Test::createEmptyFile(const std::string& filename1)
 		file.close();
 	}
 	else {
-		MessageBox(NULL, L"Failed to create empty file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L"Failed to create empty file", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		exit(1);
 	}
 }
@@ -72,7 +71,7 @@ void Test::writeRandomValuesToTextFile(const std::string& filename1) {
 	const std::string  filename = filename1 + ".txt";
 	std::ofstream outFile(filename);
 	if (!outFile) {
-		MessageBox(NULL, L"Error opening file for writing:", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L"Error opening file for writing:", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		return;
 	}
 
@@ -100,7 +99,7 @@ void Test::writeSmallFile(const std::string filename1) {
 	const std::string  filename = filename1 + ".txt";
 	std::ofstream outFile(filename);
 	if (!outFile) {
-		MessageBox(NULL, L"Error opening file for writing:", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L"Error opening file for writing:", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		return;
 	}
 	std::srand(static_cast<unsigned int>(std::time(0)));
@@ -125,7 +124,7 @@ void Test::writeCharacterToFile(const std::string filename1) {
 	const size_t fileSize = 10 * 1024;
 	std::ofstream outFile(filename, std::ios::binary);
 	if (!outFile) {
-		MessageBox(NULL, L"Error opening file:", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L"Error opening file:", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		exit(1);
 	}
 	for (size_t i = 0; i < fileSize; ++i) {
@@ -146,7 +145,7 @@ void Test::createFileWithZeros(const std::string filename1) {
 	std::ofstream outFile(filename, std::ios::binary);
 
 	if (!outFile) {
-		MessageBox(NULL, L"Error opening file:", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L"Error opening file:", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		exit(1);
 	}
 	char zero = 0;
@@ -172,7 +171,7 @@ void Test::createControl_Z_File(const std::string& filename1) {
 	const char eofChar = 0x1A; //EOF
 	std::ofstream outFile(filename, std::ios::binary);
 	if (!outFile) {
-		MessageBox(NULL, L"Error opening file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L"Error opening file", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		exit(1);
 	}
 	for (size_t i = 0; i < fileSize / 2; ++i) {
@@ -201,11 +200,10 @@ void Test::createSizeGBFile(const std::string& filename1) {
 	const size_t textSize = text.size();
 	std::ofstream outFile(filename, std::ios::binary);
 	if (!outFile) {
-		MessageBox(NULL, L" error open file", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L" error open file", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		exit(1);
 	}
 	size_t repetitions = fileSize / textSize;
-	size_t remainingBytes = fileSize % textSize;
 	for (size_t i = 0; i < repetitions; ++i) {
 		outFile.write(text.c_str(), textSize);
 	}
@@ -224,7 +222,7 @@ void Test::compressAndDecompress(const std::string& filename)
 	if (areFilesEqual(filename + ".txt", filename + "(1).txt"))
 		Logger::logTest(Logger::TEST_ZERO_FILE);
 	else {
-		MessageBox(NULL, L"An error was found in the test", L"Error_Test", MB_YESNO | MB_ICONERROR);
+		MessageBoxW(NULL, L"An error was found in the test", L"Error_Test", MB_YESNO | MB_ICONERROR);
 		exit(1);
 	}
 }
