@@ -33,6 +33,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClInclude Include="..\compression-decompression\BitString.h" />
     <ClInclude Include="..\compression-decompression\CompressionDecompression.h" />
     <ClInclude Include="..\compression-decompression\CompressionMetrics.h" />
     <ClInclude Include="..\compression-decompression\Deflate.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\compression-decompression\BitString.cpp" />
     <ClCompile Include="..\compression-decompression\CompressionDecompression.cpp" />
     <ClCompile Include="..\compression-decompression\CompressionMetrics.cpp" />
     <ClCompile Include="..\compression-decompression\Deflate.cpp" />

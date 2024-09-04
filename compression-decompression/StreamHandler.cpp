@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include <bitset>
+#include "BitString.h"
 
 //open the source and destination file
 StreamHandler::StreamHandler(IStreamInterface* streamInterface) :streamInterface(streamInterface) {
@@ -22,7 +23,7 @@ std::vector<char> StreamHandler::readBufferCompress() {
 }
 
 //write to file the compressed buffer
-void StreamHandler::writeBufferCompress(const std::unordered_map<char, std::string>& codes, std::vector<char>& buffer) {
+void StreamHandler::writeBufferCompress(const std::unordered_map<char, BitString>& codes, std::vector<char>& buffer) {
 
 	//push the map
 	streamInterface->writeMap(codes);
@@ -48,7 +49,7 @@ std::vector<char> StreamHandler::convertToBinaryVector(const std::vector<char>& 
 }
 
 //read buffer from file to decompress and fill the codesMap and data
-std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, std::string>& codes) {
+std::vector<char> StreamHandler::readBufferDecompress(std::unordered_map<char, BitString>& codes) {
 
 	// read the map
 	streamInterface->readMap(codes);

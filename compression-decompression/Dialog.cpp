@@ -1,6 +1,5 @@
 
 #include "Dialog.h"
-//#include "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
 #include <windows.h>  
@@ -8,6 +7,7 @@
 #include <commctrl.h> 
 #include <thread>
 #include <atomic>
+#include "SystemTest.h"
 
 std::atomic<bool> compressionInProgress(false);
 
@@ -229,8 +229,8 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 
 
 		}
-		else if (LOWORD(wParam) == IDC_BUTTON4) {//button test
-		//	Test::playTest();
+		else if (LOWORD(wParam) == IDC_BUTTON4) {//button Test
+			SystemTest::playTest();
 			MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
 
 			return (INT_PTR)TRUE;

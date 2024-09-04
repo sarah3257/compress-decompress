@@ -2,14 +2,15 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include "BitString.h"
 class CompressionDecompression
 {
 public:
 	static const std::string password;
 	static double cpuTime;
 	static double memoryUsage;
-	using CompressFunction = std::vector<char>(*)( std::vector<char>&, std::unordered_map<char, std::string>&);
-	using DecompressFunction = std::vector<char>(*)( std::vector<char>&, std::unordered_map<char, std::string>&);
+	using CompressFunction = std::vector<char>(*)( std::vector<char>&, std::unordered_map<char, BitString>&);
+	using DecompressFunction = std::vector<char>(*)( std::vector<char>&, std::unordered_map<char, BitString>&);
 	static double printMemoryUsage();
 	static void compress(const std::string& fileName, CompressFunction compressFunc);
 	static void decompress(const std::string& path, DecompressFunction compressFunc);
