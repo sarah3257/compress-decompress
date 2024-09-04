@@ -4,20 +4,20 @@
 #include "Logger.h"
 #include <gtest/gtest.h>
 
-TEST(LZ77Tests, GetEmptyInput) {
+TEST(LZ77Tests, GetTokensEmptyInput) {
 	std::vector<char> input = {};
 	auto tokens = LZ77::getTokens(input);
 	EXPECT_TRUE(tokens.empty());
 }
 
-TEST(LZ77Tests, SingleCharacter) {
+TEST(LZ77Tests, GetTokensSingleCharacter) {
 	std::vector<char> input = { 'A' };
 	auto tokens = LZ77::getTokens(input);
 	EXPECT_EQ(tokens.size(), 1);
 	EXPECT_EQ(tokens[0], LZ77Token(0, 0, 'A'));
 }
 
-TEST(LZ77Tests, TwoDifferentCharacters) {
+TEST(LZ77Tests, GetTokensTwoDifferentCharacters) {
 	std::vector<char> input = { 'A', 'B' };
 	auto tokens = LZ77::getTokens(input);
 	EXPECT_EQ(tokens.size(), 2);
@@ -25,7 +25,7 @@ TEST(LZ77Tests, TwoDifferentCharacters) {
 	EXPECT_EQ(tokens[1], LZ77Token(0, 0, 'B'));
 }
 
-TEST(LZ77Tests, RepeatedCharacters) {
+TEST(LZ77Tests, GetTokensRepeatedCharacters) {
 	std::vector<char> input = { 'A', 'A', 'A' };
 	auto tokens = LZ77::getTokens(input);
 	EXPECT_EQ(tokens.size(), 2);
@@ -33,7 +33,7 @@ TEST(LZ77Tests, RepeatedCharacters) {
 	EXPECT_EQ(tokens[1], LZ77Token(1, 1, 'A'));
 }
 
-TEST(LZ77Tests, ComplexInput) {
+TEST(LZ77Tests, GetTokensComplexInput) {
 	std::vector<char> input = { 'A', 'B', 'A', 'A', 'C', 'A', 'B', 'A' };
 	auto tokens = LZ77::getTokens(input);
 
