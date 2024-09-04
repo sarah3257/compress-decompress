@@ -229,10 +229,18 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 
 
 		}
-		else if (LOWORD(wParam) == IDC_BUTTON4) {
+		else if (LOWORD(wParam) == IDC_BUTTON4) {//button test
 		//	Test::playTest();
 			MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
 
+			return (INT_PTR)TRUE;
+		}
+		else if (LOWORD(wParam) == IDCANCEL) {//button cancel
+
+			int result = MessageBoxW(hwndDlg, L"Are you sure you want to cancel?", L"Warning", MB_OKCANCEL | MB_ICONINFORMATION);
+			if (result == IDOK) {
+				EndDialog(hwndDlg, 0);
+			}
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON5) {
