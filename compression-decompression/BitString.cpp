@@ -53,17 +53,16 @@ BitString::BitString(const BitString& other) : bits(other.bits), length(other.le
 
 // Copy assignment operator
 BitString& BitString::operator=(const BitString& other) {
-	if (this != &other) {
-		bits = other.bits;
-		length = other.length;
+	if (this != &other) { // Self-assignment check
+		bits = other.bits; // This should copy the vector correctly
+		length = other.length; // Copy the length
 	}
-	return *this;
+	return *this; // Return the current object
 }
 
 // Equality operator
 bool BitString::operator==(const BitString& other) const {
-	if (length != other.length) {
+	if (length != other.length)
 		return false; // Different lengths
-	}
-	return bits == other.bits; // Compare the underlying bit data
+	return bits == other.bits;
 }

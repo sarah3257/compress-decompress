@@ -40,7 +40,8 @@ namespace std {
 	template <>
 	struct hash<BitString> {
 		size_t operator()(const BitString& bitString) const {
-			return hash<std::string>()(string(bitString.toCharVector().begin(), bitString.toCharVector().end())); // hash by converting to string
+			std::vector<char>vec = bitString.toCharVector();
+			return hash<std::string>()(string(vec.begin(), vec.end())); // hash by converting to string
 		}
 	};
 	template <>
