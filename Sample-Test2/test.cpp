@@ -3,11 +3,6 @@
 #include "Huffman.h"
 #include "Logger.h"
 #include <gtest/gtest.h>
-#pragma warning(push)
-#pragma warning(disable: 26495)
-#include <gtest/gtest.h>
-#pragma warning(pop)
-
 
 TEST(LZ77, Compress) {
 
