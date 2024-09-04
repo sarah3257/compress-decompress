@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include "StreamHandler.h"
 #include <bitset>
+#include "BitString.h"
 
 #define M 100
 
@@ -77,28 +78,29 @@ void FileStream::writeData(int& size) {
 		Logger::logError(Logger::FAILED_WRITE_TO_FILE);
 }
 
-void FileStream::writeMap(const std::unordered_map<char, std::string>& codes) {
+void FileStream::writeMap(const std::unordered_map<char, BitString>& codes) {
 	//push map.size and map
 	int mapSize = static_cast<int>(codes.size());
 	writeData(mapSize);
 	for (const auto& pair : codes) {
 		destinationFile.write(reinterpret_cast<const char*>(&pair.first), sizeof(pair.first));
 		int strSize = static_cast<int>(pair.second.size());
-		std::string text = pair.second;
-		while (text.size() % 8)
+		std::vector<char> text = pair.second.toCharVector();
+		text.pop_back();
+		/*while (text.size() % 8)
 			text.push_back('0');
 		std::vector<char> buffer;
 		for (size_t i = 0; i < text.size(); i += 8) {
 			std::bitset<8> byte(std::string(text.data() + i, 8));
 			buffer.push_back(static_cast<char>(byte.to_ulong()));
-		}
+		}*/
 
 		writeData(strSize);
-		writeData(buffer);
+		writeData(text);
 	}	
 }
 
-void FileStream::readMap(std::unordered_map<char, std::string>& codes) {
+void FileStream::readMap(std::unordered_map<char, BitString>& codes) {
 	int mapSize;
 	int valueSize;
 	char key;

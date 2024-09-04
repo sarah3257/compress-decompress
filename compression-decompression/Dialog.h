@@ -6,7 +6,7 @@
 #include "resource.h"
 #include "Deflate.h"
 #include "Logger.h"
-#include "Test.h"
+#include "SystemTest.h"
 
 class Dialog
 {

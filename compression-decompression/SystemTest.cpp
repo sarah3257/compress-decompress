@@ -1,4 +1,4 @@
-#include "Test.h"
+#include "SystemTest.h"
 #include "Logger.h"
 #include "CompressionDecompression.h"
 #include "Deflate.h"
@@ -10,7 +10,7 @@
 #include <iostream>
 #include <direct.h>
 
-bool Test::areFilesEqual(const std::string& file1, const std::string& file2) {
+bool SystemTest::areFilesEqual(const std::string& file1, const std::string& file2) {
 	std::ifstream f1(file1, std::ios::binary);
 	std::ifstream f2(file2, std::ios::binary);
 
@@ -24,7 +24,7 @@ bool Test::areFilesEqual(const std::string& file1, const std::string& file2) {
 	return std::equal(begin1, end1, begin2);
 }
 
-void Test::createRegularFile(const std::string& filename1) {
+void SystemTest::createRegularFile(const std::string& filename1) {
 	const std::string  filename = filename1 + ".txt";
 	const std::string text = "It is with great excitement that we present to you our crazy project.\nA lot of energy and effort was invested in calculating the algorithm\n";
 	const size_t fileSize = 10 * 1024;
@@ -40,14 +40,14 @@ void Test::createRegularFile(const std::string& filename1) {
 	}
 	outFile.close();
 }
-void Test::testRegularFile()
+void SystemTest::testRegularFile()
 {
 	const std::string filename = "test/normalFile";
 	createRegularFile(filename);
 	compressAndDecompress(filename);
 }
 
-void Test::createEmptyFile(const std::string& filename1)
+void SystemTest::createEmptyFile(const std::string& filename1)
 {
 	const std::string  filename = filename1 + ".txt";
 
@@ -60,14 +60,14 @@ void Test::createEmptyFile(const std::string& filename1)
 		exit(1);
 	}
 }
-void Test::testEmptyFile()
+void SystemTest::testEmptyFile()
 {
 	std::string filename = "test/empty_file";
 	createEmptyFile(filename);
 	compressAndDecompress(filename);
 }
 
-void Test::writeRandomValuesToTextFile(const std::string& filename1) {
+void SystemTest::writeRandomValuesToTextFile(const std::string& filename1) {
 	const std::string  filename = filename1 + ".txt";
 	std::ofstream outFile(filename);
 	if (!outFile) {
@@ -89,13 +89,13 @@ void Test::writeRandomValuesToTextFile(const std::string& filename1) {
 	outFile.close();
 }
 
-void Test::testRandomFile() {
+void SystemTest::testRandomFile() {
 	const std::string filename = "test/randomFile";
 	writeRandomValuesToTextFile(filename);
 	compressAndDecompress(filename);
 }
 
-void Test::writeSmallFile(const std::string filename1) {
+void SystemTest::writeSmallFile(const std::string filename1) {
 	const std::string  filename = filename1 + ".txt";
 	std::ofstream outFile(filename);
 	if (!outFile) {
@@ -113,13 +113,13 @@ void Test::writeSmallFile(const std::string filename1) {
 	outFile.close();
 }
 
-void Test::testSmallFile()
+void SystemTest::testSmallFile()
 {
 	const std::string filename = "test/SmallFile";
 	writeSmallFile(filename);
 	compressAndDecompress(filename);
 }
-void Test::writeCharacterToFile(const std::string filename1) {
+void SystemTest::writeCharacterToFile(const std::string filename1) {
 	const std::string  filename = filename1 + ".txt";
 	const size_t fileSize = 10 * 1024;
 	std::ofstream outFile(filename, std::ios::binary);
@@ -132,14 +132,14 @@ void Test::writeCharacterToFile(const std::string filename1) {
 	}
 	outFile.close();
 }
-void Test::testOneCharacterFile()
+void SystemTest::testOneCharacterFile()
 {
 	const std::string filename = "test/OneCharacterFile";
 	writeCharacterToFile(filename);
 	compressAndDecompress(filename);
 }
 
-void Test::createFileWithZeros(const std::string filename1) {
+void SystemTest::createFileWithZeros(const std::string filename1) {
 	const std::string  filename = filename1 + ".txt";
 	const size_t fileSize = 10 * 1024;
 	std::ofstream outFile(filename, std::ios::binary);
@@ -155,7 +155,7 @@ void Test::createFileWithZeros(const std::string filename1) {
 	outFile.close();
 
 }
-void Test::testZeroFile()
+void SystemTest::testZeroFile()
 {
 	const std::string  filename = "test/zeroFile";
 	createFileWithZeros(filename);
@@ -163,7 +163,7 @@ void Test::testZeroFile()
 
 }
 
-void Test::createControl_Z_File(const std::string& filename1) {
+void SystemTest::createControl_Z_File(const std::string& filename1) {
 	const std::string  filename = filename1 + ".txt";
 	const std::string text = "It is with great excitement that we present to you our crazy project.\nA lot of energy and effort was invested in calculating the algorithm\n";
 	const size_t fileSize = 10 * 1024;
@@ -187,13 +187,13 @@ void Test::createControl_Z_File(const std::string& filename1) {
 
 
 
-void Test::testControl_Z_File()
+void SystemTest::testControl_Z_File()
 {
 	const std::string  filename = "test/Control_Z_File";
 	createControl_Z_File(filename);
 	compressAndDecompress(filename);
 }
-void Test::createSizeGBFile(const std::string& filename1) {
+void SystemTest::createSizeGBFile(const std::string& filename1) {
 	const std::string  filename = filename1 + ".txt";
 	const std::string text = "It is with great excitement that we present to you our crazy project.A lot of energy and effort was invested in calculating the algorithm";
 	const size_t fileSize = 1024 * 1024 * 1024;
@@ -210,12 +210,12 @@ void Test::createSizeGBFile(const std::string& filename1) {
 	outFile.close();
 }
 
-void Test::testSizeGBFile() {
+void SystemTest::testSizeGBFile() {
 	const std::string filename = "test/SizeGBFile";
 	createSizeGBFile(filename);
 	compressAndDecompress(filename);
 }
-void Test::compressAndDecompress(const std::string& filename)
+void SystemTest::compressAndDecompress(const std::string& filename)
 {
 	CompressionDecompression::compress(filename + ".txt", Deflate::compress);
 	CompressionDecompression::decompress(filename + "(" + CompressionDecompression::password + ").bin", Deflate::decompress);
@@ -227,7 +227,7 @@ void Test::compressAndDecompress(const std::string& filename)
 	}
 }
 
-void Test::playTest()
+void SystemTest::playTest()
 {
 	if (!_mkdir("test") && errno == EEXIST)
 		Logger::logError(Logger::CANNOT_CREATE_FOLDER);

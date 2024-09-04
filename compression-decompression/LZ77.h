@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include "BitString.h"
 struct LZ77Token {
 	int offset;
 	int length;
@@ -18,6 +19,6 @@ class LZ77 {
 public:
 	static std::vector<LZ77Token> getTokens(const std::vector<char>& text);
 	static int maxWindowSize;
-	static std::vector<char> compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes);
-	static std::vector<char> decompress(std::vector<char>& text, std::unordered_map<char, std::string>& codesMap);
+	static std::vector<char> compress(std::vector<char>& text, std::unordered_map<char, BitString>& codes);
+	static std::vector<char> decompress(std::vector<char>& text, std::unordered_map<char, BitString>& codesMap);
 };

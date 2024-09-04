@@ -27,7 +27,7 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp">
+    <ClCompile Include="SystemTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CompressionDecompression.cpp">
@@ -51,6 +51,9 @@
     <ClCompile Include="Dialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BitString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Huffman.h">
@@ -68,7 +71,7 @@
     <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
+    <ClInclude Include="SystemTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CompressionDecompression.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BitString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
