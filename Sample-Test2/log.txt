@@ -85,3 +85,15 @@
 [2024-09-03 18:23:51] Information: start Function: decompress In class: Huffman
 [2024-09-03 18:23:51] Information: Function exit decompress In class: Huffman
 >>>>>>> 68648a23eceb62504b23d74e12099e47c860b9d8
+[2024-09-04 11:05:42] Information: start Function: compress In class: LZ77
+[2024-09-04 11:05:42] Information: Function exit compress In class: LZ77
+[2024-09-04 11:05:42] Information: start Function: compress In class: Huffman
+[2024-09-04 11:05:42] Information: Function exit compress In class: Huffman
+[2024-09-04 11:05:42] Information: start Function: decompress In class: Huffman
+[2024-09-04 11:05:42] Information: Function exit decompress In class: Huffman
+[2024-09-04 11:08:59] Information: start Function: compress In class: LZ77
+[2024-09-04 11:08:59] Information: Function exit compress In class: LZ77
+[2024-09-04 11:08:59] Information: start Function: compress In class: Huffman
+[2024-09-04 11:08:59] Information: Function exit compress In class: Huffman
+[2024-09-04 11:08:59] Information: start Function: decompress In class: Huffman
+[2024-09-04 11:08:59] Information: Function exit decompress In class: Huffman
