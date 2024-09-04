@@ -55,10 +55,10 @@ TEST(LZ77, GetTokensComplexInput) {
 TEST(LZ77, Compress) {
 
     // a simple string
-    std::vector<char> inputText = {'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'};
-    
-    // empty unordered_map<char, std::string>
-    std::unordered_map<char, BitString> codes;
+    std::vector<char> inputText = { 'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd' };
+
+	// empty unordered_map<char, std::string>
+	std::unordered_map<char, BitString> codes;
 
     // LZ77compress
     std::vector<char> compressedOutput = LZ77::compress(inputText, codes);

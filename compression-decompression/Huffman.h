@@ -27,7 +27,7 @@ class Huffman
 	static std::unordered_map<char, BitString> getHuffmanCodes(HuffmanNode* huffmanTree);
 	static void buildCodes(HuffmanNode* root, std::string str, std::unordered_map<char, BitString>& codesMap);
 	static BitString encodeText(const std::unordered_map<char, BitString>& codes, const std::vector<char>& text);
-	static std::unordered_map<BitString, char> swapKeysAndValues(std::unordered_map<char, BitString> originalMap);
+	static std::unordered_map<BitString, char> swapKeysAndValues(const std::unordered_map<char, BitString>& originalMap);
 public:
 	static std::unordered_map<char, int> calculateFrequencies(const std::vector<char>& text);
 	static std::vector<char> compress(std::vector<char>& text, std::unordered_map<char, BitString>& codes);

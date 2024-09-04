@@ -3,9 +3,7 @@
 #include "Logger.h"
 #include "string"
 #include "BitString.h"
-//#include <winnt.h>
-#include <Windows.h>
-
+#include <windows.h>
 
 
 int LZ77::maxWindowSize = 1024;

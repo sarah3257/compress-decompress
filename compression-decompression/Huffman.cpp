@@ -92,7 +92,7 @@ std::vector<char> Huffman::compress( std::vector<char>& text, std::unordered_map
 //decompression
 
 // Swaps keys and values in the map and returns the new map.
-std::unordered_map<BitString, char> Huffman::swapKeysAndValues(std::unordered_map<char, BitString> originalMap) {
+std::unordered_map<BitString, char> Huffman::swapKeysAndValues(const std::unordered_map<char, BitString>& originalMap) {
 	std::unordered_map<BitString, char> swappedMap;
 	for (const auto& pair : originalMap) {
 		swappedMap[pair.second] = pair.first;
