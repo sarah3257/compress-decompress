@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "LZ77.h"
-<<<<<<< HEAD
+#include "Huffman.h"
+#include "Logger.h"
+#include <gtest/gtest.h>
 
-TEST(LZ77Tests, EmptyInput) {
+TEST(LZ77Tests, GetEmptyInput) {
 	std::vector<char> input = {};
 	auto tokens = LZ77::getTokens(input);
 	EXPECT_TRUE(tokens.empty());
@@ -48,33 +50,30 @@ TEST(LZ77Tests, ComplexInput) {
 		EXPECT_EQ(tokens[i], expectedTokens[i]);
 	}
 }
-=======
-#include "Huffman.h"
-#include "Logger.h"
-#include <gtest/gtest.h>
+
 
 TEST(LZ77Test, CompressSimpleInput) {
 
-    // a simple string
-    std::vector<char> inputText = {'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'};
-    
-    // empty unordered_map<char, std::string>
-    std::unordered_map<char, std::string> codes;
+	// a simple string
+	std::vector<char> inputText = { 'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd' };
 
-    // LZ77compress
-    std::vector<char> compressedOutput = LZ77::compress(inputText, codes);
+	// empty unordered_map<char, std::string>
+	std::unordered_map<char, std::string> codes;
 
-    // the expected output
-    std::vector<char> expectedOutput =
-    {'0', '|', '0', '|', 'a', '|',
-     '0', '|', '0', '|', 'b', '|',
-     '2', '|', '2', '|', 'c', '|',
-     '0', '|', '0', '|', 'd', '|',
-     '4', '|', '3', '|', 'd', '|',
-     0}; 
-     
-    // compare the outputs
-    EXPECT_EQ(compressedOutput, expectedOutput);
+	// LZ77compress
+	std::vector<char> compressedOutput = LZ77::compress(inputText, codes);
+
+	// the expected output
+	std::vector<char> expectedOutput =
+	{ '0', '|', '0', '|', 'a', '|',
+	 '0', '|', '0', '|', 'b', '|',
+	 '2', '|', '2', '|', 'c', '|',
+	 '0', '|', '0', '|', 'd', '|',
+	 '4', '|', '3', '|', 'd', '|',
+	 0 };
+
+	// compare the outputs
+	EXPECT_EQ(compressedOutput, expectedOutput);
 }
 
 TEST(testsmallinput, TestName) {
@@ -83,22 +82,12 @@ TEST(testsmallinput, TestName) {
 		{'1',1} };
 	std::unordered_map<char, int> res = Huffman::calculateFrequencies(vec);
 	EXPECT_EQ(expected.size(), res.size());
-  EXPECT_TRUE(true);
+	EXPECT_TRUE(true);
 }
 
 int main(int argc, char** argv) {
 
-    Logger logger("log.txt");
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+	Logger logger("log.txt");
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
-
-
-
-
-
-
-
-
-
->>>>>>> 97c4c2d8da622f1444975c57c0d2f08696f748e5
