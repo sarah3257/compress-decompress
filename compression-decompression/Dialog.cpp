@@ -1,6 +1,5 @@
 
 #include "Dialog.h"
-//#include "Test.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
 #include <windows.h>  
@@ -8,6 +7,7 @@
 #include <commctrl.h> 
 #include <thread>
 #include <atomic>
+#include "SystemTest.h"
 
 std::atomic<bool> compressionInProgress(false);
 
@@ -199,6 +199,7 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 	WideCharToMultiByte(CP_UTF8, 0, &ws[0], (int)ws.size(), &str[0], size_needed, nullptr, nullptr);
 	return str;
 }
+
 INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 {
 	switch (uMsg)
@@ -229,10 +230,18 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 
 
 		}
-		else if (LOWORD(wParam) == IDC_BUTTON4) {
-			//Test::playTest();
+		else if (LOWORD(wParam) == IDC_BUTTON4) {//button Test
+			SystemTest::playTest();
 			MessageBoxW(hwndDlg, L"The tests passed successfully!!", L"Info", MB_OK);
 
+			return (INT_PTR)TRUE;
+		}
+		else if (LOWORD(wParam) == IDCANCEL) {//button cancel
+
+			int result = MessageBoxW(hwndDlg, L"Are you sure you want to cancel?", L"Warning", MB_OKCANCEL | MB_ICONINFORMATION);
+			if (result == IDOK) {
+				EndDialog(hwndDlg, 0);
+			}
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON5) {

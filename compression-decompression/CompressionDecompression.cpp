@@ -37,7 +37,7 @@ void CompressionDecompression::playCompress(const std::string& fileName, const s
 	std::vector<char> compressText;
 	while (streamHandler.getRemainingBytesToRead()) {
 		buffer = streamHandler.readBufferCompress();
-		std::unordered_map<char, std::string> codes;
+		std::unordered_map<char, BitString> codes;
 		compressText = compressFunc(buffer, codes);
 		streamHandler.writeBufferCompress(codes, compressText);
 	}
@@ -97,7 +97,7 @@ void CompressionDecompression::playDecompress(const std::string& path, const std
 	std::vector<char> buffer;
 	std::vector<char>  decompressRes;
 	while (streamHandler.getRemainingBytesToRead()) {
-		std::unordered_map<char, std::string> codes;
+		std::unordered_map<char, BitString> codes;
 		buffer = streamHandler.readBufferDecompress(codes);
 		decompressRes = compressFunc(buffer, codes);
 		streamHandler.writeBufferDecompress(decompressRes);

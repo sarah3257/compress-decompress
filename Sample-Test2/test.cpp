@@ -2,6 +2,7 @@
 #include "LZ77.h"
 #include "Huffman.h"
 #include "Logger.h"
+#include "BitString.h"
 #include <gtest/gtest.h>
 
 TEST(LZ77, GetTokensEmptyInput) {
@@ -54,10 +55,10 @@ TEST(LZ77, GetTokensComplexInput) {
 TEST(LZ77, Compress) {
 
     // a simple string
-    std::vector<char> inputText = {'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd'};
-    
-    // empty unordered_map<char, std::string>
-    std::unordered_map<char, std::string> codes;
+    std::vector<char> inputText = { 'a', 'b', 'a', 'b', 'c', 'd', 'a', 'b', 'c', 'd' };
+
+	// empty unordered_map<char, std::string>
+	std::unordered_map<char, BitString> codes;
 
     // LZ77compress
     std::vector<char> compressedOutput = LZ77::compress(inputText, codes);
@@ -87,7 +88,7 @@ TEST(LZ77, Decompress) {
      0 };
 
     // empty unordered_map<char, std::string>
-    std::unordered_map<char, std::string> codesMap;
+    std::unordered_map<char, BitString> codesMap;
 
     // LZ77decompress
     std::vector<char> decompressedOutput = LZ77::decompress(compressedText, codesMap);
@@ -98,7 +99,6 @@ TEST(LZ77, Decompress) {
     // compare the outputs
     EXPECT_EQ(decompressedOutput, expectedOutput);
 }
-
 
 TEST(huffmanTest, calculateFrequencies) {
     std::vector<char>vec = { '0','1' };
@@ -113,8 +113,8 @@ TEST(huffmanTest, calculateFrequencies) {
 TEST(HuffmanTest, compress) {
 
     std::vector<char> text = { 'S','T','Z','I','P' };
-    std::unordered_map<char, std::string> codes;
-    std::unordered_map<char, std::string> codesRes = { {'P',std::string("00")},{'I',std::string("01")},{'T',std::string("10")},{'S',std::string("110")},{'Z',std::string("111")} };
+    std::unordered_map<char, BitString> codes;
+    std::unordered_map<char, BitString> codesRes = { {'P',BitString("00")},{'I',BitString("01")},{'T',BitString("10")},{'S',BitString("110")},{'Z',BitString("111")} };
 
     std::vector<char> vectorExpected = Huffman::compress(text, codes);
     std::vector<char> vectorResult = { -41,'@',4 };
@@ -126,8 +126,8 @@ TEST(HuffmanTest, compress) {
     }
     //Checks the codes result
     for (auto item : codes) {
-        std::string s = codesRes[item.first];
-        std::string s2 = item.second;
+        BitString s = codesRes[item.first];
+        BitString s2 = item.second;
         EXPECT_EQ(codesRes[item.first], item.second);
     }
 
@@ -137,7 +137,7 @@ TEST(HuffmanTest, compress) {
 TEST(HuffmanTest, decompress) {
 
     std::vector<char> text = { '1','1','0','1','0','1','1','1','0','1','0','0' };
-    std::unordered_map<char, std::string> codes = { {'P',std::string("00")},{'I',std::string("01")},{'T',std::string("10")},{'S',std::string("110")},{'Z',std::string("111")} };
+    std::unordered_map<char, BitString> codes = { {'P',BitString("00")},{'I',BitString("01")},{'T',BitString("10")},{'S',BitString("110")},{'Z',BitString("111")} };
 
     std::vector<char> vectorExpected = Huffman::decompress(text, codes);
     std::vector<char> vectorResult = { 'S','T','Z','I','P' };

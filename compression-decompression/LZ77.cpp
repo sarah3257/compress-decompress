@@ -2,7 +2,8 @@
 #include "StreamHandler.h"
 #include "Logger.h"
 #include "string"
-#include <Windows.h>
+#include "BitString.h"
+#include <windows.h>
 
 
 int LZ77::maxWindowSize = 1024;
@@ -81,7 +82,7 @@ std::string LZ77::findIndex(const std::vector<char>& vec, int& start) {
 }
 
 // Public function implementations
-std::vector<char> LZ77::compress(std::vector<char>& text, std::unordered_map<char, std::string>& codes) {
+std::vector<char> LZ77::compress(std::vector<char>& text, std::unordered_map<char, BitString>& codes) {
 
 	UNREFERENCED_PARAMETER(codes);
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "LZ77");
@@ -92,7 +93,8 @@ std::vector<char> LZ77::compress(std::vector<char>& text, std::unordered_map<cha
 	return resultText;
 }
 
-std::vector<char> LZ77::decompress(std::vector<char>& text, std::unordered_map<char, std::string>& codesMap) {
+std::vector<char> LZ77::decompress(std::vector<char>& text, std::unordered_map<char, BitString>& codesMap) {
+
 
 	UNREFERENCED_PARAMETER(codesMap);
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "LZ77");
