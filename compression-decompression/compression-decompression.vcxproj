@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>C:\Users\user1\Documents\בוטקמפ\ווסטרן דיגיטל\compression and decompression\compression-decompression\x64\Debug\</OutDir>
+    <OutDir>C:\Users\user1\Desktop\kamaTech\WesternDigital\compression-decompression\x64\Debug</OutDir>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -109,8 +109,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\user1\Desktop\kamaTech\WesternDigital\compression-decompression\compression-decompression</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>26495;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -126,6 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\user1\Desktop\kamaTech\WesternDigital\compression-decompression\compression-decompression</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -135,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BitString.cpp" />
     <ClCompile Include="CompressionDecompression.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CompressionMetrics.cpp" />
@@ -148,9 +151,10 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="IStreamInterface.cpp" />
     <ClCompile Include="LZ77.cpp" />
-    <ClCompile Include="Test.cpp" />
+    <ClCompile Include="SystemTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BitString.h" />
     <ClInclude Include="CompressionDecompression.h" />
     <ClInclude Include="CompressionMetrics.h" />
     <ClInclude Include="Dialog.h" />
@@ -162,7 +166,7 @@
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LZ77.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Test.h" />
+    <ClInclude Include="SystemTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="compression-decompression.rc" />

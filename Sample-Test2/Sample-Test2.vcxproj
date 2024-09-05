@@ -33,6 +33,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClInclude Include="..\compression-decompression\BitString.h" />
     <ClInclude Include="..\compression-decompression\CompressionDecompression.h" />
     <ClInclude Include="..\compression-decompression\CompressionMetrics.h" />
     <ClInclude Include="..\compression-decompression\Deflate.h" />
@@ -44,9 +45,11 @@
     <ClInclude Include="..\compression-decompression\LZ77.h" />
     <ClInclude Include="..\compression-decompression\resource.h" />
     <ClInclude Include="..\compression-decompression\StreamHandler.h" />
+    <ClInclude Include="..\compression-decompression\SystemTest.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\compression-decompression\BitString.cpp" />
     <ClCompile Include="..\compression-decompression\CompressionDecompression.cpp" />
     <ClCompile Include="..\compression-decompression\CompressionMetrics.cpp" />
     <ClCompile Include="..\compression-decompression\Deflate.cpp" />
@@ -58,6 +61,7 @@
     <ClCompile Include="..\compression-decompression\LZ77.cpp" />
     <ClCompile Include="..\compression-decompression\Main.cpp" />
     <ClCompile Include="..\compression-decompression\StreamHandler.cpp" />
+    <ClCompile Include="..\compression-decompression\SystemTest.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -97,12 +101,10 @@
       <PreprocessorDefinitions>X64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <AdditionalIncludeDirectories>C:\Users\user1\Documents\בוטקמפ\ווסטרן דיגיטל\compression and decompression\compression-decompression;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>
-		  C:\Users\user1\Documents\בוטקמפ\ווסטרן דיגיטל\compression and decompression\compression-decompression;%(AdditionalIncludeDirectories)
-	  </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\user1\Documents\בוטקמפ\ווסטרן דיגיטל\compression and decompression\compression-decompression;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

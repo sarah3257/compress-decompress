@@ -2,7 +2,7 @@
 //#include <commdlg.h>  //  GetOpenFileName
 #include "resource.h"
 #include "Logger.h"
-#include "Test.h"
+#include "SystemTest.h"
 #include "Dialog.h"
 #include "CompressionMetrics.h"
 
