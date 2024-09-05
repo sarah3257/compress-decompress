@@ -9,6 +9,7 @@ class BitString {
 
 public:
 
+
 	BitString();
 
 	// Constructor to initialize with a string of bits (e.g., "101010")
