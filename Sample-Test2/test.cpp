@@ -3,6 +3,8 @@
 #include "Huffman.h"
 #include "Logger.h"
 #include <gtest/gtest.h>
+#include "Deflate.h"
+
 
 TEST(LZ77Tests, GetTokensEmptyInput) {
 	std::vector<char> input = {};
@@ -89,6 +91,32 @@ TEST(huffmanTest, calculateFrequencies) {
 
 
 
+//Checks the  compress deflate with ordinary modifier
+TEST(Deflate, compress) {
+	std::vector<char> text = { 'S','T','Z', 'S','T','Z', 'S','T','Z' };
+	std::unordered_map<char, std::string> codes;
+	std::vector<char> vectorExpected = Deflate::compress(text, codes);
+	std::vector<char> vectorResult = { -109, 82, 97, 39, -36, -26, -78, -13, -32, 4 };
+
+	////Checks the text result
+	EXPECT_EQ(vectorExpected.size(), vectorResult.size());
+	for (int i = 0; i < vectorExpected.size(); ++i) {
+		EXPECT_EQ(vectorExpected[i], vectorResult[i]);
+	}
+}
+//Checks the  compress empty txt
+TEST(Deflate, getEnptyText) {
+	std::vector<char> text={0};
+	std::unordered_map<char, std::string> codes;
+	std::vector<char> vectorExpected = Deflate::compress(text, codes);
+	std::vector<char> vectorResult = { -38,0,7 };
+
+	////Checks the text result
+	EXPECT_EQ(vectorExpected.size(), vectorResult.size());
+	for (int i = 0; i < vectorExpected.size(); ++i) {
+		EXPECT_EQ(vectorExpected[i], vectorResult[i]);
+	}
+}
 
 
 
@@ -113,6 +141,24 @@ TEST(HuffmanTest, compress) {
         std::string s2 = item.second;
             EXPECT_EQ(codesRes[item.first], item.second);          
     }
+
+}
+//Checks the  compress empty text
+TEST(HuffmanTest, compressEmptyText) {
+
+	std::vector<char> text = { 0};
+	std::unordered_map<char, std::string> codes;
+
+	std::vector<char> vectorExpected = Huffman::compress(text, codes);
+	std::vector<char> vectorResult={8};
+	std::unordered_map<char, std::string> codesRes{{0,"/0"}};
+
+	//Checks the text result
+	EXPECT_EQ(vectorExpected.size(), vectorResult.size());
+	for (int i = 0; i < vectorExpected.size(); ++i) {
+		EXPECT_EQ(vectorExpected[i], vectorResult[i]);
+	}
+
 
 }
 
