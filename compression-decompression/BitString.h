@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <stdexcept>
+
 
 class BitString {
 	std::vector<uint8_t> bits;
@@ -13,6 +15,7 @@ public:
 
 	// Constructor to initialize with a string of bits (e.g., "101010")
 	BitString(const std::string& bitString);
+	const std::vector<uint8_t>& getBits();
 
 	//
 	std::string toString() const;
