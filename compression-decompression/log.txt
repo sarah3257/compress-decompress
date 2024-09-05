@@ -11883,3 +11883,11 @@
 [2024-09-04 10:51:55] Information: start Function: compress In class: Huffman
 [2024-09-04 10:51:56] Information: Function exit compress In class: Huffman
 [2024-09-04 10:51:56] Information: Function exitcompress In class: CompressionDecompression
+[2024-09-05 09:03:05] Information: start Function: decompress In class: CompressionDecompression
+[2024-09-05 09:03:05] Error: Invalid password
+[2024-09-05 09:03:17] Information: start Function: compress In class: CompressionDecompression
+[2024-09-05 09:03:17] Information: start Function: compress In class: LZ77
+[2024-09-05 09:03:17] Information: Function exit compress In class: LZ77
+[2024-09-05 09:03:17] Information: start Function: compress In class: Huffman
+[2024-09-05 09:03:17] Information: Function exit compress In class: Huffman
+[2024-09-05 09:03:17] Information: Function exitcompress In class: CompressionDecompression
