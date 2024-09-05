@@ -49,12 +49,7 @@ size_t BitString::size() const {
 
 // Convert to a string of characters based on the stored bits
 std::vector<char> BitString::toCharVector() const {
-	std::vector<char> result;
-	result.reserve(length / 8);
-	for (size_t i = 0; i < length / 8 || (i == length / 8) && (length % 8); i++) {
-		uint8_t byte = bits[i];
-		result.push_back(static_cast<char>(byte));
-	}
+	std::vector<char> result(bits.begin(), bits.end());
 	//add the added bits
 	int addedBits = (length % 8) ? (8 - (length % 8)) : 0;
 	result.push_back(static_cast<char>(addedBits));

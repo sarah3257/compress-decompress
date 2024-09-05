@@ -40,6 +40,7 @@ public:
 
 	// Equality operator
 	bool operator==(const BitString& other) const;
+	size_t getLength() const{ return length; }
 };
 // Hash function for BitString
 namespace std {
