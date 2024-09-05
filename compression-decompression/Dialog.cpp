@@ -257,8 +257,11 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 				SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
 				std::wstring filePathW(filePath);
 				std::string filePathStr = ws2s(filePathW);
+				HINSTANCE hInstance = GetModuleHandle(NULL);
+				int nCmdShow = SW_SHOW;
 
 				CompressionMetrics cm(filePathStr);
+				int result = cm.play(hInstance, nCmdShow);
 			}
 			else
 			{
@@ -266,6 +269,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 			}
 			return (INT_PTR)TRUE;
 		}
+		
 
 		break;
 	case WM_CLOSE:
