@@ -8,7 +8,12 @@
 #include <thread>
 #include <atomic>
 #include "SystemTest.h"
-
+void InitDialog(HWND hDlg) {
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON6), SW_HIDE);  
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON5), SW_HIDE);  
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON4), SW_HIDE);  //button Test
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);  
+}
 std::atomic<bool> compressionInProgress(false);
 
 extern HINSTANCE g_hinst = nullptr;
@@ -201,8 +206,12 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 }
 INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 {
+
 	switch (uMsg)
 	{
+		 case WM_INITDIALOG:
+        InitDialog(hwndDlg);  // קורא לפונקציה שמסתירה את הכפתור השני בהתחלה
+        return (INT_PTR)TRUE;
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
 		{
@@ -218,6 +227,13 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON3)  // button Upload File
 		{
+			if (!IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER))) {
+				//open
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
+				//close
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_HIDE);
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_HIDE);
+			}
 			//MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
 			uploadFile();
 			return (INT_PTR)TRUE;
@@ -235,6 +251,31 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 
 			return (INT_PTR)TRUE;
 		}
+		else if (LOWORD(wParam) == IDC_BUTTONGRAPH_METRICS) {//button show graph & metrics
+
+			HWND localHwndDlg = GetActiveWindow();
+			HWND hListBox = GetDlgItem(localHwndDlg, IDC_LIST1);
+			int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
+			if (selIndex != LB_ERR)
+			{
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);
+
+				wchar_t filePath[MAX_PATH] = { 0 };
+				SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
+				std::wstring filePathW(filePath);
+				std::string filePathStr = ws2s(filePathW);
+				CompressionMetrics cm(filePathStr);
+				// open 
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_SHOW);
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_SHOW);
+			}
+			else
+			{
+				MessageBoxW(localHwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
+			}
+		
+			return (INT_PTR)TRUE;
+		}
 		else if (LOWORD(wParam) == IDCANCEL) {//button cancel
 
 			int result = MessageBoxW(hwndDlg, L"Are you sure you want to cancel?", L"Warning", MB_OKCANCEL | MB_ICONINFORMATION);
@@ -247,25 +288,24 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 			CompressionMetrics::plotComparisonGraph();
 			return (INT_PTR)TRUE;
 		}
-		else if (LOWORD(wParam) == IDC_BUTTON6) {
-			HWND localHwndDlg = GetActiveWindow();
-			HWND hListBox = GetDlgItem(localHwndDlg, IDC_LIST1);
-			int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
-			if (selIndex != LB_ERR)
-			{
-				wchar_t filePath[MAX_PATH] = { 0 };
-				SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
-				std::wstring filePathW(filePath);
-				std::string filePathStr = ws2s(filePathW);
+		else if (LOWORD(wParam) == IDC_BUTTONPROGRAMMER) {
+			ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER), SW_HIDE);
+			//open
+			ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON4), SW_SHOW);//test
+			ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
 
-				CompressionMetrics cm(filePathStr);
-			}
-			else
-			{
-				MessageBoxW(localHwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
-			}
+
 			return (INT_PTR)TRUE;
 		}
+		else if (LOWORD(wParam) == IDC_BUTTON6) {
+				HINSTANCE hInstance = GetModuleHandle(NULL);
+				int nCmdShow = SW_SHOW;
+				int result = CompressionMetrics::play(hInstance, nCmdShow);
+			
+		
+			return (INT_PTR)TRUE;
+		}
+		
 
 		break;
 	case WM_CLOSE:
