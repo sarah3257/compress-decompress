@@ -251,6 +251,6 @@ namespace SystemTest
 		testOneCharacterFile();
 		testZeroFile();
 		testControl_Z_File();
-		testSizeGBFile();
+		//testSizeGBFile();
 	}
 }

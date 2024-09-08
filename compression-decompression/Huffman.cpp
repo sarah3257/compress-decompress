@@ -59,31 +59,20 @@ BitString Huffman::encodeText(const std::unordered_map<char, BitString>& codes, 
 	BitString result("");
 	int index = 0;
 	for (auto ch : text) {
-		result+=codes.at(ch);
+		result += codes.at(ch);
 	}
 	return result;
 }
 
 // Compresses the text using Huffman coding and returns the encoded string.
-std::vector<char> Huffman::compress( std::vector<char>& text, std::unordered_map<char, BitString>& codes) {
+std::vector<char> Huffman::compress(std::vector<char>& text, std::unordered_map<char, BitString>& codes) {
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "Huffman");
 	std::unordered_map<char, int> freqMap = calculateFrequencies(text);
 	std::priority_queue<HuffmanNode*, std::vector<HuffmanNode*>, CompareHuffmanNode> pq = buildHuffmanPriorityQueue(freqMap);
 	HuffmanNode* tree = buildHuffmanTree(pq);
 	codes = getHuffmanCodes(tree);
-	///אני רוצה שלפה כבר יגיע התוצאה בדחוס ולא באפס ואחד.
 	BitString result = encodeText(codes, text);
 	std::vector<char> stringResult = result.toCharVector();
-	/*int dataSize = static_cast<int>(result.size());
-	while (result.size() % 8)
-		result.push_back('0');
-	std::vector<char> buffer;
-	for (int i = 0; i < result.size(); i += 8) {
-		std::string byteString = result.substr(i, 8);
-		std::bitset<8> byte(byteString);
-		buffer.push_back(static_cast<char>(byte.to_ulong()));
-	}
-	buffer.push_back(8-dataSize%8);*/
 	Logger::logInfo(Logger::END_FUNCTION + " compress " + Logger::IN_CLASS + "Huffman");
 	return stringResult;
 }
@@ -101,24 +90,46 @@ std::unordered_map<BitString, char> Huffman::swapKeysAndValues(const std::unorde
 }
 
 // Decodes the Huffman-encoded text and returns the original text.
-std::vector<char> Huffman::decompress(std::vector<char>& text,  std::unordered_map<char, BitString>& codesMap) {
+std::vector<char> Huffman::decompress(std::vector<char>& text, std::unordered_map<char, BitString>& codesMap) {
 	Logger::logInfo(Logger::START_FUNCTION + "decompress " + Logger::IN_CLASS + "Huffman");
 	std::unordered_map<BitString, char> codesMapRev = swapKeysAndValues(codesMap);
-	int strJul = 0;
-	std::string keyToFind = "", strResult = "";
-
+	HuffmanNode* head = buildHuffmanTreeFromMap(codesMapRev);
+	HuffmanNode* temp = head;
+	std::string strResult = "";
 	for (int i = 0; i < text.size(); i++) {
-		keyToFind += text[i];
-		auto it = codesMapRev.find(keyToFind);
-		if (it != codesMapRev.end()) {
-			strResult += it->second;
-			keyToFind = "";
+		if (text[i] == '0')
+			temp = temp->left;
+		else
+			temp = temp->right;
+		if (temp->left == nullptr) {
+			strResult += temp->c;
+			temp = head;
 		}
-	}
-	if (!keyToFind.empty()) {
-		Logger::logError(Logger::NO_BUFFER_CHARACTER_FOUND);
 	}
 	std::vector<char> vecRes(strResult.begin(), strResult.end());
 	Logger::logInfo(Logger::END_FUNCTION + " decompress " + Logger::IN_CLASS + "Huffman");
 	return vecRes;
+}
+
+HuffmanNode* Huffman::buildHuffmanTreeFromMap(std::unordered_map<BitString, char>codes) {
+	HuffmanNode* head = new HuffmanNode('$', 0);
+	HuffmanNode* temp;
+	for (auto pair : codes) {
+		temp = head;
+		for (int i = 0; i < pair.first.size(); i++)
+		{
+			if (pair.first[i] == 0) {
+				if (temp->left == nullptr)
+					temp->left = new HuffmanNode('$', 0);
+				temp = temp->left;
+			}
+			else {
+				if (temp->right == nullptr)
+					temp->right = new HuffmanNode('$', 0);
+				temp = temp->right;
+			}
+		}
+		temp->c = pair.second;
+	}
+	return head;
 }
