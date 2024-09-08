@@ -249,6 +249,7 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 	WideCharToMultiByte(CP_UTF8, 0, &ws[0], (int)ws.size(), &str[0], size_needed, nullptr, nullptr);
 	return str;
 }
+
 INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 {
 
