@@ -6,7 +6,8 @@ class FileStream :public IStreamInterface
 {
 	std::ifstream sourceFile;
 	std::ofstream destinationFile;
-
+	double destinationSize = 0;
+	double sourceSize = 0;
 public:
 	static double EfficiencyPercentages;
 	FileStream(const std::string& inputFile);
