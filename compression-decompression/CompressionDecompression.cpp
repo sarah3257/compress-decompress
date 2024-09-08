@@ -16,6 +16,34 @@ double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
 
 
+//void CompressionDecompression::PrintMemoryInfo(DWORD processID, const std::string& label) {
+//	HANDLE hProcess;
+//	PROCESS_MEMORY_COUNTERS pmc;
+//
+//	// Print the process identifier.
+//	hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processID);
+//	if (NULL == hProcess)
+//		return;
+//
+//	if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc))) {
+//		std::string s1=  label ;
+//		DWORD pageFaultCount = pmc.PageFaultCount;
+//		DWORD PeakWorkingSetSize = pmc.PeakWorkingSetSize ;
+//		DWORD WorkingSetSize = pmc.WorkingSetSize;
+//		DWORD QuotaPeakPagedPoolUsage = pmc.QuotaPeakPagedPoolUsage ;
+//		DWORD QuotaPagedPoolUsage = pmc.QuotaPagedPoolUsage;
+//		DWORD QuotaPeakNonPagedPoolUsage = pmc.QuotaPeakNonPagedPoolUsage;
+//		DWORD QuotaNonPagedPoolUsage = pmc.QuotaNonPagedPoolUsage;
+//		DWORD PagefileUsage = pmc.PagefileUsage;
+//		DWORD PeakPagefileUsage = pmc.PeakPagefileUsage;
+//
+//		DWORD currentMemoryUsageKB = WorkingSetSize / 1024;
+//
+//	}
+//
+//	CloseHandle(hProcess);
+//}
+
 
 double CompressionDecompression::printMemoryUsage() {
 	PROCESS_MEMORY_COUNTERS_EX pmc;
@@ -63,19 +91,29 @@ void CompressionDecompression::compressRec(const std::string& filesource, const 
 
 // compress the folder and files
 void CompressionDecompression::compress(const std::string& fileName, CompressFunction compressFunc) {
+
+	// Get process ID
+	// DWORD processID = GetCurrentProcessId();
+
 	// save Memory Usage
-	int startMemorySize;
+	int startMemorySize,endtMemorySize;
 	startMemorySize = static_cast<int>(printMemoryUsage());
 	// save cpu time
 	auto start = std::chrono::high_resolution_clock::now();
 	Logger::logInfo(Logger::START_FUNCTION + "compress " + Logger::IN_CLASS + "CompressionDecompression");
+
+	//PrintMemoryInfo(processID, "Memory usage before compression");
+
 	compressRec(fileName, fileName, compressFunc);
+
+	//PrintMemoryInfo(processID, "Memory usage after compression");
 
 	// save cpu time
 	auto stop = std::chrono::high_resolution_clock::now();
 	cpuTime = static_cast<double>(std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count());
 	// save Memory Usage
-	memoryUsage = printMemoryUsage() - startMemorySize;
+	endtMemorySize = static_cast<int>(printMemoryUsage());
+	memoryUsage = endtMemorySize - startMemorySize;
 
 }
 

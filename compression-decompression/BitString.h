@@ -18,6 +18,9 @@ public:
 	BitString(const std::string& bitString);
 	const std::vector<uint8_t>& getBits();
 
+	//
+	std::string toString() const;
+
 	// Operator overloading
 	bool operator[](size_t index) const;
 
@@ -38,6 +41,7 @@ public:
 
 	// Equality operator
 	bool operator==(const BitString& other) const;
+	size_t getLength() const{ return length; }
 };
 // Hash function for BitString
 namespace std {
