@@ -114,3 +114,13 @@ END
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 
+IDD_PASSWORD_DIALOG DIALOGEX 0, 0, 237, 55
+STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter Password"
+FONT 8, "MS Shell Dlg"
+BEGIN
+LTEXT           "סיסמה:", IDC_STATIC, 7, 14, 50, 8
+EDITTEXT        IDC_PASSWORD, 60, 12, 100, 14, ES_PASSWORD
+PUSHBUTTON      "אישור", IDOK, 170, 7, 50, 14
+PUSHBUTTON      "ביטול", IDCANCEL, 170, 24, 50, 14
+END

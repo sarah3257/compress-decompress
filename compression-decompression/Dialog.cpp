@@ -8,12 +8,57 @@
 #include <thread>
 #include <atomic>
 #include "SystemTest.h"
+
+
 void InitDialog(HWND hDlg) {
 	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON6), SW_HIDE);  
 	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON5), SW_HIDE);  
 	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON4), SW_HIDE);  //button Test
 	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);  
 }
+//check password to open p
+WCHAR g_password[256];  // save password
+bool ShowPasswordDialog(HWND hwnd) {
+	//open dialog
+	int result = DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_PASSWORD_DIALOG), hwnd, [](HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) -> INT_PTR {
+		switch (message) {
+		case WM_INITDIALOG:
+			return (INT_PTR)TRUE;
+
+		case WM_COMMAND:
+			if (LOWORD(wParam) == IDOK) {
+				//after press 'OK'
+				GetDlgItemText(hDlg, IDC_PASSWORD, g_password, 256);  //save password in global button
+				EndDialog(hDlg, IDOK);
+				return (INT_PTR)TRUE;
+			}
+			else if (LOWORD(wParam) == IDCANCEL) {
+				EndDialog(hDlg, IDCANCEL);
+				return (INT_PTR)TRUE;
+			}
+			break;
+		}
+		return (INT_PTR)FALSE;
+		}, 0);
+
+	//after password dialog close
+	if (result == IDOK) {
+		// check password
+		if (wcscmp(g_password, L"STZip") == 0) {
+			return true; 
+		}
+		else {
+			MessageBox(hwnd, L"Incorrect password", L"Error", MB_OK | MB_ICONERROR);
+			return false;
+		}
+	}
+	// close with Cancel button
+	return false;
+}
+
+
+
+
 std::atomic<bool> compressionInProgress(false);
 
 extern HINSTANCE g_hinst = nullptr;
@@ -210,7 +255,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 	switch (uMsg)
 	{
 		 case WM_INITDIALOG:
-        InitDialog(hwndDlg);  // קורא לפונקציה שמסתירה את הכפתור השני בהתחלה
+        InitDialog(hwndDlg);  // initialization
         return (INT_PTR)TRUE;
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
@@ -288,12 +333,14 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 			CompressionMetrics::plotComparisonGraph();
 			return (INT_PTR)TRUE;
 		}
-		else if (LOWORD(wParam) == IDC_BUTTONPROGRAMMER) {
-			ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER), SW_HIDE);
-			//open
-			ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON4), SW_SHOW);//test
-			ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
-
+		else if (LOWORD(wParam) == IDC_BUTTONPROGRAMMER) {//open mode programmer
+			if (ShowPasswordDialog(hwndDlg)) {
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER), SW_HIDE);
+				//open
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON4), SW_SHOW); // test
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
+			}
+			
 
 			return (INT_PTR)TRUE;
 		}
