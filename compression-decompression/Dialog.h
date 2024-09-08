@@ -20,6 +20,8 @@ class Dialog
 
 	static void uploadFolder();
 
+	static void ShowGraphMetrics();
+
 	static std::wstring s2ws(const std::string& str);
 
 	static void UpdateProgressBar(HWND hwndPB);

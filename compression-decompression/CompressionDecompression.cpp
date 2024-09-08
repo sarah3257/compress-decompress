@@ -15,43 +15,13 @@ const std::string CompressionDecompression::password = "STZip";
 double CompressionDecompression::cpuTime = 0.0;
 double CompressionDecompression::memoryUsage = 0.0;
 
-
-//void CompressionDecompression::PrintMemoryInfo(DWORD processID, const std::string& label) {
-//	HANDLE hProcess;
-//	PROCESS_MEMORY_COUNTERS pmc;
-//
-//	// Print the process identifier.
-//	hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processID);
-//	if (NULL == hProcess)
-//		return;
-//
-//	if (GetProcessMemoryInfo(hProcess, &pmc, sizeof(pmc))) {
-//		std::string s1=  label ;
-//		DWORD pageFaultCount = pmc.PageFaultCount;
-//		DWORD PeakWorkingSetSize = pmc.PeakWorkingSetSize ;
-//		DWORD WorkingSetSize = pmc.WorkingSetSize;
-//		DWORD QuotaPeakPagedPoolUsage = pmc.QuotaPeakPagedPoolUsage ;
-//		DWORD QuotaPagedPoolUsage = pmc.QuotaPagedPoolUsage;
-//		DWORD QuotaPeakNonPagedPoolUsage = pmc.QuotaPeakNonPagedPoolUsage;
-//		DWORD QuotaNonPagedPoolUsage = pmc.QuotaNonPagedPoolUsage;
-//		DWORD PagefileUsage = pmc.PagefileUsage;
-//		DWORD PeakPagefileUsage = pmc.PeakPagefileUsage;
-//
-//		DWORD currentMemoryUsageKB = WorkingSetSize / 1024;
-//
-//	}
-//
-//	CloseHandle(hProcess);
-//}
-
-
 double CompressionDecompression::printMemoryUsage() {
 	PROCESS_MEMORY_COUNTERS_EX pmc;
 	GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
 	return static_cast<double>(pmc.WorkingSetSize / 1024);
 }
-//compress the data divided to buffers
 
+//compress the data divided to buffers
 void CompressionDecompression::playCompress(const std::string& fileName, const std::string& fileDestination, CompressFunction compressFunc) {
 
 	IStreamInterface* iStream = new FileStream(fileName);
