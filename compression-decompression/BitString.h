@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <stdexcept>
+#define BIT_MASK(pos) (1 << (7 - (pos)))
 
 
 class BitString {
@@ -10,19 +11,10 @@ class BitString {
 	size_t length; // Number of actual bits
 
 public:
-
-
 	BitString();
 
 	// Constructor to initialize with a string of bits (e.g., "101010")
 	BitString(const std::string& bitString);
-	const std::vector<uint8_t>& getBits();
-
-	//
-	std::string toString() const;
-
-	// Operator overloading
-	bool operator[](size_t index) const;
 
 	// Append another BitString
 	BitString& operator+=(const BitString& other);
@@ -40,8 +32,14 @@ public:
 	BitString& operator=(const BitString& other);
 
 	// Equality operator
-	bool operator==(const BitString& other) const;
-	size_t getLength() const{ return length; }
+	inline bool operator==(const BitString& other) const {
+		return length == other.length && bits == other.bits;
+	}
+
+	// Operator overloading
+	inline bool operator[](size_t index) const {
+		return (bits[index / 8] & BIT_MASK(index % 8));
+	}
 };
 // Hash function for BitString
 namespace std {

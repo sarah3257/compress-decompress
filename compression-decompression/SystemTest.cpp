@@ -107,7 +107,7 @@ namespace SystemTest
 			outFile.close();
 		}
 
-	
+
 
 		void testRandomFile() {
 			const std::string filename = "test/randomFile";
@@ -251,6 +251,6 @@ namespace SystemTest
 		testOneCharacterFile();
 		testZeroFile();
 		testControl_Z_File();
-		// testSizeGBFile();
+		testSizeGBFile();
 	}
 }
