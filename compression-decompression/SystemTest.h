@@ -6,5 +6,4 @@
 namespace SystemTest
 {
 	void playTest();
-
 };
