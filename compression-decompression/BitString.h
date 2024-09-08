@@ -46,8 +46,12 @@ namespace std {
 	template <>
 	struct hash<BitString> {
 		size_t operator()(const BitString& bitString) const {
-			std::vector<char>vec = bitString.toCharVector();
-			return hash<std::string>()(string(vec.begin(), vec.end())); // hash by converting to string
+			const std::vector<char>& vec = bitString.toCharVector();
+			size_t hash = 0;
+			for (char c : vec) {
+				hash ^= std::hash<char>()(c) + 0x9e3779b9 + (hash << 6) + (hash >> 2); // A simple hash combiner
+			}
+			return hash;
 		}
 	};
 	template <>
