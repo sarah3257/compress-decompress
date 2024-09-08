@@ -16,13 +16,12 @@ FileStream::FileStream(const std::string& sourceFilePath) {
 }
 
 FileStream::~FileStream() {
-	int destinationSize = 0, sourceSize = 0;
 	if (sourceFile.is_open()) {
-		sourceSize = static_cast<int>(sourceFile.tellg());
+		sourceSize += static_cast<int>(sourceFile.tellg());
 		sourceFile.close();
 	}
 	if (destinationFile.is_open()) {
-		destinationSize= static_cast<int>(destinationFile.tellp());
+		destinationSize += static_cast<int>(destinationFile.tellp());
 		destinationFile.close();
 	}
 	if (sourceSize != 0)
@@ -97,7 +96,7 @@ void FileStream::writeMap(const std::unordered_map<char, BitString>& codes) {
 
 		writeData(strSize);
 		writeData(text);
-	}	
+	}
 }
 
 void FileStream::readMap(std::unordered_map<char, BitString>& codes) {
