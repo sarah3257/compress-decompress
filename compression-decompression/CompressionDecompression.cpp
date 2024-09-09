@@ -76,7 +76,7 @@ void CompressionDecompression::playCompress(const std::string& fileName, const s
 void CompressionDecompression::compressRec(const std::string& filesource, const std::string& fileDestination, CompressFunction compressFunc) {
 	fs::path originalPath(filesource);
 	fs::path DesPath(fileDestination);
-	if (!fs::is_directory(originalPath)) {//לבדוק אולי מומלץ לבדוק אם זה קובץ השאלה מה זה קובץ רגיל
+	if (!fs::is_directory(originalPath)) {
 
 		CompressionDecompression::playCompress(filesource, fileDestination, compressFunc);
 		return;
