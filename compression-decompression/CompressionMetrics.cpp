@@ -67,7 +67,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 	RECT rect = { 0, 0, GRAPH_WIDTH, GRAPH_HEIGHT };
 	FillRect(hdc, &rect, hBrushWhite);
 
-	// ציור גריד
+	// draw the grid
 	for (int i = MARGIN; i < GRAPH_WIDTH - MARGIN; i += 25) {
 		MoveToEx(hdc, i, MARGIN, NULL);
 		LineTo(hdc, i, GRAPH_HEIGHT - MARGIN);
@@ -77,7 +77,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 		LineTo(hdc, GRAPH_WIDTH - MARGIN, j);
 	}
 
-	// ציור הקווים והנקודות
+	// draw the lines and points
 	SelectObject(hdc, hPenLine);
 	//MoveToEx(hdc, dataPoints[0].x, GRAPH_HEIGHT - MARGIN - dataPoints[0].y, NULL);
 	MoveToEx(hdc, static_cast<int>(dataPoints[0].x), static_cast<int>(dataPoints[0].y), NULL);
@@ -86,28 +86,62 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 		LineTo(hdc, static_cast<int>(dataPoints[i].x), static_cast<int>(dataPoints[i].y));
 	}
 
-
 	SelectObject(hdc, hPenPoints);
-	for (const auto& point : dataPoints) {
-		Ellipse(hdc, static_cast<int>(point.x) - 5, static_cast<int>(point.y) - 5, static_cast<int>(point.x) + 5, static_cast<int>(point.y) + 5);
-	}
+	for (size_t i = 0; i < dataPoints.size(); ++i) {
+		// Draw the red point
+		Ellipse(hdc, static_cast<int>(dataPoints[i].x) - 5, static_cast<int>(dataPoints[i].y) - 5, static_cast<int>(dataPoints[i].x) + 5, static_cast<int>(dataPoints[i].y) + 5);
 
-	// ציור תוויות צירים
+		// Draw the label next to the point
+		SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
+		SetBkMode(hdc, TRANSPARENT);
+		SetTextColor(hdc, RGB(0, 0, 0));
+
+		std::wstring label;
+		switch (i) {
+		case 0:
+			label = L"LZ77";
+			break;
+		case 1:
+			label = L"Huffman";
+			break;
+		case 2:
+			label = L"Deflate";
+			break;
+		default:
+			label = L"Unknown";
+			break;
+		}
+
+		// Adjust label position based on the point
+		int labelX = static_cast<int>(dataPoints[i].x); // Adjust as needed
+		int labelY = static_cast<int>(dataPoints[i].y) + 10; // Adjust as needed
+
+		TextOutW(hdc, labelX, labelY, label.c_str(), static_cast<int>(label.length()));
+	}
+	// Add the title 
+	SelectObject(hdc, GetStockObject(SYSTEM_FONT));
+	SetBkMode(hdc, TRANSPARENT);
+	SetTextColor(hdc, RGB(0, 0, 0));
+	std::wstring title = L"Compression percentages in the following algorithms";
+	TextOutW(hdc, 130, 20, title.c_str(), static_cast<int>(title.length()));
+
+	// draw the labels for the lines
 	SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
 	SetBkMode(hdc, TRANSPARENT);
 	SetTextColor(hdc, RGB(0, 0, 0));
-	for (int i = MARGIN; i < GRAPH_WIDTH - MARGIN; i += 50) {
-		//std::wstring label = std::to_wstring(i);
-		std::wstring label = std::to_wstring(i / 50 * 25);
-		TextOutW(hdc, i, GRAPH_HEIGHT - MARGIN + 10, label.c_str(), static_cast<int>(label.length()));
-	}
+	//for (int i = MARGIN; i < GRAPH_WIDTH - MARGIN; i += 50) {
+	//	//std::wstring label = std::to_wstring(i);
+	//	std::wstring label = std::to_wstring(i / 50 * 25);
+	//	TextOutW(hdc, i, GRAPH_HEIGHT - MARGIN + 10, label.c_str(), static_cast<int>(label.length()));
+	//}
 	for (int j = MARGIN; j < GRAPH_HEIGHT - MARGIN; j += 25) {
 
 		std::wstring label = std::to_wstring(100 - ((j - MARGIN) / 25 * 10));
+		label += L"%";
 		// std::wstring label = std::to_wstring(GRAPH_HEIGHT - j);
 		TextOutW(hdc, MARGIN - 30, j - 10, label.c_str(), static_cast<int>(label.length()));
 	}
-
+		
 	// ניקוי משאבים
 	SelectObject(hdc, hOldPen);
 	SelectObject(hdc, hOldBrush);
@@ -189,7 +223,7 @@ void CompressionMetrics::plotComparisonGraph() {
 	FILE* gnuplotPipe = _popen("\"C:\\Program Files\\gnuplot\\bin\\gnuplot.exe\" -persist", "w");
 
 	// Set the terminal to be non-interactive to disable scrollbars
-	fprintf(gnuplotPipe, "set terminal wxt size 1600,800 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
+	fprintf(gnuplotPipe, "set terminal wxt size 1000,600 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
 
 	// colculate the minimum and maximum range for Speed
 	double minSpeed = MIN(MIN(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman), CompressionMetrics::cpuTimeDeflate);
