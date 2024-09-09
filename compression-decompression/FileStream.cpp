@@ -7,6 +7,8 @@
 #define M 100
 
 double FileStream::EfficiencyPercentages = 0.0;
+double FileStream::sourceSize = 0.0;
+double FileStream::destinationSize = 0.0;
 
 FileStream::FileStream(const std::string& sourceFilePath) {
 
