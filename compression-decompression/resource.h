@@ -16,8 +16,7 @@
 #define IDC_BUTTONPROGRAMMER            1011
 
 #define IDC_PASSWORD 1012
-#define IDD_PASSWORD_DIALOG 1013 // דוגמה למזהה דיאלוג
-
+#define IDD_PASSWORD_DIALOG 1013 
 
 // Next default values for new objects
 // 

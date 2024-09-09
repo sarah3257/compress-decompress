@@ -246,11 +246,12 @@ void Dialog::uploadFolder()
 		wchar_t szFolder[MAX_PATH];
 		if (SHGetPathFromIDList(pidl, szFolder))
 		{
-			// add the path to the list 
+			//add path
 			HWND hwndDlg = GetActiveWindow();
 			HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
 			SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)szFolder);
 
+			// MessageBoxW(NULL, L"Folder successfully uploaded", L"Message", MB_OK | MB_ICONINFORMATION);
 		}
 		else
 		{
