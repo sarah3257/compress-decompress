@@ -4,8 +4,10 @@
 
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
-#define CPUTIME 1000000
-#define MEMORY 10
+#define MAXCONSTSPEED 1
+#define MINCONSTSPEED 0.5
+#define MAXCONSTMEMORY 100
+#define MINCONSTMEMORY 50
 
 double CompressionMetrics::cpuTimeDeflate = 0;
 double CompressionMetrics::memoryUsageDeflate = 0;
@@ -171,6 +173,17 @@ int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow) {
 	return 0;
 }
 
+double minConstSpeed(double minimum) {
+	if (minimum < 0)
+		return MINCONSTSPEED;
+	return minimum + MINCONSTSPEED;
+}
+
+double minConstMemory(double minimum) {
+	if (minimum < 0)
+		return MINCONSTMEMORY;
+	return minimum + MINCONSTMEMORY;
+}
 
 void CompressionMetrics::plotComparisonGraph() {
 	FILE* gnuplotPipe = _popen("\"C:\\Program Files\\gnuplot\\bin\\gnuplot.exe\" -persist", "w");
@@ -178,12 +191,42 @@ void CompressionMetrics::plotComparisonGraph() {
 	// Set the terminal to be non-interactive to disable scrollbars
 	fprintf(gnuplotPipe, "set terminal wxt size 1600,800 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
 
+	// colculate the minimum and maximum range for Speed
+	double minSpeed = MIN(MIN(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman), CompressionMetrics::cpuTimeDeflate);
+	minSpeed = MAX(minSpeed, 0);
+	double maxSpeed = MAX(MAX(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman), CompressionMetrics::cpuTimeDeflate);
+	maxSpeed += MAXCONSTSPEED;
+	if (CompressionMetrics::cpuTimeLZ77 < CompressionMetrics::cpuTimeHuffman) {
+		CompressionMetrics::cpuTimeLZ77 = minConstSpeed(CompressionMetrics::cpuTimeLZ77);
+	}
+	else if (CompressionMetrics::cpuTimeHuffman < CompressionMetrics::cpuTimeDeflate) {
+		CompressionMetrics::cpuTimeHuffman = minConstSpeed(CompressionMetrics::cpuTimeHuffman);
+	}
+	else {
+		CompressionMetrics::cpuTimeDeflate = minConstSpeed(CompressionMetrics::cpuTimeDeflate);
+	}
+
 	// Provide data using separate datablocks for speed and memory for three algorithms
 	fprintf(gnuplotPipe, "$SpeedData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77 / CPUTIME);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman / CPUTIME);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate / CPUTIME);
+	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77);
+	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman);
+	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate);
 	fprintf(gnuplotPipe, "EOD\n");
+
+	// colculate the minimum and maximum range for Memory
+	double minMemory = MIN(MIN(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
+	minMemory = MAX(minMemory, 0);
+	double maxMemory = MAX(MAX(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
+	maxMemory += MAXCONSTMEMORY;
+	if (CompressionMetrics::memoryUsageLZ77 < CompressionMetrics::memoryUsageHuffman) {
+		CompressionMetrics::memoryUsageLZ77 = minConstMemory(CompressionMetrics::memoryUsageLZ77);
+	}
+	else if (CompressionMetrics::memoryUsageHuffman < CompressionMetrics::memoryUsageDeflate) {
+		CompressionMetrics::memoryUsageHuffman = minConstMemory(CompressionMetrics::memoryUsageHuffman);
+	}
+	else {
+		CompressionMetrics::memoryUsageDeflate = minConstMemory(CompressionMetrics::memoryUsageDeflate);
+	}
 
 	fprintf(gnuplotPipe, "$MemoryData << EOD\n");
 	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77);
@@ -191,41 +234,27 @@ void CompressionMetrics::plotComparisonGraph() {
 	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::memoryUsageDeflate);
 	fprintf(gnuplotPipe, "EOD\n");
 
-	double minMemory = MIN(MIN(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
-	minMemory = MAX(minMemory, 0);
-	double maxMemory = MAX(MAX(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
-	maxMemory += 100;
-	if (CompressionMetrics::memoryUsageLZ77 < CompressionMetrics::memoryUsageHuffman) {
-		CompressionMetrics::memoryUsageLZ77 = 50;
-	}
-	else if (CompressionMetrics::memoryUsageHuffman < CompressionMetrics::memoryUsageDeflate) {
-		CompressionMetrics::memoryUsageHuffman = 50;
-	}
-	else {
-		CompressionMetrics::memoryUsageDeflate = 50;
-	}
 	// Plotting the data in separate graphs with different axis segments
 	fprintf(gnuplotPipe, "set multiplot layout 2,1 title 'Comparison of Compression Algorithms'\n"); // Set up a multiplot with 2 rows and 1 column
 
 	// Plotting Speed with specific y-axis range
 	fprintf(gnuplotPipe, "set title 'Speed'\n");
-	fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
-	fprintf(gnuplotPipe, "set ylabel 'Speed'\n");
+	//
+	//fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
+	fprintf(gnuplotPipe, "set ylabel 'Seconds'\n");
 	fprintf(gnuplotPipe, "set style data boxes\n");
 	fprintf(gnuplotPipe, "set boxwidth 0.5\n");
-	fprintf(gnuplotPipe, "set yrange [0:6]\n"); // Set specific y-axis range for Speed
+	fprintf(gnuplotPipe, "set yrange [%f:%f]\n", minSpeed, maxSpeed); // Set dynamic y-axis range for Speed
 	fprintf(gnuplotPipe, "plot '$SpeedData' using 2:xtic(1) with boxes title 'Speed' lc rgb 'blue'\n");
 
 	// Plotting Memory with specific y-axis range
 	fprintf(gnuplotPipe, "set title 'Memory'\n");
-	fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
-	fprintf(gnuplotPipe, "set ylabel 'Memory'\n");
+	//
+	//fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
+	fprintf(gnuplotPipe, "set ylabel 'KB'\n");
 	fprintf(gnuplotPipe, "set style data boxes\n");
 	fprintf(gnuplotPipe, "set boxwidth 0.5\n");
-	//////////////-----------------
 	fprintf(gnuplotPipe, "set yrange [%f:%f]\n", minMemory, maxMemory); // Set dynamic y-axis range for Memory
-	//////////////-----------------
-	//fprintf(gnuplotPipe, "set yrange [0:200]\n"); // Set specific y-axis range for Memory
 	fprintf(gnuplotPipe, "plot '$MemoryData' using 2:xtic(1) with boxes title 'Memory' lc rgb 'green'\n");
 
 	fprintf(gnuplotPipe, "unset multiplot\n"); // End the multiplot

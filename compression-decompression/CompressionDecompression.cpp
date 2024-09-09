@@ -80,11 +80,12 @@ void CompressionDecompression::compress(const std::string& fileName, CompressFun
 
 	// save cpu time
 	auto stop = std::chrono::high_resolution_clock::now();
-	cpuTime = static_cast<double>(std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count());
+	
+	cpuTime = static_cast<double>(std::chrono::duration_cast<std::chrono::seconds>(stop - start).count());
 	// save Memory Usage
 	endtMemorySize = static_cast<int>(printMemoryUsage());
 	memoryUsage = endtMemorySize - startMemorySize;
-
+	
 }
 
 //decompress the data divided to buffers
