@@ -367,7 +367,6 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
 			int nCmdShow = SW_SHOW;
 			int result = CompressionMetrics::play(hInstance, nCmdShow);
 
-
 			return (INT_PTR)TRUE;
 		}
 
