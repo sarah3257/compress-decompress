@@ -8,6 +8,7 @@
 #include <thread>
 #include <atomic>
 #include "SystemTest.h"
+#include <tchar.h>
 
 
 std::atomic<bool> processInProgress(false);
@@ -283,12 +284,13 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 
 INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
 {
-
 	switch (uMsg)
 	{
+	
 	case WM_INITDIALOG:
 		InitDialog(hwndDlg);  // initialization
 		return (INT_PTR)TRUE;
+	
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
 		{
@@ -311,12 +313,17 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_HIDE);
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_HIDE);
 			}
-			//MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
 			uploadFile();
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTONFOLDER) {
-			//MessageBoxW(hwndDlg, L"Upload folder button clicked", L"Info", MB_OK);
+			if (!IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER))) {
+				//open
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
+				//close
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_HIDE);
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_HIDE);
+			}
 			uploadFolder();
 			return (INT_PTR)TRUE;
 
@@ -365,6 +372,8 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
 		}
 
 		break;
+	
+		
 	case WM_CLOSE:
 		EndDialog(hwndDlg, 0);
 		return (INT_PTR)TRUE;
