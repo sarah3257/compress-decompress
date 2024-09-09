@@ -54,10 +54,12 @@ namespace std {
 			return hash;
 		}
 	};
+
 	template <>
 	struct equal_to<BitString> {
 		bool operator()(const BitString& lhs, const BitString& rhs) const {
 			return lhs == rhs; // Use the BitString equality operator
 		}
 	};
+
 }
