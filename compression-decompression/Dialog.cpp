@@ -2,7 +2,8 @@
 #include "Dialog.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
-#include <windows.h>  
+#include <windows.h> 
+#include <string>
 #include <shlobj.h>  
 #include <commctrl.h> 
 #include <thread>
@@ -281,14 +282,56 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 	return str;
 }
 
-INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
-{
+void drawMyIcon(LPDRAWITEMSTRUCT& lpDrawItem,LPCWSTR text,int iconId) {
+	// Customize your button appearance here
+	HDC hdc = lpDrawItem->hDC;
+	RECT rect = lpDrawItem->rcItem;
 
+	// Draw button background
+	FillRect(hdc, &rect, (HBRUSH)(COLOR_BTNFACE + 1));
+
+	// Draw button text
+	SetBkMode(hdc, TRANSPARENT);
+	DrawText(hdc, text, -1, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+	// Draw border around the button
+	DrawEdge(hdc, &rect, EDGE_RAISED, BF_RECT);
+
+	// Load the icon
+	HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(iconId)); // החלף את hInstance עם האינצסטנס שלך
+	if (hIcon) {
+		// Calculate icon position
+		int iconWidth = GetSystemMetrics(SM_CXICON);
+		int iconHeight = GetSystemMetrics(SM_CYICON);
+		int iconX = rect.left + 55;
+		int iconY = rect.top + (rect.bottom - rect.top - iconHeight) / 2;
+
+		// Draw the icon
+		DrawIcon(hdc, iconX, iconY, hIcon);
+	}
+
+	// Optional: Adjust the rectangle to draw the text within the border
+	InflateRect(&rect, -1, -1); // Reduce the rectangle size for the text
+	DrawText(hdc, text, -1, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+}
+
+INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
 	switch (uMsg)
 	{
 	case WM_INITDIALOG:
 		InitDialog(hwndDlg);  // initialization
 		return (INT_PTR)TRUE;
+	case WM_DRAWITEM: {
+		LPDRAWITEMSTRUCT lpDrawItem = (LPDRAWITEMSTRUCT)lParam;
+		if (lpDrawItem->CtlType == ODT_BUTTON && lpDrawItem->CtlID == IDC_BUTTON1) {  // שנה ל-IDC_BUTTON1
+			drawMyIcon(lpDrawItem, L"Compress", IDI_ICON_COMPRESS);
+		}
+		else if (lpDrawItem->CtlType == ODT_BUTTON && lpDrawItem->CtlID == IDC_BUTTON2) {  // הוסף טיפול לכפתור השני
+			drawMyIcon(lpDrawItem, L"   Decompress", IDI_ICON_DECOMPRESS);
+		}
+		return TRUE;
+	}
 	case WM_COMMAND:
 		if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
 		{
