@@ -389,7 +389,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON3)  // button Upload File
 		{
-			if (!IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER))) {
+			if (IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTON4))) {
 				//open
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
 				//close
@@ -400,7 +400,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTONFOLDER) {
-			if (!IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER))) {
+			if (IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTON4))) {
 				//open
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
 				//close
