@@ -14,9 +14,13 @@
 #define IDC_BUTTONFOLDER                1009  
 #define IDC_BUTTONGRAPH_METRICS         1010
 #define IDC_BUTTONPROGRAMMER            1011
+#define IDC_PASSWORD                    1012
+#define IDD_PASSWORD_DIALOG             1013 
+#define ID_CTRL_S                       1014  
+#define IDR_ACCEL1                      1015
 
-#define IDC_PASSWORD 1012
-#define IDD_PASSWORD_DIALOG 1013 
+
+
 
 // Next default values for new objects
 // 

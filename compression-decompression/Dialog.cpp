@@ -10,6 +10,31 @@
 #include "SystemTest.h"
 #include <tchar.h>
 
+HHOOK hKeyboardHook;
+
+// Hook procedure to process keyboard input
+LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+	if (nCode >= 0) {
+		if (wParam == WM_KEYDOWN) {
+			KBDLLHOOKSTRUCT* pKeyboard = (KBDLLHOOKSTRUCT*)lParam;
+			if (pKeyboard->vkCode == 'Z' || pKeyboard->vkCode == 'S' || pKeyboard->vkCode == 'T') {
+				MessageBox(NULL, L"The  key was pressed!", L"Key Press", MB_OK);
+
+			}
+		}
+	}
+	return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+}
+
+// Function to install the hook
+void SetKeyboardHook() {
+	hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, GetModuleHandle(NULL), 0);
+}
+
+// Function to uninstall the hook
+void RemoveKeyboardHook() {
+	UnhookWindowsHookEx(hKeyboardHook);
+}
 
 std::atomic<bool> processInProgress(false);
 
@@ -20,6 +45,7 @@ void InitDialog(HWND hDlg) {
 	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON5), SW_HIDE);
 	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON4), SW_HIDE);  //button Test
 	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONPROGRAMMER), SW_HIDE);
 }
 
 //check password to open p
@@ -284,14 +310,23 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 
 INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
 {
+	static HACCEL hAccelTable;
+
 	switch (uMsg)
 	{
 	
 	case WM_INITDIALOG:
+		        hAccelTable = LoadAccelerators(GetModuleHandle(NULL), MAKEINTRESOURCE(IDR_ACCEL1));
+
 		InitDialog(hwndDlg);  // initialization
+		SetFocus(hwndDlg);
+		SetKeyboardHook();
 		return (INT_PTR)TRUE;
 	
 	case WM_COMMAND:
+
+		
+	
 		if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
 		{
 			//MessageBoxW(hwndDlg, L"Compress button clicked", L"Info", MB_OK);
@@ -371,12 +406,16 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
 		}
 
 		break;
-	
-		
+
 	case WM_CLOSE:
+		RemoveKeyboardHook();
 		EndDialog(hwndDlg, 0);
 		return (INT_PTR)TRUE;
+	default:
+		return FALSE;
+	
 	}
+
 	return (INT_PTR)FALSE;
 }
 
