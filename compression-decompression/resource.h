@@ -4,7 +4,7 @@
 //
 #define IDD_DIALOG1                     101
 #define IDC_BUTTON1                     1001
-#define IDC_BUTTON2                     1002
+#define IDC_BUTTON2                     1002   //compress
 #define IDC_CHECK1                      1003
 #define IDC_LIST1                       1004
 #define IDC_BUTTON3                     1005
@@ -19,8 +19,8 @@
 #define ID_CTRL_S                       1014  
 #define IDR_ACCEL1                      1015
 
-
-
+#define IDI_ICON_COMPRESS 2001
+#define IDI_ICON_DECOMPRESS 2002
 
 // Next default values for new objects
 // 

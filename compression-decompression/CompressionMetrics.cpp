@@ -1,3 +1,5 @@
+#include <windows.h>
+#include <stdio.h>
 #include "CompressionMetrics.h"
 #include "CompressionDecompression.h"
 #include "FileStream.h"
@@ -141,7 +143,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 		// std::wstring label = std::to_wstring(GRAPH_HEIGHT - j);
 		TextOutW(hdc, MARGIN - 30, j - 10, label.c_str(), static_cast<int>(label.length()));
 	}
-		
+
 	// ניקוי משאבים
 	SelectObject(hdc, hOldPen);
 	SelectObject(hdc, hOldBrush);
@@ -297,6 +299,7 @@ void CompressionMetrics::plotComparisonGraph() {
 
 	// Close the gnuplot pipe
 	_pclose(gnuplotPipe);
+	FreeConsole();
 }
 
 

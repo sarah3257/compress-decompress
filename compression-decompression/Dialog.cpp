@@ -2,7 +2,8 @@
 #include "Dialog.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
-#include <windows.h>  
+#include <windows.h> 
+#include <string>
 #include <shlobj.h>  
 #include <commctrl.h> 
 #include <thread>
@@ -11,42 +12,6 @@
 #include <tchar.h>
 
 HHOOK hKeyboardHook;
-
-// Hook procedure to process keyboard input
-LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	if (nCode >= 0) {
-		if (wParam == WM_KEYDOWN) {
-			KBDLLHOOKSTRUCT* pKeyboard = (KBDLLHOOKSTRUCT*)lParam;
-			if (pKeyboard->vkCode == 'Z' || pKeyboard->vkCode == 'S' || pKeyboard->vkCode == 'T') {
-				MessageBox(NULL, L"The  key was pressed!", L"Key Press", MB_OK);
-
-			}
-		}
-	}
-	return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
-}
-
-// Function to install the hook
-void SetKeyboardHook() {
-	hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, GetModuleHandle(NULL), 0);
-}
-
-// Function to uninstall the hook
-void RemoveKeyboardHook() {
-	UnhookWindowsHookEx(hKeyboardHook);
-}
-
-std::atomic<bool> processInProgress(false);
-
-extern HINSTANCE g_hinst = nullptr;
-
-void InitDialog(HWND hDlg) {
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON6), SW_HIDE);
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON5), SW_HIDE);
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON4), SW_HIDE);  //button Test
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONPROGRAMMER), SW_HIDE);
-}
 
 //check password to open p
 WCHAR g_password[256];  // save password
@@ -86,6 +51,47 @@ bool ShowPasswordDialog(HWND hwnd) {
 	}
 	// close with Cancel button
 	return false;
+}
+
+// Hook procedure to process keyboard input
+LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+	HWND hwndDlg = GetActiveWindow();
+	if (nCode >= 0) {
+		if (wParam == WM_KEYDOWN) {
+			KBDLLHOOKSTRUCT* pKeyboard = (KBDLLHOOKSTRUCT*)lParam;
+			if (pKeyboard->vkCode == 'D') {
+				if (ShowPasswordDialog(hwndDlg)) {
+					//open
+					ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON4), SW_SHOW); // test
+					ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
+				}
+			
+			}
+		}
+	}
+	return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+}
+
+// Function to install the hook
+void SetKeyboardHook() {
+	hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, GetModuleHandle(NULL), 0);
+}
+
+// Function to uninstall the hook
+void RemoveKeyboardHook() {
+	UnhookWindowsHookEx(hKeyboardHook);
+}
+
+std::atomic<bool> processInProgress(false);
+
+extern HINSTANCE g_hinst = nullptr;
+
+void InitDialog(HWND hDlg) {
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON6), SW_HIDE);
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON5), SW_HIDE);
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON4), SW_HIDE);  //button Test
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONPROGRAMMER), SW_HIDE);
 }
 
 void ComputeGraphMetricsInBackground(const std::string& filePathStr) {
@@ -308,7 +314,40 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 	return str;
 }
 
-INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
+void drawMyIcon(LPDRAWITEMSTRUCT& lpDrawItem,LPCWSTR text,int iconId) {
+	// Customize your button appearance here
+	HDC hdc = lpDrawItem->hDC;
+	RECT rect = lpDrawItem->rcItem;
+
+	// Draw button background
+	FillRect(hdc, &rect, (HBRUSH)(COLOR_BTNFACE + 1));
+
+	// Draw button text
+	SetBkMode(hdc, TRANSPARENT);
+	DrawText(hdc, text, -1, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+	// Draw border around the button
+	DrawEdge(hdc, &rect, EDGE_RAISED, BF_RECT);
+
+	// Load the icon
+	HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(iconId)); // החלף את hInstance עם האינצסטנס שלך
+	if (hIcon) {
+		// Calculate icon position
+		int iconWidth = GetSystemMetrics(SM_CXICON);
+		int iconHeight = GetSystemMetrics(SM_CYICON);
+		int iconX = rect.left + 55;
+		int iconY = rect.top + (rect.bottom - rect.top - iconHeight) / 2;
+
+		// Draw the icon
+		DrawIcon(hdc, iconX, iconY, hIcon);
+	}
+
+	// Optional: Adjust the rectangle to draw the text within the border
+	InflateRect(&rect, -1, -1); // Reduce the rectangle size for the text
+	DrawText(hdc, text, -1, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+}
+
+INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static HACCEL hAccelTable;
 
@@ -322,7 +361,16 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM)
 		SetFocus(hwndDlg);
 		SetKeyboardHook();
 		return (INT_PTR)TRUE;
-	
+	case WM_DRAWITEM: {
+		LPDRAWITEMSTRUCT lpDrawItem = (LPDRAWITEMSTRUCT)lParam;
+		if (lpDrawItem->CtlType == ODT_BUTTON && lpDrawItem->CtlID == IDC_BUTTON1) {  // שנה ל-IDC_BUTTON1
+			drawMyIcon(lpDrawItem, L"Compress", IDI_ICON_COMPRESS);
+		}
+		else if (lpDrawItem->CtlType == ODT_BUTTON && lpDrawItem->CtlID == IDC_BUTTON2) {  // הוסף טיפול לכפתור השני
+			drawMyIcon(lpDrawItem, L"   Decompress", IDI_ICON_DECOMPRESS);
+		}
+		return TRUE;
+	}
 	case WM_COMMAND:
 
 		
