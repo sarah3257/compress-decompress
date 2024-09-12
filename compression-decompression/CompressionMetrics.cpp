@@ -1,8 +1,15 @@
+#include <windows.h>
+#include <stdio.h>
 #include "CompressionMetrics.h"
 #include "CompressionDecompression.h"
 #include "FileStream.h"
-#define CPUTIME 1000000
-#define MEMORY 10
+
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#define MAXCONSTSPEED 1
+#define MINCONSTSPEED 0.5
+#define MAXCONSTMEMORY 100
+#define MINCONSTMEMORY 50
 
 double CompressionMetrics::cpuTimeDeflate = 0;
 double CompressionMetrics::memoryUsageDeflate = 0;
@@ -62,7 +69,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 	RECT rect = { 0, 0, GRAPH_WIDTH, GRAPH_HEIGHT };
 	FillRect(hdc, &rect, hBrushWhite);
 
-	// ציור גריד
+	// draw the grid
 	for (int i = MARGIN; i < GRAPH_WIDTH - MARGIN; i += 25) {
 		MoveToEx(hdc, i, MARGIN, NULL);
 		LineTo(hdc, i, GRAPH_HEIGHT - MARGIN);
@@ -72,7 +79,7 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 		LineTo(hdc, GRAPH_WIDTH - MARGIN, j);
 	}
 
-	// ציור הקווים והנקודות
+	// draw the lines and points
 	SelectObject(hdc, hPenLine);
 	//MoveToEx(hdc, dataPoints[0].x, GRAPH_HEIGHT - MARGIN - dataPoints[0].y, NULL);
 	MoveToEx(hdc, static_cast<int>(dataPoints[0].x), static_cast<int>(dataPoints[0].y), NULL);
@@ -81,24 +88,58 @@ void CompressionMetrics::DrawGraph(HDC hdc, double percentLZ77, double percentHu
 		LineTo(hdc, static_cast<int>(dataPoints[i].x), static_cast<int>(dataPoints[i].y));
 	}
 
-
 	SelectObject(hdc, hPenPoints);
-	for (const auto& point : dataPoints) {
-		Ellipse(hdc, static_cast<int>(point.x) - 5, static_cast<int>(point.y) - 5, static_cast<int>(point.x) + 5, static_cast<int>(point.y) + 5);
-	}
+	for (size_t i = 0; i < dataPoints.size(); ++i) {
+		// Draw the red point
+		Ellipse(hdc, static_cast<int>(dataPoints[i].x) - 5, static_cast<int>(dataPoints[i].y) - 5, static_cast<int>(dataPoints[i].x) + 5, static_cast<int>(dataPoints[i].y) + 5);
 
-	// ציור תוויות צירים
+		// Draw the label next to the point
+		SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
+		SetBkMode(hdc, TRANSPARENT);
+		SetTextColor(hdc, RGB(0, 0, 0));
+
+		std::wstring label;
+		switch (i) {
+		case 0:
+			label = L"LZ77";
+			break;
+		case 1:
+			label = L"Huffman";
+			break;
+		case 2:
+			label = L"Deflate";
+			break;
+		default:
+			label = L"Unknown";
+			break;
+		}
+
+		// Adjust label position based on the point
+		int labelX = static_cast<int>(dataPoints[i].x); // Adjust as needed
+		int labelY = static_cast<int>(dataPoints[i].y) + 10; // Adjust as needed
+
+		TextOutW(hdc, labelX, labelY, label.c_str(), static_cast<int>(label.length()));
+	}
+	// Add the title 
+	SelectObject(hdc, GetStockObject(SYSTEM_FONT));
+	SetBkMode(hdc, TRANSPARENT);
+	SetTextColor(hdc, RGB(0, 0, 0));
+	std::wstring title = L"Compression percentages in the following algorithms";
+	TextOutW(hdc, 130, 20, title.c_str(), static_cast<int>(title.length()));
+
+	// draw the labels for the lines
 	SelectObject(hdc, GetStockObject(DEFAULT_GUI_FONT));
 	SetBkMode(hdc, TRANSPARENT);
 	SetTextColor(hdc, RGB(0, 0, 0));
-	for (int i = MARGIN; i < GRAPH_WIDTH - MARGIN; i += 50) {
-		//std::wstring label = std::to_wstring(i);
-		std::wstring label = std::to_wstring(i / 50 * 25);
-		TextOutW(hdc, i, GRAPH_HEIGHT - MARGIN + 10, label.c_str(), static_cast<int>(label.length()));
-	}
+	//for (int i = MARGIN; i < GRAPH_WIDTH - MARGIN; i += 50) {
+	//	//std::wstring label = std::to_wstring(i);
+	//	std::wstring label = std::to_wstring(i / 50 * 25);
+	//	TextOutW(hdc, i, GRAPH_HEIGHT - MARGIN + 10, label.c_str(), static_cast<int>(label.length()));
+	//}
 	for (int j = MARGIN; j < GRAPH_HEIGHT - MARGIN; j += 25) {
 
 		std::wstring label = std::to_wstring(100 - ((j - MARGIN) / 25 * 10));
+		label += L"%";
 		// std::wstring label = std::to_wstring(GRAPH_HEIGHT - j);
 		TextOutW(hdc, MARGIN - 30, j - 10, label.c_str(), static_cast<int>(label.length()));
 	}
@@ -168,24 +209,65 @@ int __stdcall CompressionMetrics::play(HINSTANCE hInstance, int nCmdShow) {
 	return 0;
 }
 
+double minConstSpeed(double minimum) {
+	if (minimum < 0)
+		return MINCONSTSPEED;
+	return minimum + MINCONSTSPEED;
+}
+
+double minConstMemory(double minimum) {
+	if (minimum < 0)
+		return MINCONSTMEMORY;
+	return minimum + MINCONSTMEMORY;
+}
 
 void CompressionMetrics::plotComparisonGraph() {
 	FILE* gnuplotPipe = _popen("\"C:\\Program Files\\gnuplot\\bin\\gnuplot.exe\" -persist", "w");
 
 	// Set the terminal to be non-interactive to disable scrollbars
-	fprintf(gnuplotPipe, "set terminal wxt size 1600,800 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
+	fprintf(gnuplotPipe, "set terminal wxt size 1000,600 noraise noninteractive\n"); // Set the size of the window to 1600x800 pixels and make it non-interactive
+
+	// colculate the minimum and maximum range for Speed
+	double minSpeed = MIN(MIN(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman), CompressionMetrics::cpuTimeDeflate);
+	minSpeed = MAX(minSpeed, 0);
+	double maxSpeed = MAX(MAX(CompressionMetrics::cpuTimeLZ77, CompressionMetrics::cpuTimeHuffman), CompressionMetrics::cpuTimeDeflate);
+	maxSpeed += MAXCONSTSPEED;
+	if (CompressionMetrics::cpuTimeLZ77 < CompressionMetrics::cpuTimeHuffman) {
+		CompressionMetrics::cpuTimeLZ77 = minConstSpeed(CompressionMetrics::cpuTimeLZ77);
+	}
+	else if (CompressionMetrics::cpuTimeHuffman < CompressionMetrics::cpuTimeDeflate) {
+		CompressionMetrics::cpuTimeHuffman = minConstSpeed(CompressionMetrics::cpuTimeHuffman);
+	}
+	else {
+		CompressionMetrics::cpuTimeDeflate = minConstSpeed(CompressionMetrics::cpuTimeDeflate);
+	}
 
 	// Provide data using separate datablocks for speed and memory for three algorithms
 	fprintf(gnuplotPipe, "$SpeedData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77 / CPUTIME);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman / CPUTIME);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate / CPUTIME);
+	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::cpuTimeLZ77);
+	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::cpuTimeHuffman);
+	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::cpuTimeDeflate);
 	fprintf(gnuplotPipe, "EOD\n");
 
+	// colculate the minimum and maximum range for Memory
+	double minMemory = MIN(MIN(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
+	minMemory = MAX(minMemory, 0);
+	double maxMemory = MAX(MAX(CompressionMetrics::memoryUsageLZ77, CompressionMetrics::memoryUsageHuffman), CompressionMetrics::memoryUsageDeflate);
+	maxMemory += MAXCONSTMEMORY;
+	if (CompressionMetrics::memoryUsageLZ77 < CompressionMetrics::memoryUsageHuffman) {
+		CompressionMetrics::memoryUsageLZ77 = minConstMemory(CompressionMetrics::memoryUsageLZ77);
+	}
+	else if (CompressionMetrics::memoryUsageHuffman < CompressionMetrics::memoryUsageDeflate) {
+		CompressionMetrics::memoryUsageHuffman = minConstMemory(CompressionMetrics::memoryUsageHuffman);
+	}
+	else {
+		CompressionMetrics::memoryUsageDeflate = minConstMemory(CompressionMetrics::memoryUsageDeflate);
+	}
+
 	fprintf(gnuplotPipe, "$MemoryData << EOD\n");
-	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77 / MEMORY);
-	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman / MEMORY);
-	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::memoryUsageDeflate / MEMORY);
+	fprintf(gnuplotPipe, "LZ77 %.2f\n", CompressionMetrics::memoryUsageLZ77);
+	fprintf(gnuplotPipe, "Huffman %.2f\n", CompressionMetrics::memoryUsageHuffman);
+	fprintf(gnuplotPipe, "Deflate %.2f\n", CompressionMetrics::memoryUsageDeflate);
 	fprintf(gnuplotPipe, "EOD\n");
 
 	// Plotting the data in separate graphs with different axis segments
@@ -193,20 +275,22 @@ void CompressionMetrics::plotComparisonGraph() {
 
 	// Plotting Speed with specific y-axis range
 	fprintf(gnuplotPipe, "set title 'Speed'\n");
-	fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
-	fprintf(gnuplotPipe, "set ylabel 'Speed'\n");
+	//
+	//fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
+	fprintf(gnuplotPipe, "set ylabel 'Seconds'\n");
 	fprintf(gnuplotPipe, "set style data boxes\n");
 	fprintf(gnuplotPipe, "set boxwidth 0.5\n");
-	fprintf(gnuplotPipe, "set yrange [0:6]\n"); // Set specific y-axis range for Speed
+	fprintf(gnuplotPipe, "set yrange [%f:%f]\n", minSpeed, maxSpeed); // Set dynamic y-axis range for Speed
 	fprintf(gnuplotPipe, "plot '$SpeedData' using 2:xtic(1) with boxes title 'Speed' lc rgb 'blue'\n");
 
 	// Plotting Memory with specific y-axis range
 	fprintf(gnuplotPipe, "set title 'Memory'\n");
-	fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
-	fprintf(gnuplotPipe, "set ylabel 'Memory'\n");
+	//
+	//fprintf(gnuplotPipe, "set xlabel 'Compression Algorithms'\n");
+	fprintf(gnuplotPipe, "set ylabel 'KB'\n");
 	fprintf(gnuplotPipe, "set style data boxes\n");
 	fprintf(gnuplotPipe, "set boxwidth 0.5\n");
-	fprintf(gnuplotPipe, "set yrange [0:200]\n"); // Set specific y-axis range for Memory
+	fprintf(gnuplotPipe, "set yrange [%f:%f]\n", minMemory, maxMemory); // Set dynamic y-axis range for Memory
 	fprintf(gnuplotPipe, "plot '$MemoryData' using 2:xtic(1) with boxes title 'Memory' lc rgb 'green'\n");
 
 	fprintf(gnuplotPipe, "unset multiplot\n"); // End the multiplot
@@ -215,6 +299,7 @@ void CompressionMetrics::plotComparisonGraph() {
 
 	// Close the gnuplot pipe
 	_pclose(gnuplotPipe);
+	FreeConsole();
 }
 
 

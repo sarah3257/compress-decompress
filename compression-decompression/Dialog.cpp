@@ -2,20 +2,17 @@
 #include "Dialog.h"
 #include "CompressionDecompression.h"
 #include "CompressionMetrics.h"
-#include <windows.h>  
+#include <windows.h> 
+#include <string>
 #include <shlobj.h>  
 #include <commctrl.h> 
 #include <thread>
 #include <atomic>
 #include "SystemTest.h"
+#include <tchar.h>
 
+HHOOK hKeyboardHook;
 
-void InitDialog(HWND hDlg) {
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON6), SW_HIDE);  
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON5), SW_HIDE);  
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON4), SW_HIDE);  //button Test
-	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);  
-}
 //check password to open p
 WCHAR g_password[256];  // save password
 bool ShowPasswordDialog(HWND hwnd) {
@@ -45,7 +42,7 @@ bool ShowPasswordDialog(HWND hwnd) {
 	if (result == IDOK) {
 		// check password
 		if (wcscmp(g_password, L"STZip") == 0) {
-			return true; 
+			return true;
 		}
 		else {
 			MessageBox(hwnd, L"Incorrect password", L"Error", MB_OK | MB_ICONERROR);
@@ -56,26 +53,71 @@ bool ShowPasswordDialog(HWND hwnd) {
 	return false;
 }
 
+// Hook procedure to process keyboard input
+LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+	HWND hwndDlg = GetActiveWindow();
+	if (nCode >= 0) {
+		if (wParam == WM_KEYDOWN) {
+			KBDLLHOOKSTRUCT* pKeyboard = (KBDLLHOOKSTRUCT*)lParam;
 
+			// בדוק אם מקש Ctrl לחוץ
+			bool ctrlPressed = (GetKeyState(VK_CONTROL) & 0x8000) != 0;
 
+			// בדוק אם נלחץ Ctrl + D
+			if (ctrlPressed && pKeyboard->vkCode == 'D') {
+				if (ShowPasswordDialog(hwndDlg)) {
+					// פתח חלון סיסמה
+					ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON4), SW_SHOW); // test
+					ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
+				}
+				// מנע את הכנסת התו D לשדה הסיסמה
+				return 1;
+			}
+		}
+	}
+	return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+}
 
-std::atomic<bool> compressionInProgress(false);
+// Function to install the hook
+void SetKeyboardHook() {
+	hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, GetModuleHandle(NULL), 0);
+}
+
+// Function to uninstall the hook
+void RemoveKeyboardHook() {
+	UnhookWindowsHookEx(hKeyboardHook);
+}
+
+std::atomic<bool> processInProgress(false);
 
 extern HINSTANCE g_hinst = nullptr;
 
+void InitDialog(HWND hDlg) {
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON6), SW_HIDE);
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON5), SW_HIDE);
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTON4), SW_HIDE);  //button Test
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);
+	ShowWindow(GetDlgItem(hDlg, IDC_BUTTONPROGRAMMER), SW_HIDE);
+}
+
+void ComputeGraphMetricsInBackground(const std::string& filePathStr) {
+	CompressionMetrics cm(filePathStr);
+	processInProgress = false;
+}
+
 void compressInBackground(const std::string& filePathStr) {
 	CompressionDecompression::compress(filePathStr, Deflate::compress);
-	compressionInProgress = false;
+	processInProgress = false;
 }
 
 void DecompressInBackground(const std::string& filePathStr) {
 	CompressionDecompression::decompress(filePathStr, Deflate::decompress);
-	compressionInProgress = false;
+	processInProgress = false;
 }
 
 void Dialog::UpdateProgressBar(HWND hwndPB) {
 
-	while (compressionInProgress) {
+	while (processInProgress) {
 		SendMessage(hwndPB, PBM_STEPIT, 0, 0);
 		Sleep(100);
 	}
@@ -129,7 +171,7 @@ void Dialog::compressFun()
 		HWND hwndPB = ShowProgressBar(hwndDlg);
 
 		// start the compress in another thread
-		compressionInProgress = true;
+		processInProgress = true;
 		std::thread compressionThread(compressInBackground, filePathStr);
 		compressionThread.detach(); // disconnecting the tread so that it doesn't take up an unnecessary memory resource
 		UpdateProgressBar(hwndPB);
@@ -156,7 +198,7 @@ void Dialog::decompressFun() {
 		HWND hwndPB = ShowProgressBar(hwndDlg);
 
 		// start the decompress in another thread
-		compressionInProgress = true;
+		processInProgress = true;
 		std::thread decompressionThread(DecompressInBackground, filePathStr);
 		decompressionThread.detach(); // disconnecting the tread so that it doesn't take up an unnecessary memory resource
 		UpdateProgressBar(hwndPB);
@@ -164,6 +206,36 @@ void Dialog::decompressFun() {
 	}
 	else
 	{
+		MessageBoxW(hwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
+	}
+}
+
+void Dialog::ShowGraphMetrics() {
+
+	HWND hwndDlg = GetActiveWindow();
+	HWND hListBox = GetDlgItem(hwndDlg, IDC_LIST1);
+	int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
+	if (selIndex != LB_ERR) {
+		ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);
+
+		wchar_t filePath[MAX_PATH] = { 0 };
+		SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
+		std::wstring filePathW(filePath);
+		std::string filePathStr = ws2s(filePathW);
+
+		HWND hwndPB = ShowProgressBar(hwndDlg);
+
+		// start the decompress in another thread
+		processInProgress = true;
+		std::thread metricsThread(ComputeGraphMetricsInBackground, filePathStr);
+		metricsThread.detach(); // disconnecting the tread so that it doesn't take up an unnecessary memory resource
+
+		UpdateProgressBar(hwndPB);
+
+		ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_SHOW);
+		ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_SHOW);
+	}
+	else {
 		MessageBoxW(hwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
 	}
 }
@@ -225,7 +297,7 @@ void Dialog::uploadFolder()
 			// MessageBoxW(NULL, L"Failed to upload folder", L"Error", MB_OK | MB_ICONERROR);
 		}
 
-		// שחרור הזיכרון שהוקצה עבור ה-pidl
+		// delete the memory that allocated for pidl
 		IMalloc* imalloc = NULL;
 		if (SUCCEEDED(SHGetMalloc(&imalloc)))
 		{
@@ -248,15 +320,67 @@ std::string Dialog::ws2s(const std::wstring& ws) {
 	return str;
 }
 
-INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
+void drawMyIcon(LPDRAWITEMSTRUCT& lpDrawItem,LPCWSTR text,int iconId) {
+	// Customize your button appearance here
+	HDC hdc = lpDrawItem->hDC;
+	RECT rect = lpDrawItem->rcItem;
+
+	// Draw button background
+	FillRect(hdc, &rect, (HBRUSH)(COLOR_BTNFACE + 1));
+
+	// Draw button text
+	SetBkMode(hdc, TRANSPARENT);
+	DrawText(hdc, text, -1, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+	// Draw border around the button
+	DrawEdge(hdc, &rect, EDGE_RAISED, BF_RECT);
+
+	// Load the icon
+	HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(iconId)); // החלף את hInstance עם האינצסטנס שלך
+	if (hIcon) {
+		// Calculate icon position
+		int iconWidth = GetSystemMetrics(SM_CXICON);
+		int iconHeight = GetSystemMetrics(SM_CYICON);
+		int iconX = rect.left + 55;
+		int iconY = rect.top + (rect.bottom - rect.top - iconHeight) / 2;
+
+		// Draw the icon
+		DrawIcon(hdc, iconX, iconY, hIcon);
+	}
+
+	// Optional: Adjust the rectangle to draw the text within the border
+	InflateRect(&rect, -1, -1); // Reduce the rectangle size for the text
+	DrawText(hdc, text, -1, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+}
+
+INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	static HACCEL hAccelTable;
 
 	switch (uMsg)
 	{
-		 case WM_INITDIALOG:
-        InitDialog(hwndDlg);  // initialization
-        return (INT_PTR)TRUE;
+	
+	case WM_INITDIALOG:
+		        hAccelTable = LoadAccelerators(GetModuleHandle(NULL), MAKEINTRESOURCE(IDR_ACCEL1));
+
+		InitDialog(hwndDlg);  // initialization
+		SetFocus(hwndDlg);
+		SetKeyboardHook();
+		return (INT_PTR)TRUE;
+	case WM_DRAWITEM: {
+		LPDRAWITEMSTRUCT lpDrawItem = (LPDRAWITEMSTRUCT)lParam;
+		if (lpDrawItem->CtlType == ODT_BUTTON && lpDrawItem->CtlID == IDC_BUTTON1) {  // שנה ל-IDC_BUTTON1
+			drawMyIcon(lpDrawItem, L"Compress", IDI_ICON_COMPRESS);
+		}
+		else if (lpDrawItem->CtlType == ODT_BUTTON && lpDrawItem->CtlID == IDC_BUTTON2) {  // הוסף טיפול לכפתור השני
+			drawMyIcon(lpDrawItem, L"   Decompress", IDI_ICON_DECOMPRESS);
+		}
+		return TRUE;
+	}
 	case WM_COMMAND:
+
+		
+	
 		if (LOWORD(wParam) == IDC_BUTTON1)  // button Compress
 		{
 			//MessageBoxW(hwndDlg, L"Compress button clicked", L"Info", MB_OK);
@@ -271,19 +395,24 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON3)  // button Upload File
 		{
-			if (!IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTONPROGRAMMER))) {
+			if (IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTON4))) {
 				//open
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
 				//close
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_HIDE);
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_HIDE);
 			}
-			//MessageBoxW(hwndDlg, L"Upload File button clicked", L"Info", MB_OK);
 			uploadFile();
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTONFOLDER) {
-			//MessageBoxW(hwndDlg, L"Upload folder button clicked", L"Info", MB_OK);
+			if (IsWindowVisible(GetDlgItem(hwndDlg, IDC_BUTTON4))) {
+				//open
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
+				//close
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_HIDE);
+				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_HIDE);
+			}
 			uploadFolder();
 			return (INT_PTR)TRUE;
 
@@ -297,27 +426,7 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 		}
 		else if (LOWORD(wParam) == IDC_BUTTONGRAPH_METRICS) {//button show graph & metrics
 
-			HWND localHwndDlg = GetActiveWindow();
-			HWND hListBox = GetDlgItem(localHwndDlg, IDC_LIST1);
-			int selIndex = static_cast<int>(SendMessage(hListBox, LB_GETCURSEL, 0, 0));
-			if (selIndex != LB_ERR)
-			{
-				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_HIDE);
-
-				wchar_t filePath[MAX_PATH] = { 0 };
-				SendMessage(hListBox, LB_GETTEXT, selIndex, (LPARAM)filePath);
-				std::wstring filePathW(filePath);
-				std::string filePathStr = ws2s(filePathW);
-				CompressionMetrics cm(filePathStr);
-				// open 
-				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON6), SW_SHOW);
-				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON5), SW_SHOW);
-			}
-			else
-			{
-				MessageBoxW(localHwndDlg, L"Please select a file from the list.", L"Error", MB_OK | MB_ICONERROR);
-			}
-		
+			ShowGraphMetrics();
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDCANCEL) {//button cancel
@@ -339,25 +448,28 @@ INT_PTR Dialog::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM )
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTON4), SW_SHOW); // test
 				ShowWindow(GetDlgItem(hwndDlg, IDC_BUTTONGRAPH_METRICS), SW_SHOW);
 			}
-			
 
 			return (INT_PTR)TRUE;
 		}
 		else if (LOWORD(wParam) == IDC_BUTTON6) {
-				HINSTANCE hInstance = GetModuleHandle(NULL);
-				int nCmdShow = SW_SHOW;
-				int result = CompressionMetrics::play(hInstance, nCmdShow);
-			
-		
+			HINSTANCE hInstance = GetModuleHandle(NULL);
+			int nCmdShow = SW_SHOW;
+			int result = CompressionMetrics::play(hInstance, nCmdShow);
+
 			return (INT_PTR)TRUE;
 		}
-		
 
 		break;
+
 	case WM_CLOSE:
+		RemoveKeyboardHook();
 		EndDialog(hwndDlg, 0);
 		return (INT_PTR)TRUE;
+	default:
+		return FALSE;
+	
 	}
+
 	return (INT_PTR)FALSE;
 }
 
