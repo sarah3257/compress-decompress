@@ -14,3 +14,24 @@
 [2024-09-11 12:55:09] Information: start Function: compress In class: LZ77
 [2024-09-11 14:15:41] Information: start Function: compress In class: CompressionDecompression
 [2024-09-11 14:15:41] Error: Cannot open the file.
+[2024-09-23 12:18:10] Information: start Function: compress In class: CompressionDecompression
+[2024-09-23 12:18:10] Information: start Function: compress In class: LZ77
+[2024-09-23 12:18:14] Information: Function exit compress In class: LZ77
+[2024-09-23 12:18:14] Information: start Function: compress In class: Huffman
+[2024-09-23 12:18:14] Information: Function exit compress In class: Huffman
+[2024-09-23 12:18:14] Information: Function exitcompress In class: CompressionDecompression
+[2024-09-23 12:18:14] Information: start Function: compress In class: LZ77
+[2024-09-23 12:18:18] Information: Function exit compress In class: LZ77
+[2024-09-23 12:18:18] Information: start Function: compress In class: Huffman
+[2024-09-23 12:18:18] Information: Function exit compress In class: Huffman
+[2024-09-23 12:18:18] Information: Function exitcompress In class: CompressionDecompression
+[2024-09-23 12:18:18] Information: start Function: compress In class: LZ77
+[2024-09-23 12:18:22] Information: Function exit compress In class: LZ77
+[2024-09-23 12:18:22] Information: start Function: compress In class: Huffman
+[2024-09-23 12:18:22] Information: Function exit compress In class: Huffman
+[2024-09-23 12:18:22] Information: Function exitcompress In class: CompressionDecompression
+[2024-09-23 12:18:22] Information: start Function: compress In class: LZ77
+[2024-09-23 12:18:26] Information: Function exit compress In class: LZ77
+[2024-09-23 12:18:26] Information: start Function: compress In class: Huffman
+[2024-09-23 12:18:26] Information: Function exit compress In class: Huffman
+[2024-09-23 12:18:26] Information: Function exitcompress In class: CompressionDecompression
